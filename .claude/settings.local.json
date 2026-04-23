@@ -130,7 +130,9 @@
       "Bash(curl -s https://www.comp-shop.com/robots.txt)",
       "WebFetch(domain:www.kornferry.com)",
       "WebFetch(domain:www.cupahr.org)",
-      "WebFetch(domain:croner.co.uk)"
+      "WebFetch(domain:croner.co.uk)",
+      "Bash(curl -s https://www.comp-shop.com/)",
+      "Bash(git commit -m 'Plausible: use raw script tags in head so verifier sees them in initial HTML *)"
     ]
   }
 }
