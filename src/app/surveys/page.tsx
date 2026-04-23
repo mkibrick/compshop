@@ -19,7 +19,10 @@ export const metadata: Metadata = {
   },
 };
 
-export const dynamic = "force-dynamic";
+// Render once at build time. The surveys list is read from the DB at build
+// and passed as a prop; client-side filtering uses useSearchParams.
+export const dynamic = "force-static";
+export const revalidate = 3600;
 
 export default function SurveysPage() {
   const surveys = getAllSurveys();

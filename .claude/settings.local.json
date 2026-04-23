@@ -99,7 +99,12 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code} /sitemap.xml\\\\n\" https://compshop-iota.vercel.app/sitemap.xml)",
       "Bash(curl -s -o /dev/null -w \"%{http_code} /api/search?q=finance\\\\n\" \"https://compshop-iota.vercel.app/api/search?q=finance\")",
       "Bash(curl -s https://compshop-iota.vercel.app/sitemap.xml)",
-      "Bash(curl -s \"https://compshop-iota.vercel.app/api/search?q=finance\")"
+      "Bash(curl -s \"https://compshop-iota.vercel.app/api/search?q=finance\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://compshop-iota.vercel.app/surveys)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://compshop-iota.vercel.app/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://compshop-iota.vercel.app/surveys/mercer-benchmark-database)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"https://compshop-iota.vercel.app/api/search?q=test\")",
+      "Bash(git commit -m 'Make /surveys static so the browse page works even if runtime DB access fails *)"
     ]
   }
 }
