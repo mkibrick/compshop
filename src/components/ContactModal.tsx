@@ -174,7 +174,7 @@ export default function ContactModal({
 
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">
-                Name <span className="text-gray-400">(optional)</span>
+                Name
               </label>
               <input
                 type="text"
@@ -185,7 +185,7 @@ export default function ContactModal({
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">
-                Email <span className="text-gray-400">(if you want a reply)</span>
+                Email
               </label>
               <input
                 type="email"
