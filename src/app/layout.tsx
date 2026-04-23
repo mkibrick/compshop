@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { SITE_URL } from "@/lib/site-url";
 
 export const metadata: Metadata = {
@@ -70,13 +71,7 @@ export default function RootLayout({
       <body className="bg-gray-light text-gray-900 min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">{children}</main>
-        <footer className="bg-navy text-gray-400 text-sm py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            CompShop is an independent directory. Vendor data, products, and
-            details may contain inaccuracies and are subject to change.
-            Information was compiled from publicly available sources.
-          </div>
-        </footer>
+        <Footer />
       </body>
     </html>
   );
