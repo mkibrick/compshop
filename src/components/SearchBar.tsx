@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { SearchResults, LinkedReport } from "@/lib/types";
 
 interface SearchBarProps {
@@ -17,7 +16,6 @@ export default function SearchBar({
   onChange,
   placeholder = "Search by job title, industry, company, or report...",
 }: SearchBarProps) {
-  const router = useRouter();
   const [results, setResults] = useState<SearchResults>(EMPTY);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -41,7 +39,7 @@ export default function SearchBar({
         const data: SearchResults = await res.json();
         setResults(data);
       } catch (e) {
-        if ((e as any)?.name !== "AbortError") console.error(e);
+        if ((e as { name?: string })?.name !== "AbortError") console.error(e);
       } finally {
         setLoading(false);
       }
@@ -67,11 +65,6 @@ export default function SearchBar({
     results.positions.length +
     results.orgs.length +
     results.families.length;
-
-  function go(url: string) {
-    setOpen(false);
-    router.push(url);
-  }
 
   return (
     <div ref={containerRef} className="relative">
@@ -189,29 +182,6 @@ function Group({ label, children }: { label: string; children: React.ReactNode }
       </div>
       <div>{children}</div>
     </div>
-  );
-}
-
-function Row({
-  primary,
-  secondary,
-  onClick,
-}: {
-  primary: string;
-  secondary?: string;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="w-full text-left px-4 py-2.5 hover:bg-gray-50 transition-colors flex items-center justify-between gap-3"
-    >
-      <span className="text-sm text-navy font-medium truncate">{primary}</span>
-      {secondary && (
-        <span className="text-xs text-gray-500 flex-shrink-0">{secondary}</span>
-      )}
-    </button>
   );
 }
 

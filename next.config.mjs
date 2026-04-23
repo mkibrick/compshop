@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Don't fail production builds on lint warnings (we run lint in CI separately).
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   experimental: {
     // Mark native modules external so Next doesn't try to bundle them
     serverComponentsExternalPackages: ["better-sqlite3"],

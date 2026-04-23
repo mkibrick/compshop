@@ -20,13 +20,14 @@ export async function POST(request: NextRequest) {
 
     const survey = createSurvey(body);
     return NextResponse.json(survey, { status: 201 });
-  } catch (e: any) {
-    if (e.message?.includes("UNIQUE constraint")) {
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    if (msg.includes("UNIQUE constraint")) {
       return NextResponse.json(
         { error: "A survey with this slug already exists" },
         { status: 409 }
       );
     }
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

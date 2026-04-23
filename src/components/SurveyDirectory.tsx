@@ -120,7 +120,7 @@ export default function SurveyDirectory({ initialSurveys }: { initialSurveys: Su
         for (const v of data.vendors) map.set(v.slug, v.matchCount);
         setMatchingSlugs(map);
       } catch (e) {
-        if ((e as any)?.name !== "AbortError") console.error(e);
+        if ((e as { name?: string })?.name !== "AbortError") console.error(e);
       }
     }, 200);
     return () => {

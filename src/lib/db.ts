@@ -156,7 +156,7 @@ export function initDb() {
   // Add has_reports column to surveys if missing (idempotent)
   try {
     db.exec(`ALTER TABLE surveys ADD COLUMN has_reports INTEGER NOT NULL DEFAULT 0`);
-  } catch (e) {
+  } catch {
     // Column already exists — no-op
   }
 
