@@ -1,10 +1,18 @@
 import type { MetadataRoute } from "next";
 import { getAllSurveys } from "@/lib/surveys";
 import { getAllReports, getAllFamilies, getAllPositions } from "@/lib/reports";
+import { getAllPosts } from "@/lib/blog";
 import { SITE_URL } from "@/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+
+  const posts: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
+    url: `${SITE_URL}/blog/${p.slug}`,
+    lastModified: new Date(p.date + "T00:00:00Z"),
+    changeFrequency: "yearly",
+    priority: 0.6,
+  }));
 
   const vendors: MetadataRoute.Sitemap = getAllSurveys().map((s) => ({
     url: `${SITE_URL}/surveys/${s.slug}`,
@@ -47,6 +55,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.9,
     },
+    {
+      url: `${SITE_URL}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    ...posts,
     ...vendors,
     ...reports,
     ...families,

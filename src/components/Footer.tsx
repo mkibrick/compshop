@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import ContactModal from "./ContactModal";
 
 export default function Footer() {
@@ -14,13 +15,21 @@ export default function Footer() {
             details may contain inaccuracies and are subject to change.
             Information was compiled from publicly available sources.
           </p>
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            className="text-xs text-gray-400 hover:text-white underline underline-offset-2 flex-shrink-0"
-          >
-            Contact
-          </button>
+          <div className="flex items-center gap-4 flex-shrink-0">
+            <Link
+              href="/blog"
+              className="text-xs text-gray-400 hover:text-white underline underline-offset-2"
+            >
+              Blog
+            </Link>
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className="text-xs text-gray-400 hover:text-white underline underline-offset-2"
+            >
+              Contact
+            </button>
+          </div>
         </div>
       </footer>
       <ContactModal open={open} onClose={() => setOpen(false)} />
