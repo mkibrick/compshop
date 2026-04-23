@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-retail-sales-usa-2026",
+  "title": "Retail Sales Compensation Survey — USA 2026",
+  "url": "https://www.wmgnet.com/dnn8/Salary-Surveys/USA/Retail-Sales-Compensation-Survey",
+  "description": "Retail sales compensation — 300+ jobs from entry-level individual contributors to executive/senior management, with base pay plus sales and non-sales incentives.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Retail",
+    "Sales",
+    "Sales & Marketing",
+    "Executive"
+  ]
+}

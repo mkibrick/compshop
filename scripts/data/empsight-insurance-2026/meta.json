@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-insurance-2026",
+  "title": "Empsight Insurance Industry Supplement",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026-Insurance-Industry-Compensation-Results",
+  "description": "Free insurance supplement — underwriting, claims, licensing, and fraud investigation positions.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Underwriting",
+    "Claims",
+    "Risk Management",
+    "Compliance"
+  ]
+}

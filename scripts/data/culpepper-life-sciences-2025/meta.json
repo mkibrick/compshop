@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "culpepper",
+  "slug": "culpepper-life-sciences-2025",
+  "title": "Culpepper Life Sciences Compensation Survey",
+  "url": "https://www.culpepper.com/surveys/life-sciences-compensation-survey/",
+  "description": "Compensation benchmarks for life sciences professionals in pharma, biotech, and medical device companies — including R&D, regulatory, clinical, and commercial roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": { "base": true, "sti": true, "lti": true, "benefits": false },
+  "priceRange": "$$$",
+  "notes": "Life-sciences cut with emphasis on R&D and regulatory roles. Position/participant details available to subscribers.",
+  "families": [
+    "R&D",
+    "Clinical",
+    "Regulatory",
+    "Quality",
+    "Manufacturing",
+    "Sales & Marketing",
+    "Medical Affairs",
+    "Information Technology"
+  ]
+}

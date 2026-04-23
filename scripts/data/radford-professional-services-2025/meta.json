@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "radford-professional-services-2025",
+  "title": "Radford Professional & IT Services Compensation Survey",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "IT services, consulting, and systems integration firms — delivery, consulting, and practice-leadership roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Information Technology",
+    "Software Engineering",
+    "Project & Program Management",
+    "Sales & Marketing",
+    "Executive"
+  ]
+}

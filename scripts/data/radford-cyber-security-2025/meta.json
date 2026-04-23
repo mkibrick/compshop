@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "radford-cyber-security-2025",
+  "title": "Radford Cybersecurity Compensation Survey",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "Specialty Radford cut focused on cybersecurity, infosec, and information assurance roles across tech and enterprise employers.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Security",
+    "Information Technology",
+    "Software Engineering"
+  ]
+}

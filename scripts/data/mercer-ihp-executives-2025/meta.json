@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-ihp-executives-2025",
+  "title": "US IHP — Mercer Health Plan Executives",
+  "url": "https://www.imercer.com/products/health-plan-executives-compensation",
+  "description": "Executive compensation for health insurance carriers and managed-care organizations.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Executive",
+    "Healthcare",
+    "Medical Affairs"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-chemical-2025",
+  "title": "US MTCS — Mercer Energy Sector Chemical Survey",
+  "url": "https://www.imercer.com/products/us-chemical-survey",
+  "description": "Chemical-industry compensation cut — 141 positions covering specialty and commodity chemical manufacturers.",
+  "edition": "2025",
+  "geographicScope": "United States (10 regions)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real Mercer product — position and/or participant list XLSX downloaded directly from imercer.com.",
+  "families": [
+    "Engineering & Science",
+    "Manufacturing",
+    "Production & Skilled Trades",
+    "Quality Management",
+    "Administrative",
+    "Customer Success",
+    "Communications",
+    "Corporate Affairs",
+    "Sales & Marketing"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Position List",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Mercer Job Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

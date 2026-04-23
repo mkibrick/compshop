@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-metropolitan-benchmark-2025",
+  "title": "US MBD — Mercer Metropolitan Benchmark",
+  "url": "https://www.imercer.com/products/metropolitan-benchmark",
+  "description": "Metro-level compensation cut of Mercer's MBD covering major US metropolitan areas.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Sales/Marketing/Product Management",
+    "Operations"
+  ]
+}

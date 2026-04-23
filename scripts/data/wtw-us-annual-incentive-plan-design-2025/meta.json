@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-us-annual-incentive-plan-design-2025",
+  "title": "2025 Annual Incentive Plan Design Survey Report — U.S.",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2025-annual-incentive-plan-design-survey-report-us/01tTu000006gVpuIAE",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product. URL and title verified against WTW RDI product catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Total Rewards",
+    "Executive"
+  ]
+}

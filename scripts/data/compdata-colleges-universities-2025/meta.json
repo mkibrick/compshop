@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-colleges-universities-2025",
+  "title": "CompData Colleges & Universities Compensation Survey",
+  "url": "https://store.salary.com/colleges-and-universities/",
+  "description": "Higher education compensation — administrators, faculty, and staff at US colleges and universities.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Academic Affairs",
+    "Administrative",
+    "Research Administration",
+    "Library",
+    "Finance",
+    "Human Resources",
+    "Information Technology"
+  ]
+}

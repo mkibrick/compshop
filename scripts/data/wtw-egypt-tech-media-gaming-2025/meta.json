@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-egypt-tech-media-gaming-2025",
+  "title": "2025 Tech, Media and Gaming Survey Report — Egypt",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2025-tech-media-and-gaming-survey-report-egypt/01tTu000006gWI5IAM",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2025",
+  "geographicScope": "Egypt",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product URL verified against the WTW RDI catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Software Engineering",
+    "Information Technology",
+    "Product Management",
+    "Data Science",
+    "Sales & Marketing",
+    "Marketing",
+    "Creative & Design"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-the-works-midmarket-2026",
+  "title": "Empsight The Works — Mid-Market Edition",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026-The-Works_Mid_Market",
+  "description": "Empsight's mid-market edition covering organizations with annual revenue of $3 billion or less.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Executive",
+    "Legal",
+    "Finance",
+    "Information Technology",
+    "Human Resources",
+    "Marketing",
+    "Operations"
+  ]
+}

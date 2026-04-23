@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "pearl-meyer",
+  "slug": "pearl-meyer-hospitals-health-systems-2025",
+  "title": "Pearl Meyer Hospitals & Health Systems Executive Compensation & Benefits Survey",
+  "url": "https://www.pearlmeyer.com/salary-surveys/salary-survey-portfolio/the-hospitals-and-health-systems-executive-compensation-and-benefits-survey",
+  "description": "Executive compensation and benefits benchmarks for hospitals and health systems — CEO, CFO, COO, CMO and service-line leadership.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Executive",
+    "Total Rewards",
+    "Finance",
+    "Healthcare"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-healthcare-2025",
+  "title": "CompData Healthcare Compensation Survey",
+  "url": "https://store.salary.com/compdata/healthcare/",
+  "description": "Healthcare-sector compensation survey — hospital, health system, and provider compensation across clinical and non-clinical roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Healthcare",
+    "Clinical",
+    "Nursing",
+    "Allied Health",
+    "Administrative",
+    "Finance",
+    "Human Resources"
+  ]
+}

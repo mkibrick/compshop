@@ -1,0 +1,17 @@
+{
+  "vendor": "Aon — Radford McLagan",
+  "parentSurveySlug": "radford-mclagan",
+  "parentSurveyDefaults": {
+    "provider": "Aon Radford McLagan",
+    "title": "Aon Radford McLagan Compensation Surveys",
+    "url": "https://humancapital.aon.com/",
+    "category": ["tech", "general-industry", "executive"],
+    "notes": "Aon's Radford (technology) and McLagan (financial services) franchises publish specialized compensation surveys for tech, life sciences, and financial services organizations. Position and participant details are available to subscribers."
+  },
+  "catalogUrls": [
+    "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys"
+  ],
+  "productUrlPattern": "^https?://(?:www\\.)?(?:humancapital|radford)\\.aon\\.com/.+",
+  "accessLevel": "gated",
+  "throttleMs": 1500
+}

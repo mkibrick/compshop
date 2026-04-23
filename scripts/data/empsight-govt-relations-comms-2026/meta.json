@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-govt-relations-comms-2026",
+  "title": "Empsight Government Relations & Corporate Communications Compensation Survey",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026-Government-Relations-Corporate-Communications-Results",
+  "description": "Compensation data for regulatory-focused multi-billion dollar organizations — government relations, public policy, and corporate communications roles.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Communications",
+    "Corporate Affairs",
+    "Regulatory"
+  ]
+}

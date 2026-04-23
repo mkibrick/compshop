@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-us-houston-office-clerical-2024",
+  "title": "2024 Houston Office and Clerical Salary Survey — U.S.",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2024-houston-office-and-clerical-salary-survey-us/01t8d0000086AsiAAE",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2024",
+  "geographicScope": "Houston, Texas (US)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product. URL and title verified against WTW RDI product catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Administrative",
+    "Finance"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "gallagher",
+  "slug": "gallagher-national-benefits",
+  "title": "Gallagher National Benefits Survey",
+  "url": "https://www.gallaghersurveys.com/surveys",
+  "description": "Gallagher's flagship benefits practices survey — the most comprehensive US employee benefits benchmark.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": true
+  },
+  "priceRange": "$$$",
+  "notes": "Gallagher Surveys product. Participation generally required for results access. Real URLs from gallaghersurveys.com.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

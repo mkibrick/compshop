@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-credit-union-2025",
+  "title": "Credit Union Salary Survey",
+  "url": "https://www.wmgnet.com/dnn8",
+  "description": "44th annual survey of US credit union compensation — reliable benchmarks across executive, professional, and operational roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Executive",
+    "Finance",
+    "Human Resources",
+    "Operations",
+    "Sales & Marketing"
+  ]
+}

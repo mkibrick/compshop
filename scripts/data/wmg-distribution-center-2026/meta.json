@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-distribution-center-2026",
+  "title": "Distribution Center Compensation Survey — 2026",
+  "url": "https://www.wmgnet.com/dnn8/Salary-Surveys/USA/Distribution-Center-Compensation-Survey",
+  "description": "Compensation for distribution center operations — warehousing, fulfillment, shipping, and DC management roles.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Supply Chain",
+    "Operations",
+    "Production & Skilled Trades",
+    "Transportation Services"
+  ]
+}

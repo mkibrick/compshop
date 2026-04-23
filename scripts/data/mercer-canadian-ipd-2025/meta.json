@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-canadian-ipd-2025",
+  "title": "Mercer Canadian Incentive Plan Design",
+  "url": "https://www.imercer.com/products/ipd-canada",
+  "description": "Incentive plan design practices for Canadian employers.",
+  "edition": "2025",
+  "geographicScope": "Canada",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Total Rewards",
+    "Executive",
+    "Human Resources"
+  ]
+}

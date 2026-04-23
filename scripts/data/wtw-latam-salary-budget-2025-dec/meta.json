@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-latam-salary-budget-2025-dec",
+  "title": "2025 Salary Budget Planning Report — Latin America (December Edition)",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2025-salary-budget-planning-report-latin-america-december-edition/01tP200000UgYiWIAV",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2025",
+  "geographicScope": "Latin America",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product. URL and title verified against WTW RDI product catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "radford-clinical-research-2025",
+  "title": "Radford Clinical Research Organization (CRO) Survey",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "Contract research organizations (CROs), clinical trial services, and specialty pharma services compensation — clinical, regulatory, and operations roles.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Clinical",
+    "Regulatory",
+    "Quality",
+    "R&D",
+    "Operations"
+  ]
+}

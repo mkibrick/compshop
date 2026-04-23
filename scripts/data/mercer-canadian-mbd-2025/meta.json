@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-canadian-mbd-2025",
+  "title": "Mercer Canadian Benchmark Database (MBD)",
+  "url": "https://www.imercer.com/products/canadian-mbd",
+  "description": "Mercer's Canadian cross-industry compensation database — national and regional cuts across functional roles.",
+  "edition": "2025",
+  "geographicScope": "Canada",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Sales & Marketing",
+    "Operations"
+  ]
+}

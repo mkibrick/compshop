@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "culpepper",
+  "slug": "culpepper-engineering-2025",
+  "title": "Culpepper Engineering Compensation Survey",
+  "url": "https://www.culpepper.com/surveys/engineering-compensation-survey/",
+  "description": "Compensation benchmarks for engineering roles across hardware, software, civil, mechanical, and electrical disciplines in US employers.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": { "base": true, "sti": true, "lti": true, "benefits": false },
+  "priceRange": "$$$",
+  "notes": "Engineering-focused benchmarks across multiple disciplines. Strong individual-contributor job leveling. Position/participant details available to subscribers.",
+  "families": [
+    "Software Engineering",
+    "Hardware Engineering",
+    "Mechanical Engineering",
+    "Electrical Engineering",
+    "Civil Engineering",
+    "R&D",
+    "Quality"
+  ]
+}

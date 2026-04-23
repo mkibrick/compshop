@@ -1,0 +1,20 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-exec-admin-2026",
+  "title": "Empsight Executive Administrative Support Compensation Survey",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026-Executive-Admin-Support-Results",
+  "description": "High-level executive administrative support positions in Fortune 500 companies.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Administrative"
+  ]
+}

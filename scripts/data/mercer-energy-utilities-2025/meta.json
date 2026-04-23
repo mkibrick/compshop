@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-energy-utilities-2025",
+  "title": "US MTCS — Mercer Energy Sector Utilities",
+  "url": "https://www.imercer.com/products/energy-sector-utilities",
+  "description": "Utilities compensation — generation, transmission, distribution, and customer operations at US utilities.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Engineering",
+    "Production & Skilled Trades",
+    "Operations",
+    "Project & Program Management",
+    "Supply Chain"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "sullivancotter",
+  "slug": "sullivancotter-physician-executive-2025",
+  "title": "SullivanCotter Physician Executive Compensation Survey",
+  "url": "https://sullivancotter.com/surveys/physician-executive-compensation-survey/",
+  "description": "Total cash compensation for physicians in C-suite, service line, and key executive positions in health systems.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Executive",
+    "Healthcare",
+    "Medical Affairs"
+  ]
+}

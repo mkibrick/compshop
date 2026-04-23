@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "mra",
+  "slug": "mra-national-benefits-2026",
+  "title": "MRA National Benefits Survey",
+  "url": "https://www.mranet.org/surveys",
+  "description": "Biennial survey of benefits practices across Midwest and national employers — health, retirement, PTO, and voluntary benefits.",
+  "edition": "2026",
+  "geographicScope": "United States (national)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": true
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata and geographic scope. Subscriber/member access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

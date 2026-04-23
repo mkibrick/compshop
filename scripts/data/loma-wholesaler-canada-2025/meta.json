@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "loma",
+  "slug": "loma-wholesaler-canada-2025",
+  "title": "LOMA Wholesaler Compensation Survey — Canada",
+  "url": "https://www.loma.org/en/solutions--services/benchmarking--survey-tools/compensation-surveys/",
+  "description": "Compensation and productivity data for external and internal wholesalers plus wholesale management at Canadian life/health carriers.",
+  "edition": "2025",
+  "geographicScope": "Canada",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real LOMA product. URL verified against vendor catalog.",
+  "families": [
+    "Sales",
+    "Sales & Marketing",
+    "Business Development"
+  ]
+}

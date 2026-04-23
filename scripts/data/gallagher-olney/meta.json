@@ -1,0 +1,28 @@
+{
+  "parentSurveySlug": "gallagher",
+  "slug": "gallagher-olney",
+  "title": "Gallagher Olney Associates Regional Compensation Surveys",
+  "url": "https://www.gallaghersurveys.com/surveys",
+  "description": "Regional compensation surveys under Gallagher's Olney Associates brand.",
+  "edition": "2025",
+  "geographicScope": "United States (regional)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Gallagher Surveys product. Participation generally required for results access. Real URLs from gallaghersurveys.com.",
+  "families": [
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Sales & Marketing",
+    "Operations",
+    "Engineering",
+    "Legal",
+    "Administrative",
+    "Executive"
+  ]
+}

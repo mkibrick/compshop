@@ -1,0 +1,34 @@
+{
+  "name": "compshop",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:seed": "npx tsx scripts/seed.ts",
+    "db:add-vendor": "npx tsx scripts/add-vendor.ts",
+    "db:add-report": "npx tsx scripts/add-report.ts",
+    "db:add-report-batch": "npx tsx scripts/add-report-batch.ts"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.9.0",
+    "next": "14.2.35",
+    "react": "^18",
+    "react-dom": "^18",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.35",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5"
+  }
+}

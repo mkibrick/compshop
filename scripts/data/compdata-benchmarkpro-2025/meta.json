@@ -1,0 +1,27 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-benchmarkpro-2025",
+  "title": "CompData BenchmarkPro — Cross-Industry",
+  "url": "http://www.salary.com/data/compensation-survey/compdata",
+  "description": "CompData's flagship cross-industry compensation survey — pay practices and benefits data from 2,600+ US organizations covering executive and general staff roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Finance",
+    "Accounting",
+    "Human Resources",
+    "Information Technology",
+    "Sales & Marketing",
+    "Operations",
+    "Administrative",
+    "Executive"
+  ]
+}

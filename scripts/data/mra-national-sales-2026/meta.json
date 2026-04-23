@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "mra",
+  "slug": "mra-national-sales-2026",
+  "title": "MRA National Sales Compensation Survey",
+  "url": "https://www.mranet.org/surveys",
+  "description": "Sales roles across industries — quota-bearing, account management, and sales leadership compensation.",
+  "edition": "2026",
+  "geographicScope": "United States (national)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata and geographic scope. Subscriber/member access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Sales",
+    "Sales & Marketing",
+    "Business Development",
+    "Customer Success"
+  ]
+}

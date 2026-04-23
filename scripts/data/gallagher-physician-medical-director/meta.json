@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "gallagher",
+  "slug": "gallagher-physician-medical-director",
+  "title": "Physician and Medical Director Compensation Survey",
+  "url": "https://www.gallaghersurveys.com/surveys",
+  "description": "Physician and medical-director compensation across US health systems with specialty-level detail.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Gallagher Surveys product. Participation generally required for results access. Real URLs from gallaghersurveys.com.",
+  "families": [
+    "Clinical",
+    "Medical Affairs",
+    "Healthcare",
+    "Executive"
+  ]
+}

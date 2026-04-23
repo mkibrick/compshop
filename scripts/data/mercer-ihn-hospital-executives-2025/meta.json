@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-ihn-hospital-executives-2025",
+  "title": "US IHN — Mercer Healthcare System & Hospital Executives",
+  "url": "https://www.imercer.com/products/healthcare-system-hospital-executives",
+  "description": "Executive and senior leadership compensation for US hospitals and health systems.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Executive",
+    "Healthcare"
+  ]
+}

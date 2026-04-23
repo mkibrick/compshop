@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-marketing-sales-2026",
+  "title": "Empsight Digital Marketing / Marketing / Sales Compensation Survey",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026-Digital-Marketing-Sales-Results",
+  "description": "Digital marketing, traditional marketing, sales, and support roles including data analytics at large employers.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Marketing",
+    "Sales",
+    "Sales & Marketing",
+    "Data Science"
+  ]
+}

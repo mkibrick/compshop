@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-mbd-lti-equity-2025",
+  "title": "US MBD — Mercer Long-Term Incentive & Equity Report",
+  "url": "https://www.imercer.com/products/long-term-incentive-equity-report",
+  "description": "MBD's LTI report — stock options, RSUs, performance shares, and equity vesting practices.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Executive",
+    "Total Rewards"
+  ]
+}

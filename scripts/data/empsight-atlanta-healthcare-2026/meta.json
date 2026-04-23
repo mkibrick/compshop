@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-atlanta-healthcare-2026",
+  "title": "Empsight Atlanta Metropolitan Area Healthcare Survey",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026_Atlanta_Metro_Healthcare__Larger_Results",
+  "description": "Clinical and research positions in Atlanta-metro 400+ bed institutions.",
+  "edition": "2026",
+  "geographicScope": "Atlanta Metro (US)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Clinical",
+    "Healthcare",
+    "R&D",
+    "Nursing"
+  ]
+}

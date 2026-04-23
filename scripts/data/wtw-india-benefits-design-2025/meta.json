@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-india-benefits-design-2025",
+  "title": "2025 Benefits Design Practices Survey Report — India",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2025-benefits-design-practices-survey-report-india/01tTu000006gVscIAE",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2025",
+  "geographicScope": "India",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": true
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product. URL and title verified against WTW RDI product catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-collegiate-athletics-2026",
+  "title": "Collegiate Athletics Compensation Survey — 2026",
+  "url": "https://www.wmgnet.com/dnn8/Salary-Surveys/USA/Collegiate-Athletics-Compensation-Survey",
+  "description": "Annual survey of head coach and assistant coach total cash compensation across 20+ NCAA men's and women's sports.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Academic Affairs",
+    "Sports"
+  ]
+}

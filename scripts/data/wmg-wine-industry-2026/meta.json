@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-wine-industry-2026",
+  "title": "Wine Industry Compensation Survey — 2026",
+  "url": "https://www.wmgnet.com/dnn8/Salary-Surveys/USA/Wine-Industry-Compensation-Survey",
+  "description": "Annual wine-industry survey running since 1991 — 400+ wineries/vineyards, 300+ jobs, 17,000+ employee pay rates.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Operations",
+    "Production & Skilled Trades",
+    "Sales & Marketing",
+    "Administrative",
+    "Executive"
+  ]
+}

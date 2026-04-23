@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "culpepper",
+  "slug": "culpepper-it-2025",
+  "title": "Culpepper Information Technology Compensation Survey",
+  "url": "https://www.culpepper.com/surveys/complete-compensation-survey/",
+  "description": "Information technology compensation benchmarks — IT operations, infrastructure, help desk, and systems administration across industries.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Information Technology",
+    "Software Engineering",
+    "DevOps",
+    "Security"
+  ]
+}

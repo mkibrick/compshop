@@ -1,0 +1,48 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-ihp-2025",
+  "title": "US IHP — Mercer Health Insurance Survey Suite",
+  "url": "https://www.imercer.com/products/health-plan-compensation",
+  "description": "Mercer's Integrated Health Plan (IHP) compensation survey — salary data from 128 health insurance and managed-care organizations across claims, provider networks, medical, and corporate roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": true
+  },
+  "priceRange": "$$$$",
+  "notes": "Real Mercer product — position list and participant list XLSX files downloaded directly from imercer.com.",
+  "families": [
+    "Claims",
+    "Healthcare",
+    "Medical Affairs",
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Legal",
+    "Compliance",
+    "Sales & Marketing",
+    "Quality Management",
+    "Executive"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Position List",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Mercer Job Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

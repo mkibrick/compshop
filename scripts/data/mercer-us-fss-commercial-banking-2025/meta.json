@@ -1,0 +1,47 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-fss-commercial-banking-2025",
+  "title": "US FSS — Mercer Commercial Banking Survey",
+  "url": "https://www.imercer.com/products/commercial-banking",
+  "description": "Commercial banking compensation — relationship management, credit, treasury, and corporate functions at US commercial banks.",
+  "edition": "2025",
+  "geographicScope": "United States (national, regional, metropolitan)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real Mercer product — position and/or participant list XLSX downloaded directly from imercer.com.",
+  "families": [
+    "Front Office / Trading",
+    "Finance",
+    "Sales & Marketing",
+    "Customer Success",
+    "Information Technology",
+    "Legal",
+    "Compliance",
+    "Project/Program Management",
+    "Real Estate",
+    "Risk Management"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Position List",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Mercer Job Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

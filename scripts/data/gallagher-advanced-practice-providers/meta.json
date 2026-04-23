@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "gallagher",
+  "slug": "gallagher-advanced-practice-providers",
+  "title": "Advanced Practice Providers Compensation Survey",
+  "url": "https://www.gallaghersurveys.com/surveys",
+  "description": "Compensation for NPs, PAs, CRNAs, and other advanced practice providers.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Gallagher Surveys product. Participation generally required for results access. Real URLs from gallaghersurveys.com.",
+  "families": [
+    "Clinical",
+    "Nursing",
+    "Healthcare"
+  ]
+}

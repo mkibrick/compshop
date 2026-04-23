@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-accounting-services-2025",
+  "title": "CompData Accounting Services Compensation Survey",
+  "url": "https://store.salary.com/compdata/accounting-services/",
+  "description": "Compensation benchmarking for accounting services firms — public accountants, CPAs, tax, audit, and advisory roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Accounting",
+    "Tax",
+    "Audit",
+    "Finance"
+  ]
+}

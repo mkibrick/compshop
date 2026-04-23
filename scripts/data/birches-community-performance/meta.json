@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "birches-group",
+  "slug": "birches-community-performance",
+  "title": "Birches Community™ Performance — Performance Management Benchmarks",
+  "url": "https://www.birchesgroup.com/community/performance-management/",
+  "description": "Performance management system benchmarks and practices across the Community™ client base.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Birches Group product. URL verified against vendor catalog.",
+  "families": [
+    "Human Resources",
+    "Total Rewards"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "parentSurveySlug": "pearl-meyer",
+  "slug": "pearl-meyer-banking-2025",
+  "title": "Pearl Meyer Banking Compensation Survey",
+  "url": "https://www.pearlmeyer.com/salary-surveys/salary-survey-portfolio/banking",
+  "description": "Pearl Meyer's flagship banking compensation survey — coverage of commercial banks, regional banks, and bank holding companies, from executive to branch roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Front Office / Trading",
+    "Risk Management",
+    "Compliance",
+    "Operations",
+    "Technology",
+    "Finance",
+    "Human Resources",
+    "Executive"
+  ]
+}

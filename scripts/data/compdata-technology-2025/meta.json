@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-technology-2025",
+  "title": "CompData Technology Compensation Survey",
+  "url": "https://store.salary.com/compdata/engineering-technology-services/",
+  "description": "Technology sector compensation — software, hardware, SaaS, and IT services roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Software Engineering",
+    "Hardware Engineering",
+    "Data Science",
+    "Product Management",
+    "Information Technology",
+    "Sales & Marketing"
+  ]
+}

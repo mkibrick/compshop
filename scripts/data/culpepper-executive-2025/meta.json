@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "culpepper",
+  "slug": "culpepper-executive-2025",
+  "title": "Culpepper Executive Compensation Survey",
+  "url": "https://www.culpepper.com/surveys/executive-compensation-survey/",
+  "description": "Culpepper's executive-focused compensation survey covering C-suite, senior leadership, and VP-level roles across multiple industries.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": { "base": true, "sti": true, "lti": true, "benefits": false },
+  "priceRange": "$$$",
+  "notes": "Executive benchmarks across tech, life sciences, and general industry. Includes cash, equity, and severance practices. Position/participant details available to subscribers.",
+  "families": [
+    "Executive",
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Sales & Marketing",
+    "Operations",
+    "Legal"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-ihn-skilled-nursing-2025",
+  "title": "US IHN — Mercer Skilled Nursing & Assisted Living Facilities",
+  "url": "https://www.imercer.com/products/us-ihn-skilled-nursing-and-assisted-living-facilities",
+  "description": "Compensation for skilled nursing facilities, rehab, and assisted living — nursing, therapy, and administration.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Nursing",
+    "Clinical",
+    "Allied Health",
+    "Healthcare",
+    "Administrative"
+  ]
+}

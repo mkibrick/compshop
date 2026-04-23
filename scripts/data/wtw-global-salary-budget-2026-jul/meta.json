@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-global-salary-budget-2026-jul",
+  "title": "2026 Salary Budget Planning Survey Report — July Edition",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2026-salary-budget-planning-survey-report-july-edition/01tTu00000F7zarIAB",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2026",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product. URL and title verified against WTW RDI product catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

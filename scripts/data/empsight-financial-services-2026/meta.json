@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-financial-services-2026",
+  "title": "Empsight Financial Services Industry Supplement",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026-Financial-Services-Compensation-Results",
+  "description": "Free financial services supplement — consumer banking, branch operations, credit cards, mortgage, and wealth management roles.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Sales & Marketing",
+    "Operations",
+    "Risk Management",
+    "Compliance",
+    "Finance"
+  ]
+}

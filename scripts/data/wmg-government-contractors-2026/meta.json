@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-government-contractors-2026",
+  "title": "Government Contractors Compensation Survey — 2026",
+  "url": "https://www.wmgnet.com/dnn8/Salary-Surveys/USA/Government-Contractors-Compensation-Survey",
+  "description": "Premier source for compensation at companies and research facilities contracting with the US government — 198 participating companies, 350,000+ incumbents in 2025.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Engineering",
+    "Engineering & Science",
+    "Information Technology",
+    "Security",
+    "Project & Program Management",
+    "Administrative"
+  ]
+}

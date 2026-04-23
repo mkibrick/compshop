@@ -1,0 +1,46 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-mtcs-downstream-oilfield-services-2025",
+  "title": "US MTCS — Mercer Total Compensation Survey for the Energy Sector (Downstream and Oilfield Services)",
+  "url": "https://www.imercer.com/products/downstream-oilfield-services",
+  "sku": "SKU_8819",
+  "description": "Pay data for professional, managerial and executive roles specific to the downstream and oilfield services segments of the US energy sector. Includes base pay, short-term incentives (STI), long-term incentives (LTI), and organizational metrics across 116 critical roles from 238 organizations.",
+  "edition": "2025",
+  "publicationDate": "September 2025",
+  "participationDeadline": "03/02/2026 – 04/24/2026",
+  "geographicScope": "United States",
+  "countriesRegions": "US regions — Midwest (East/West North Central), Northeast (Middle Atlantic, New England), South (East South Central, South Atlantic, West South Central), Texas, West (Mountain, Pacific)",
+  "numIncumbents": "",
+  "includes": { "base": true, "sti": true, "lti": true, "benefits": false },
+  "priceRange": "$$$$",
+  "notes": "Energy-sector cut of Mercer's flagship MTCS, focused on downstream (refining, retail, petrochemicals) and oilfield services. Strong for US regional benchmarking and includes industry-specific operational roles like Drilling Operations, Refining Operations, and Oilfield Services.",
+  "families": [
+    "Administration/Facilities/Secretarial",
+    "Drilling/Exploration/Operations",
+    "Engineering & Science",
+    "Healthcare/Pharmacy",
+    "Production & Skilled Trades",
+    "Project/Program Management",
+    "Quality Management",
+    "Retail",
+    "Sales/Marketing/Product Management",
+    "Supply Chain",
+    "Transportation Services"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Position List",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Mercer Job Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": { "name": "Company Name" }
+  }
+}

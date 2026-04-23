@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "sullivancotter",
+  "slug": "sullivancotter-healthcare-management-executive-2025",
+  "title": "SullivanCotter Health Care Management & Executive Compensation Survey",
+  "url": "https://sullivancotter.com/surveys/health-care-management-and-executive-compensation-survey/",
+  "description": "Nation's largest executive compensation dataset for health care organizations — 30+ years of executive, management, and leadership benchmarks.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Executive",
+    "Healthcare",
+    "Finance",
+    "Human Resources"
+  ]
+}

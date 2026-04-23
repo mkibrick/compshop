@@ -1,0 +1,17 @@
+{
+  "vendor": "WTW",
+  "parentSurveySlug": "wtw",
+  "parentSurveyDefaults": {
+    "provider": "WTW",
+    "title": "WTW Compensation Surveys",
+    "url": "https://www.wtwco.com/en-us/solutions/products/compensation-survey-report",
+    "category": ["general-industry"],
+    "notes": "WTW (formerly Willis Towers Watson) publishes a broad portfolio of compensation surveys across general industry, tech, financial services, pharma, energy, and more. Most position lists and participant rosters are behind a client login."
+  },
+  "catalogUrls": [
+    "https://www.wtwco.com/en-us/solutions/products/compensation-survey-report"
+  ],
+  "productUrlPattern": "^https?://(?:www\\.)?wtwco\\.com/.+/compensation-survey.*$",
+  "accessLevel": "gated",
+  "throttleMs": 1500
+}

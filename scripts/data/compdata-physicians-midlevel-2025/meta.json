@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-physicians-midlevel-2025",
+  "title": "CompData Physicians & Mid-Level Practitioners Compensation Survey",
+  "url": "https://store.salary.com/compdata/physician-mid-level-practitioners/",
+  "description": "Compensation benchmarks for physicians, PAs, NPs, and other mid-level medical practitioners across specialties.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Clinical",
+    "Healthcare",
+    "Medical Affairs"
+  ]
+}

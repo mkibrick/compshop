@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-utilities-2026",
+  "title": "Utilities Compensation Survey — 2026",
+  "url": "https://www.wmgnet.com/dnn8/Salary-Surveys/USA/Utilities-Compensation-Survey",
+  "description": "Electric, gas, and water utilities compensation — generation, transmission, distribution, and corporate roles.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Engineering",
+    "Operations",
+    "Production & Skilled Trades",
+    "Project & Program Management",
+    "Supply Chain",
+    "Executive"
+  ]
+}

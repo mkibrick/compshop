@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "mra",
+  "slug": "mra-compensation-trends-2026",
+  "title": "MRA Compensation Trends Survey",
+  "url": "https://www.mranet.org/surveys",
+  "description": "Market-wide pay strategy trends — salary increase budgets, pay range movement, and pay practice changes across industries.",
+  "edition": "2026",
+  "geographicScope": "United States (national)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata and geographic scope. Subscriber/member access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

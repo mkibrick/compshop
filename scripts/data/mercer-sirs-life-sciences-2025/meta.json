@@ -1,0 +1,49 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-sirs-life-sciences-2025",
+  "title": "US Mercer SIRS® Benchmark — Life Sciences",
+  "url": "https://www.imercer.com/products/sirs-life-sciences",
+  "description": "SIRS cut for life sciences — pharma, biotech, medical devices, diagnostics, and agricultural/animal health. 3,365 positions from 389 organizations.",
+  "edition": "2025",
+  "geographicScope": "United States (national, regional, metropolitan)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real Mercer product — position list and participant list XLSX files downloaded directly from imercer.com.",
+  "families": [
+    "Engineering & Science",
+    "R&D",
+    "Clinical",
+    "Regulatory",
+    "Quality Management",
+    "Manufacturing",
+    "Medical Affairs",
+    "Healthcare/Pharmacy",
+    "Sales/Marketing/Product Management",
+    "Executive",
+    "Finance",
+    "Information Technology"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Position List",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Mercer Job Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

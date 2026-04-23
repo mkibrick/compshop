@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "sullivancotter",
+  "slug": "sullivancotter-cpt-rvu-2025",
+  "title": "SullivanCotter Physician & APP CPT Work RVU Benchmark Study",
+  "url": "https://sullivancotter.com/surveys/cpt-work-rvu-benchmark-study/",
+  "description": "CPT coding data enabling specialty-specific analysis and productivity-based compensation plan updates.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Clinical",
+    "Healthcare"
+  ]
+}

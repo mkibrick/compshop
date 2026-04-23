@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-energy-trading-2025",
+  "title": "US MTCS — Mercer Energy Trading",
+  "url": "https://www.imercer.com/products/us-mtcs-energy-trading",
+  "description": "Energy trading and marketing compensation — quantitative analysts, traders, originators, and risk roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Front Office / Trading",
+    "Risk Management",
+    "Data Science",
+    "Finance"
+  ]
+}

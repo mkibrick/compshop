@@ -1,0 +1,30 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-severance-2024",
+  "title": "Mercer Severance Survey",
+  "url": "https://www.imercer.com/products/mercer-severance-survey",
+  "description": "Market intelligence on severance package practices — duration, benefit continuation, incentive treatment, and change-in-control provisions.",
+  "edition": "2024",
+  "geographicScope": "United States & Canada",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Mercer product — position and/or participant list XLSX downloaded directly from imercer.com.",
+  "families": [
+    "Executive",
+    "Total Rewards",
+    "Human Resources"
+  ],
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

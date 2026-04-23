@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-global-50-remuneration-2024-2025",
+  "title": "2024/2025 Global 50 Remuneration Planning Report",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/20242025-global-50-remuneration-planning-report/01t8d0000086Ax2AAE",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2024-2025",
+  "geographicScope": "Global (50 countries)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product. URL and title verified against WTW RDI product catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

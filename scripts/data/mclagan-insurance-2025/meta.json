@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "mclagan-insurance-2025",
+  "title": "McLagan Insurance Compensation Survey",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "McLagan's compensation survey for property & casualty, life, and health insurance carriers, plus reinsurance — actuarial, underwriting, claims, and corporate functions.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": { "base": true, "sti": true, "lti": true, "benefits": true },
+  "priceRange": "$$$$",
+  "notes": "Insurance-industry-specific benchmarks including actuarial and underwriting leveling. Position/participant details behind McLagan (Aon) login.",
+  "families": [
+    "Actuarial",
+    "Underwriting",
+    "Claims",
+    "Risk Management",
+    "Compliance",
+    "Technology",
+    "Finance",
+    "Human Resources",
+    "Sales & Marketing",
+    "Executive"
+  ]
+}

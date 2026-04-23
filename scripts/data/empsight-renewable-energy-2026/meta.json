@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-renewable-energy-2026",
+  "title": "Empsight Renewable Energy Industry Supplement",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026-Energy-Compensation-Results",
+  "description": "Free renewable energy supplement — offshore and onshore wind and solar energy positions.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Engineering",
+    "Project & Program Management",
+    "Operations"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "parentSurveySlug": "milliman",
+  "slug": "milliman-actuarial-2025",
+  "title": "Milliman Actuarial Salary Survey",
+  "url": "https://www.milliman.com/",
+  "description": "Compensation benchmarks specifically for actuarial professionals across insurance, healthcare, and consulting employers.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata and geographic scope. Subscriber/member access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Actuarial"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-fss-2025",
+  "title": "US FSS — Mercer Financial Services Suite",
+  "url": "https://www.imercer.com/products/financial-services-suite",
+  "description": "Mercer's financial-services compensation database — 1,568 positions across seven industry modules (commercial banking, retail banking, consumer finance, insurance, trust/private, fintech, financial ops).",
+  "edition": "2025",
+  "geographicScope": "United States (national, regional, metropolitan)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Real Mercer product — position list and participant list XLSX files downloaded directly from imercer.com.",
+  "families": [
+    "Front Office / Trading",
+    "Finance",
+    "Customer Success",
+    "Quality Management",
+    "Sales & Marketing",
+    "Risk Management",
+    "Compliance",
+    "Operations",
+    "Information Technology",
+    "Human Resources"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Position List",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Mercer Job Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

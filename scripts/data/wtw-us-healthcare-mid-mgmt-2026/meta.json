@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-us-healthcare-mid-mgmt-2026",
+  "title": "2026 Health Care Middle Management, Professional & Support Survey Report — U.S.",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2026-health-care-middle-management-professional-and-support-survey-report-us/01tTu00000C316CIAR",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product URL verified against the WTW RDI catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Healthcare",
+    "Clinical",
+    "Administrative",
+    "Finance"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-law-department-large-2026",
+  "title": "Empsight Law Department Compensation (Large Company Edition)",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026-Law-Dept-Large-Results",
+  "description": "124 benchmark legal positions covering base, bonus, and LTI for Fortune 1000 and multinational law departments.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Legal",
+    "Compliance"
+  ]
+}

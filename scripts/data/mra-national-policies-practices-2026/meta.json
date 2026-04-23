@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "mra",
+  "slug": "mra-national-policies-practices-2026",
+  "title": "MRA National Policies & Practices Survey",
+  "url": "https://www.mranet.org/surveys",
+  "description": "Paid time off, pay practices, recruitment, and HR policy benchmarks for Midwest and national employers.",
+  "edition": "2026",
+  "geographicScope": "United States (national)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata and geographic scope. Subscriber/member access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Human Resources",
+    "Total Rewards",
+    "Talent Acquisition"
+  ]
+}

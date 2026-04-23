@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-geo-salary-differential-2025",
+  "title": "Mercer US Geographic Salary Differential Survey",
+  "url": "https://www.imercer.com/products/us-geographic-salary-differential-survey",
+  "description": "Geographic pay differential tool — cost-of-labor indices and regional salary adjustments across US metros.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

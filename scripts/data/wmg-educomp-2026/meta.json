@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-educomp-2026",
+  "title": "EduComp® Compensation Survey — 2026",
+  "url": "https://www.wmgnet.com/dnn8/Salary-Surveys/USA/EduComp-Compensation-Survey",
+  "description": "Nationwide higher-education compensation — 500+ professional, managerial, and director-level roles at colleges and universities.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Academic Affairs",
+    "Administrative",
+    "Research Administration",
+    "Information Technology",
+    "Finance",
+    "Human Resources"
+  ]
+}

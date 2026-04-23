@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "gallagher",
+  "slug": "gallagher-behavioral-health",
+  "title": "Behavioral Health Compensation Survey",
+  "url": "https://www.gallaghersurveys.com/surveys",
+  "description": "Inpatient and outpatient behavioral health facilities compensation — clinical, support, and administrative roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Gallagher Surveys product. Participation generally required for results access. Real URLs from gallaghersurveys.com.",
+  "families": [
+    "Clinical",
+    "Healthcare",
+    "Nursing",
+    "Administrative"
+  ]
+}

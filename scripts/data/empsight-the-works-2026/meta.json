@@ -1,0 +1,27 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-the-works-2026",
+  "title": "Empsight The Works — Full Access",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026-The-Works",
+  "description": "Empsight's flagship umbrella survey covering executive, legal, finance, IT, HR, marketing, operations, and supply chain for Fortune 1000 and multinational employers.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Executive",
+    "Legal",
+    "Finance",
+    "Information Technology",
+    "Human Resources",
+    "Marketing",
+    "Operations",
+    "Supply Chain"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-marketing-2026",
+  "title": "Marketing and Sales Compensation Survey — 2026",
+  "url": "https://www.wmgnet.com/dnn8/Salary-Surveys/USA/Marketing-Compensation-Survey",
+  "description": "Compensation benchmarks for marketing, sales, and revenue-team roles across US employers.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Marketing",
+    "Sales",
+    "Sales & Marketing",
+    "Business Development"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-compbase-usa-winter-2026",
+  "title": "COMPBASE® USA Compensation Survey — Winter 2026",
+  "url": "https://www.wmgnet.com/dnn8/Salary-Surveys/USA/COMPBASE-USA-Compensation-Survey",
+  "description": "WMG's flagship semi-annual nationwide cross-industry survey — 500+ benchmark jobs with total cash compensation on a geographic basis.",
+  "edition": "2026 Winter",
+  "geographicScope": "United States (national + geographic cuts)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Sales & Marketing",
+    "Operations",
+    "Engineering",
+    "Administrative",
+    "Executive"
+  ]
+}

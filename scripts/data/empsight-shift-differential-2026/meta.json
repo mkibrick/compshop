@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-shift-differential-2026",
+  "title": "Empsight Shift Differential & Premium Pay Survey",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026_Shift_Differential_Premium_Pay_Results",
+  "description": "Shift differentials and premium pay including hazard, multilingual, and on-call rates.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Total Rewards",
+    "Production & Skilled Trades"
+  ]
+}

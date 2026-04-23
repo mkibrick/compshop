@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-retail-consumer-2025",
+  "title": "CompData Consumer Goods & Retail Compensation Survey",
+  "url": "https://store.salary.com/compdata/retail/",
+  "description": "Consumer goods, retail, and e-commerce compensation benchmarks — store operations, merchandising, supply chain, and corporate.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Retail",
+    "Supply Chain",
+    "Sales & Marketing",
+    "Operations",
+    "Finance"
+  ]
+}

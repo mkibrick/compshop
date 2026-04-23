@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "radford-pe-portfolio-2025",
+  "title": "Radford Private Equity Portfolio Company Survey",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "Compensation benchmarks for PE-backed portfolio companies — emphasis on equity design, MIP (management incentive plans), and exit-linked comp.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Executive",
+    "Finance",
+    "Operations",
+    "Sales & Marketing",
+    "Human Resources"
+  ]
+}

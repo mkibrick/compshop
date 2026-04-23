@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "culpepper",
+  "slug": "culpepper-technology-2025",
+  "title": "Culpepper Technology Compensation Survey",
+  "url": "https://www.culpepper.com/surveys/technology-compensation-survey/",
+  "description": "Compensation benchmarks for technology companies — software, hardware, cloud/SaaS, IT services — covering engineering, product, data, design, and go-to-market roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": { "base": true, "sti": true, "lti": true, "benefits": false },
+  "priceRange": "$$$$",
+  "notes": "Technology-sector cut with equity benchmarks. A common alternative/supplement to Radford for mid-market tech companies. Position/participant details available to subscribers.",
+  "families": [
+    "Software Engineering",
+    "Hardware Engineering",
+    "Data Science",
+    "Product Management",
+    "Design",
+    "DevOps",
+    "Information Technology",
+    "Sales & Marketing",
+    "Customer Success"
+  ]
+}

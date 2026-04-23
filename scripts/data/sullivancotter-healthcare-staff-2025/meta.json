@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "sullivancotter",
+  "slug": "sullivancotter-healthcare-staff-2025",
+  "title": "SullivanCotter Health Care Staff Compensation Survey",
+  "url": "https://sullivancotter.com/surveys/health-care-staff-compensation-survey/",
+  "description": "National cash compensation market data for clinical and nonclinical health care staff positions.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Clinical",
+    "Healthcare",
+    "Allied Health",
+    "Administrative"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "birches-group",
+  "slug": "birches-community-market-developing",
+  "title": "Birches Community™ Market — Developing Markets Survey",
+  "url": "https://www.birchesgroup.com/community/market/",
+  "description": "Emerging-market focused salary data — African, Asian, and Latin American countries where tier-one surveys have thin coverage.",
+  "edition": "2025",
+  "geographicScope": "Africa, Asia, Latin America (emerging markets)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Birches Group product. URL verified against vendor catalog.",
+  "families": [
+    "Administrative",
+    "Finance",
+    "Human Resources",
+    "Operations",
+    "Engineering",
+    "Executive"
+  ]
+}

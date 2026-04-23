@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "loma",
+  "slug": "loma-wholesaler-us-2025",
+  "title": "LOMA Wholesaler Compensation Survey — U.S.",
+  "url": "https://www.loma.org/en/solutions--services/benchmarking--survey-tools/compensation-surveys/",
+  "description": "Salary, total income, and productivity for wholesalers and wholesale management; incentive program structures and trends.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real LOMA product. URL verified against vendor catalog.",
+  "families": [
+    "Sales",
+    "Sales & Marketing",
+    "Business Development"
+  ]
+}

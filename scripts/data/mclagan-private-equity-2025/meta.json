@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "mclagan-private-equity-2025",
+  "title": "McLagan Private Equity & Private Capital Compensation Survey",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "Private equity, growth equity, private credit, and venture capital compensation — deal professionals, portfolio operations, and firm management.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Front Office / Trading",
+    "Investment Banking",
+    "Finance",
+    "Operations",
+    "Executive"
+  ]
+}

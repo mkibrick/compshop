@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-benefits-usa-2025",
+  "title": "CompData Benefits USA",
+  "url": "http://www.salary.com/data/compensation-survey/compdata",
+  "description": "Benefits benchmarking survey — medical, dental, vision, life insurance, PTO, and retirement plans from 3,400+ US organizations.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": true
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

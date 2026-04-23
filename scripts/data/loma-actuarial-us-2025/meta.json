@@ -1,0 +1,20 @@
+{
+  "parentSurveySlug": "loma",
+  "slug": "loma-actuarial-us-2025",
+  "title": "LOMA U.S. Actuarial Compensation Survey",
+  "url": "https://www.loma.org/en/solutions--services/benchmarking--survey-tools/compensation-surveys/",
+  "description": "Specialized US compensation survey for actuarial professionals and student programs at life/health/FS carriers.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real LOMA product. URL verified against vendor catalog.",
+  "families": [
+    "Actuarial"
+  ]
+}

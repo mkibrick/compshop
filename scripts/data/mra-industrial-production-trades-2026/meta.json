@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "mra",
+  "slug": "mra-industrial-production-trades-2026",
+  "title": "MRA Industrial & Production Trades Compensation Survey",
+  "url": "https://www.mranet.org/surveys",
+  "description": "Industrial and production trade positions — skilled trades, technician, maintenance, and production roles at Midwest manufacturers.",
+  "edition": "2026",
+  "geographicScope": "United States — Midwest (WI, IL, IA, MN, OH) and national",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata and geographic scope. Subscriber/member access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Production & Skilled Trades",
+    "Manufacturing",
+    "Operations",
+    "Quality"
+  ]
+}

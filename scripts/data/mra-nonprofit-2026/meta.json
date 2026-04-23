@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "mra",
+  "slug": "mra-nonprofit-2026",
+  "title": "MRA Nonprofit Compensation & Benefits Survey",
+  "url": "https://www.mranet.org/surveys",
+  "description": "Nonprofit sector compensation and benefits — program, fundraising, operations, and executive leadership at Midwest and national nonprofits.",
+  "edition": "2026",
+  "geographicScope": "United States — Midwest (WI, IL, IA, MN, OH) and national",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata and geographic scope. Subscriber/member access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Administrative",
+    "Finance",
+    "Human Resources",
+    "Sales & Marketing",
+    "Executive"
+  ]
+}

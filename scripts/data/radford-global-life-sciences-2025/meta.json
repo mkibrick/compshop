@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "radford-global-life-sciences-2025",
+  "title": "Radford Global Life Sciences Survey",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "Radford's global compensation survey for pharmaceutical, biotech, medical device, and digital health companies — deep coverage of R&D, regulatory, clinical, and commercial roles.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "countriesRegions": "US, Canada, UK, Europe, APAC",
+  "includes": { "base": true, "sti": true, "lti": true, "benefits": false },
+  "priceRange": "$$$$$",
+  "notes": "The leading life-sciences compensation survey globally. Strong equity and deal-based compensation data for pre-commercial biotechs. Position/participant details behind Radford Network login.",
+  "families": [
+    "R&D",
+    "Clinical",
+    "Regulatory",
+    "Quality",
+    "Manufacturing",
+    "Medical Affairs",
+    "Sales & Marketing",
+    "Information Technology",
+    "Finance",
+    "Human Resources",
+    "Executive"
+  ]
+}

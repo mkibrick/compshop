@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "gallagher",
+  "slug": "gallagher-national-nursing",
+  "title": "National Nursing Compensation Survey",
+  "url": "https://www.gallaghersurveys.com/surveys",
+  "description": "Nursing compensation across clinical levels, nurse leadership, specialties, and advanced practice.",
+  "edition": "2026",
+  "geographicScope": "United States (national + regional cuts)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Gallagher Surveys product. Participation generally required for results access. Real URLs from gallaghersurveys.com.",
+  "families": [
+    "Nursing",
+    "Clinical",
+    "Healthcare"
+  ]
+}

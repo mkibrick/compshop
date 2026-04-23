@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-mbd-sti-2025",
+  "title": "US MBD — Mercer Short-Term Incentive Report",
+  "url": "https://www.imercer.com/products/short-term-incentive-report",
+  "description": "MBD's STI module — annual bonus, variable pay, and performance incentive plan design.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Total Rewards",
+    "Executive",
+    "Human Resources"
+  ]
+}

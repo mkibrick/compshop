@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-mbd-it-2025",
+  "title": "US MBD — Mercer Information Technology Survey",
+  "url": "https://www.imercer.com/products/information-technology-survey",
+  "description": "MBD's IT-specific module — software engineering, infrastructure, data, security, and IT management roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Information Technology",
+    "Software Engineering",
+    "Data Science",
+    "Security",
+    "DevOps"
+  ]
+}

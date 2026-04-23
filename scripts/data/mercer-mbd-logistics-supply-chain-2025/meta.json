@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-mbd-logistics-supply-chain-2025",
+  "title": "US MBD — Mercer Logistics & Supply Chain Survey",
+  "url": "https://www.imercer.com/products/logistics-supply-chain-survey",
+  "description": "MBD's logistics & supply chain module — procurement, planning, distribution, and logistics roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Supply Chain",
+    "Operations",
+    "Transportation Services",
+    "Manufacturing"
+  ]
+}

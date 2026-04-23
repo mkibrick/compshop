@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "pearl-meyer",
+  "slug": "pearl-meyer-multi-industry-2025",
+  "title": "Pearl Meyer Multi-Industry Compensation Survey",
+  "url": "https://www.pearlmeyer.com/salary-surveys/salary-survey-portfolio/multi-industry",
+  "description": "Cross-industry compensation benchmarks — multi-sector executive and senior management data for general benchmarking use.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Sales & Marketing",
+    "Operations",
+    "Legal",
+    "Executive"
+  ]
+}

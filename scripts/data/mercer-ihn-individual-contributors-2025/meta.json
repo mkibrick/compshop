@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-ihn-individual-contributors-2025",
+  "title": "US IHN — Mercer Healthcare Individual Contributors",
+  "url": "https://www.imercer.com/products/healthcare-individual-contributors",
+  "description": "Individual contributor roles across clinical, technical, and support functions in healthcare organizations.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Clinical",
+    "Healthcare",
+    "Allied Health",
+    "Administrative"
+  ]
+}

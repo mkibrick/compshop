@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "birches-group",
+  "slug": "birches-community-skills",
+  "title": "Birches Community™ Skills — Skills & Knowledge Assessment",
+  "url": "https://www.birchesgroup.com/community/skills/",
+  "description": "Skills measurement and knowledge assessment benchmarks tied to Community™ job architecture.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Birches Group product. URL verified against vendor catalog.",
+  "families": [
+    "Human Resources",
+    "Total Rewards"
+  ]
+}

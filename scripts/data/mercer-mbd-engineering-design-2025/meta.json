@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-mbd-engineering-design-2025",
+  "title": "US MBD — Mercer Engineering & Design Survey",
+  "url": "https://www.imercer.com/products/engineering-and-design",
+  "description": "MBD's engineering & design module — mechanical, electrical, civil, chemical, and industrial engineering roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Engineering",
+    "Engineering & Science",
+    "Mechanical Engineering",
+    "Electrical Engineering",
+    "Civil Engineering"
+  ]
+}

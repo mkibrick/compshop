@@ -1,0 +1,28 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-taiwan-general-industry-2025",
+  "title": "2025 General Industry Survey Report — Taiwan",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2025-general-industry-survey-report-taiwan/01tTu000006gW8GIAU",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2025",
+  "geographicScope": "Taiwan",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product. URL and title verified against WTW RDI product catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Sales & Marketing",
+    "Operations",
+    "Engineering",
+    "Legal",
+    "Administrative",
+    "Executive"
+  ]
+}

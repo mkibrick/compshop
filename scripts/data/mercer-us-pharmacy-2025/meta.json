@@ -1,0 +1,41 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-pharmacy-2025",
+  "title": "US Pharmacy Compensation Survey",
+  "url": "https://www.imercer.com/products/pharmacy-survey",
+  "description": "Pharmacy-industry compensation benchmarks — pharmacists, technicians, interns, and management across retail and hospital pharmacy at zip-code, metro, and national levels.",
+  "edition": "2025",
+  "geographicScope": "United States (national, metropolitan, zip-code)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Mercer product — position list and participant list XLSX files downloaded directly from imercer.com.",
+  "families": [
+    "Healthcare/Pharmacy",
+    "Information Technology",
+    "Executive",
+    "Sales/Marketing/Product Management"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Position List",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Mercer Job Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

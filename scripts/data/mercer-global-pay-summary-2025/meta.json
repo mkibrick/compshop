@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-global-pay-summary-2025",
+  "title": "Mercer Global Pay Summary",
+  "url": "https://www.imercer.com/products/global-pay-summary",
+  "description": "Cross-country salary increase budgets, inflation indicators, and labor-cost trends for multinational employers.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

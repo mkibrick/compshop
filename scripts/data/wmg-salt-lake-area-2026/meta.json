@@ -1,0 +1,27 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-salt-lake-area-2026",
+  "title": "Salt Lake Area Compensation Survey — 2026",
+  "url": "https://www.wmgnet.com/dnn8/Salary-Surveys/USA/Salt-Lake-Area-Compensation-Survey",
+  "description": "Regional compensation survey for the Salt Lake City metropolitan area.",
+  "edition": "2026",
+  "geographicScope": "Salt Lake Area (US)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Sales & Marketing",
+    "Operations",
+    "Engineering",
+    "Administrative",
+    "Executive"
+  ]
+}

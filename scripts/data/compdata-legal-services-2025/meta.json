@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-legal-services-2025",
+  "title": "CompData Legal Services Compensation Survey",
+  "url": "https://store.salary.com/compdata/legal-services/",
+  "description": "Law firm and corporate legal department compensation — attorneys, paralegals, compliance, and legal operations.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Legal",
+    "Compliance"
+  ]
+}

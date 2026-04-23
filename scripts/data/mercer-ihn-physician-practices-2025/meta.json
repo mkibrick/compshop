@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-ihn-physician-practices-2025",
+  "title": "US IHN — Mercer Physician Practices & Clinics",
+  "url": "https://www.imercer.com/products/us-ihn-physician-practices-and-clinics",
+  "description": "Compensation for physician practices and outpatient clinics — physicians, APPs, and practice management.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Clinical",
+    "Medical Affairs",
+    "Healthcare",
+    "Administrative"
+  ]
+}

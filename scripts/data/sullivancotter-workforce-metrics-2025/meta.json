@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "sullivancotter",
+  "slug": "sullivancotter-workforce-metrics-2025",
+  "title": "SullivanCotter Workforce Metrics Benchmark Survey",
+  "url": "https://sullivancotter.com/surveys/workforce-metrics-benchmark-survey/",
+  "description": "Workforce size, distribution, and cost benchmarking for health care organizations — workforce planning metrics.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Human Resources",
+    "Healthcare",
+    "Total Rewards"
+  ]
+}

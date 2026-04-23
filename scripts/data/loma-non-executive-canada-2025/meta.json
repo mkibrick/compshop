@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "loma",
+  "slug": "loma-non-executive-canada-2025",
+  "title": "LOMA Non-Executive Compensation Survey — Canada",
+  "url": "https://www.loma.org/en/solutions--services/benchmarking--survey-tools/compensation-surveys/",
+  "description": "50+ positions at managerial, professional, supervisory, and administrative levels at Canadian life/health/FS carriers; includes actuarial student programs.",
+  "edition": "2025",
+  "geographicScope": "Canada",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real LOMA product. URL verified against vendor catalog.",
+  "families": [
+    "Actuarial",
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Operations",
+    "Administrative"
+  ]
+}

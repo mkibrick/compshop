@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "pearl-meyer",
+  "slug": "pearl-meyer-real-estate-2025",
+  "title": "Pearl Meyer Real Estate Compensation Survey",
+  "url": "https://www.pearlmeyer.com/salary-surveys/salary-survey-portfolio/real-estate",
+  "description": "Compensation benchmarks for REITs, real estate investment firms, and property management companies — executives, asset management, acquisitions, and operations.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Finance",
+    "Operations",
+    "Project & Program Management",
+    "Executive"
+  ]
+}

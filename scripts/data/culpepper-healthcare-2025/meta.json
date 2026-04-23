@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "culpepper",
+  "slug": "culpepper-healthcare-2025",
+  "title": "Culpepper Healthcare Compensation Survey",
+  "url": "https://www.culpepper.com/surveys/healthcare-compensation-survey/",
+  "description": "Compensation benchmarks for healthcare-sector professional, administrative, and clinical roles across US providers and payers.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": { "base": true, "sti": true, "lti": true, "benefits": false },
+  "priceRange": "$$$",
+  "notes": "Healthcare-focused cut covering clinical and non-clinical roles. Position/participant details available to subscribers.",
+  "families": [
+    "Clinical",
+    "Nursing",
+    "Healthcare",
+    "Allied Health",
+    "Administrative",
+    "Finance",
+    "Human Resources",
+    "Information Technology"
+  ]
+}

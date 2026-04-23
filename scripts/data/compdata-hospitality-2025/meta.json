@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-hospitality-2025",
+  "title": "CompData Hospitality Compensation Survey",
+  "url": "https://store.salary.com/compdata/hospitality/",
+  "description": "Hospitality sector — hotels, resorts, casinos, and food service compensation benchmarks.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Hospitality",
+    "Operations",
+    "Customer Success",
+    "Administrative",
+    "Sales & Marketing"
+  ]
+}

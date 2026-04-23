@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "sullivancotter",
+  "slug": "sullivancotter-benefits-healthcare-2025",
+  "title": "SullivanCotter Benefits Practices in Health Care Organizations Survey",
+  "url": "https://sullivancotter.com/surveys/benefits-practices-in-health-care-organizations/",
+  "description": "Executive and physician benefits programs — retirement plans, PTO, severance, and disability practices in healthcare.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": true
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Total Rewards",
+    "Human Resources",
+    "Healthcare"
+  ]
+}

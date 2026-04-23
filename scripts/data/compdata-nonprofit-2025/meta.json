@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-nonprofit-2025",
+  "title": "CompData Not-for-Profit Compensation Survey",
+  "url": "https://store.salary.com/compdata/not-for-profit/",
+  "description": "Compensation benchmarking for US nonprofits — foundation, association, and 501(c)(3) roles across fundraising, programs, and leadership.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Administrative",
+    "Finance",
+    "Human Resources",
+    "Sales & Marketing",
+    "Executive"
+  ]
+}

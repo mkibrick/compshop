@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 56" fill="none">
+  <!-- Icon: shopping cart with bar chart inside -->
+  <g>
+    <!-- Cart handle -->
+    <path d="M2 8 L8 8 L14 38" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- Cart basket -->
+    <path d="M12 16 L44 16 L40 38 L16 38 Z" fill="white"/>
+    <!-- Bar chart bars inside cart -->
+    <rect x="18" y="28" width="5" height="8" rx="1" fill="#2E86AB" opacity="0.5"/>
+    <rect x="25" y="24" width="5" height="12" rx="1" fill="#2E86AB" opacity="0.75"/>
+    <rect x="32" y="19" width="5" height="17" rx="1" fill="#2E86AB"/>
+    <!-- Wheels -->
+    <circle cx="19" cy="44" r="3.5" fill="white"/>
+    <circle cx="37" cy="44" r="3.5" fill="white"/>
+    <circle cx="19" cy="44" r="1.5" fill="#1A2332"/>
+    <circle cx="37" cy="44" r="1.5" fill="#1A2332"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="56" y="40" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-weight="700" font-size="32" letter-spacing="-0.5">
+    <tspan fill="white">Comp</tspan><tspan fill="#2E86AB">Shop</tspan>
+  </text>
+</svg>

@@ -1,0 +1,28 @@
+{
+  "parentSurveySlug": "loma",
+  "slug": "loma-non-executive-us-2025",
+  "title": "LOMA Non-Executive Compensation Survey — U.S.",
+  "url": "https://www.loma.org/en/solutions--services/benchmarking--survey-tools/compensation-surveys/",
+  "description": "250+ positions from entry level to AVP/director across functional areas; includes actuarial student program practices.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real LOMA product. URL verified against vendor catalog.",
+  "families": [
+    "Actuarial",
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Operations",
+    "Sales & Marketing",
+    "Administrative",
+    "Legal",
+    "Compliance"
+  ]
+}

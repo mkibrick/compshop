@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "radford-startups-2025",
+  "title": "Radford Global Tech Survey — Startup Cut",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "Pre-IPO technology companies compensation cut — heavy emphasis on equity benchmarks, option refresh grants, and stage-based leveling.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Software Engineering",
+    "Product Management",
+    "Data Science",
+    "Design",
+    "Sales & Marketing",
+    "Executive"
+  ]
+}

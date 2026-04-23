@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-canadian-sti-2025",
+  "title": "Mercer Canadian Short-Term Incentive",
+  "url": "https://www.imercer.com/products/ca-sti",
+  "description": "Canadian annual bonus and variable-pay benchmarks.",
+  "edition": "2025",
+  "geographicScope": "Canada",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Total Rewards",
+    "Executive"
+  ]
+}

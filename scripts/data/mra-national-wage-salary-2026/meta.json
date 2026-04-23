@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "mra",
+  "slug": "mra-national-wage-salary-2026",
+  "title": "MRA National Wage & Salary Survey",
+  "url": "https://www.mranet.org/surveys",
+  "description": "Office, technical, and production non-exempt jobs — hourly wage and salary benchmarks across industries.",
+  "edition": "2026",
+  "geographicScope": "United States — Midwest (WI, IL, IA, MN, OH) and national",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata and geographic scope. Subscriber/member access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Administrative",
+    "Production & Skilled Trades",
+    "Operations",
+    "Manufacturing"
+  ]
+}

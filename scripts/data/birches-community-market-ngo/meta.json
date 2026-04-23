@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "birches-group",
+  "slug": "birches-community-market-ngo",
+  "title": "Birches Community™ Market — NGO & Development Survey",
+  "url": "https://www.birchesgroup.com/community/market/",
+  "description": "Salary and total compensation benchmarks for NGOs, development organizations, and UN agencies across 150+ countries.",
+  "edition": "2025",
+  "geographicScope": "Global (150+ countries)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Birches Group product. URL verified against vendor catalog.",
+  "families": [
+    "Administrative",
+    "Finance",
+    "Human Resources",
+    "Project & Program Management",
+    "Sales & Marketing",
+    "Operations",
+    "Executive"
+  ]
+}

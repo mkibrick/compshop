@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-ihp-sales-marketing-2025",
+  "title": "US IHP — Mercer Health Plan Sales & Marketing",
+  "url": "https://www.imercer.com/products/health-plan-sales-and-marketing-compensation",
+  "description": "Sales and marketing compensation at health insurance and managed-care organizations.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Sales & Marketing",
+    "Sales",
+    "Healthcare"
+  ]
+}

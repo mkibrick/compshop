@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "sullivancotter",
+  "slug": "sullivancotter-endowment-foundation-2025",
+  "title": "SullivanCotter Endowment & Foundation Investment Staff Compensation Survey",
+  "url": "https://sullivancotter.com/surveys/endowment-and-foundation-investment-staff-compensation-survey/",
+  "description": "Pay levels and practices for investment staff at endowments and foundations — healthcare and non-healthcare non-profits.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Investment Banking",
+    "Front Office / Trading",
+    "Finance"
+  ]
+}

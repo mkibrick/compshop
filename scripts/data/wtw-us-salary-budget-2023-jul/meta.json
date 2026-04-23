@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-us-salary-budget-2023-jul",
+  "title": "2023 Salary Budget Planning Survey Report — U.S. (July Edition)",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2023-salary-budget-planning-survey-report-us-july-edition/01t8d0000057HPTAA2",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2023",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product. URL and title verified against WTW RDI product catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

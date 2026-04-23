@@ -1,0 +1,53 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-ihn-2025",
+  "title": "US IHN — Mercer Healthcare Compensation Survey Suite",
+  "url": "https://www.imercer.com/products/us-ihn---healthcare-system-and-hospital-compensation-suite",
+  "description": "Mercer's Integrated Healthcare Network (IHN) compensation survey suite covering 23 healthcare position families — clinical, physicians, executives, management, informatics.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": true
+  },
+  "priceRange": "$$$$$",
+  "notes": "Real Mercer product — position list and participant list XLSX files downloaded directly from imercer.com.",
+  "families": [
+    "Academic Medical",
+    "Behavioral Health",
+    "Clinical",
+    "Clinical Research",
+    "Compliance",
+    "Finance",
+    "Healthcare",
+    "Information Technology",
+    "Legal",
+    "Medical Affairs",
+    "Nursing",
+    "Patient Care",
+    "Supply Chain",
+    "Executive",
+    "Rehabilitation",
+    "Telemedicine"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Data",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Position Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Data",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

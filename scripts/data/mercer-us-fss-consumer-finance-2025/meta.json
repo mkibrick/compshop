@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-fss-consumer-finance-2025",
+  "title": "US FSS — Mercer Consumer Finance",
+  "url": "https://www.imercer.com/products/us-fss--consumer-finance",
+  "description": "Consumer finance compensation — credit cards, installment lending, auto finance, and personal lending.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Sales & Marketing",
+    "Customer Success",
+    "Risk Management",
+    "Operations"
+  ]
+}

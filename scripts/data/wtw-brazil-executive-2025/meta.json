@@ -1,0 +1,20 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-brazil-executive-2025",
+  "title": "2025 Executive Survey Report — Brazil",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2025-executive-survey-report-brazil/01tTu000006gVz4IAE",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2025",
+  "geographicScope": "Brazil",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product. URL and title verified against WTW RDI product catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Executive"
+  ]
+}

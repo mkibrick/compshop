@@ -1,0 +1,27 @@
+{
+  "parentSurveySlug": "gallagher",
+  "slug": "gallagher-community-health-centers",
+  "title": "Community Health Centers Compensation Survey",
+  "url": "https://www.gallaghersurveys.com/surveys",
+  "description": "Compensation for FQHCs, Look-Alikes, Migrant Health Centers, and other community health organizations.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Gallagher Surveys product. Participation generally required for results access. Real URLs from gallaghersurveys.com.",
+  "families": [
+    "Healthcare",
+    "Clinical",
+    "Nursing",
+    "Allied Health",
+    "Administrative",
+    "Finance",
+    "Human Resources",
+    "Information Technology"
+  ]
+}

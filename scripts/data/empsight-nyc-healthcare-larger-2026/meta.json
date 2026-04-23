@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-nyc-healthcare-larger-2026",
+  "title": "Empsight New York Metropolitan Area Healthcare Survey (Standard Edition)",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026_NY_Metro_Healthcare_Larger_Results",
+  "description": "Clinical and research positions in NYC-metro 400+ bed institutions.",
+  "edition": "2026",
+  "geographicScope": "NYC Metro (US)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Clinical",
+    "Healthcare",
+    "R&D",
+    "Nursing"
+  ]
+}

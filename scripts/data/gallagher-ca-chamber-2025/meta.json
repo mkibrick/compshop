@@ -1,0 +1,28 @@
+{
+  "parentSurveySlug": "gallagher",
+  "slug": "gallagher-ca-chamber-2025",
+  "title": "2025 California Chamber of Commerce Compensation Survey",
+  "url": "https://www.gallaghersurveys.com/survey/1225",
+  "description": "Comprehensive general-industry survey with detailed California state and regional compensation data.",
+  "edition": "2025",
+  "geographicScope": "California (US)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Gallagher Surveys product. Participation generally required for results access. Real URLs from gallaghersurveys.com.",
+  "families": [
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Sales & Marketing",
+    "Operations",
+    "Engineering",
+    "Legal",
+    "Administrative",
+    "Executive"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-benefits-policies",
+  "title": "WMG Benefits / Policies Surveys",
+  "url": "https://www.wmgnet.com/dnn8/Policies-Practices",
+  "description": "Benefits, HR policies, and pay practices benchmarks across WMG's client base.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": true
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

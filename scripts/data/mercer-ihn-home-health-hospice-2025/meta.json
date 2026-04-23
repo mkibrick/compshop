@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-ihn-home-health-hospice-2025",
+  "title": "US IHN — Mercer Home Health & Hospice",
+  "url": "https://www.imercer.com/products/us-ihn-home-health-and-hospice",
+  "description": "Compensation for home health, hospice, and palliative care providers and corporate staff.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Clinical",
+    "Nursing",
+    "Healthcare"
+  ]
+}

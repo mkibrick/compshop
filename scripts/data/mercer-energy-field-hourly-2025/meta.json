@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-energy-field-hourly-2025",
+  "title": "US MTCS — Mercer Energy Field & Hourly",
+  "url": "https://www.imercer.com/products/energy-sector-field-and-hourly",
+  "description": "Non-exempt field and hourly compensation across the energy sector — operators, technicians, skilled trades.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Production & Skilled Trades",
+    "Operations",
+    "Transportation Services"
+  ]
+}

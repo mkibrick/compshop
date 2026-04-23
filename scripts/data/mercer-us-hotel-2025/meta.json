@@ -1,0 +1,41 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-hotel-2025",
+  "title": "US Hotel Industry Compensation Survey",
+  "url": "https://www.imercer.com/products/hotel-industry-compensation",
+  "description": "Mercer's hotel industry survey — 83 property-management positions across 3,000 US hotel properties.",
+  "edition": "2025",
+  "geographicScope": "United States (national, metropolitan)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": true
+  },
+  "priceRange": "$$$",
+  "notes": "Real Mercer product — position list and participant list XLSX files downloaded directly from imercer.com.",
+  "families": [
+    "Hospitality",
+    "Operations",
+    "Customer Success",
+    "Administrative"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Position List",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Mercer Job Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

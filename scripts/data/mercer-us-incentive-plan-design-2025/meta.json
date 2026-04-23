@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-incentive-plan-design-2025",
+  "title": "Mercer US Incentive Plan Design",
+  "url": "https://www.imercer.com/products/us-incentive-plan-design",
+  "description": "Incentive plan design practices — metrics, leverage, and payout curves across US employers.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Total Rewards",
+    "Executive",
+    "Human Resources"
+  ]
+}

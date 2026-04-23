@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-china-shared-services-outsourcing-2024",
+  "title": "2024 Shared Services and Outsourcing Survey Report — China",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2024-shared-services-and-outsourcing-survey-report-china/01t8d0000086BBIAA2",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2024",
+  "geographicScope": "China",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product URL verified against the WTW RDI catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Operations",
+    "Information Technology",
+    "Customer Success",
+    "Finance"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "mclagan-investment-banking-2025",
+  "title": "McLagan Investment Banking Compensation Survey",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "McLagan's flagship compensation survey for investment banking — covers M&A, capital markets, sales & trading, equity research, and institutional banking roles.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "countriesRegions": "US, UK, Europe, APAC",
+  "includes": { "base": true, "sti": true, "lti": true, "benefits": false },
+  "priceRange": "$$$$$",
+  "notes": "The gold standard for investment banking and capital markets comp data. Front-office and producer-level benchmarks. Position/participant details behind McLagan (Aon) login.",
+  "families": [
+    "Front Office / Trading",
+    "Investment Banking",
+    "Capital Markets",
+    "Equity Research",
+    "Sales & Trading",
+    "Risk Management",
+    "Compliance",
+    "Technology",
+    "Operations",
+    "Executive"
+  ]
+}

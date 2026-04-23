@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-nyc-healthcare-smaller-2026",
+  "title": "Empsight New York Metropolitan Area Healthcare Survey (Smaller Institutions)",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026_NYC_Metro_Healthcare_Smaller_Results",
+  "description": "Healthcare compensation for NYC-metro institutions with <400 beds or research-only focus.",
+  "edition": "2026",
+  "geographicScope": "NYC Metro (US)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Clinical",
+    "Healthcare",
+    "R&D",
+    "Nursing"
+  ]
+}

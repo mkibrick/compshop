@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "mclagan-hedge-funds-2025",
+  "title": "McLagan Hedge Fund Compensation Survey",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "Hedge fund industry compensation — portfolio management, research analysts, risk, compliance, and operations roles.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Front Office / Trading",
+    "Risk Management",
+    "Compliance",
+    "Technology",
+    "Operations",
+    "Executive"
+  ]
+}

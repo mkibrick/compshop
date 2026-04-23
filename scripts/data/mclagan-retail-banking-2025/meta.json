@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "mclagan-retail-banking-2025",
+  "title": "McLagan Retail Banking Compensation Survey",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "Retail banking and consumer financial services compensation — branch management, mortgage, consumer lending, and wealth advisory roles.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Sales & Marketing",
+    "Operations",
+    "Technology",
+    "Risk Management",
+    "Compliance",
+    "Finance"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-thailand-fintech-2022",
+  "title": "2022 Fintech Survey Report — Thailand",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2022-fintech-survey-report-thailand/01t8d000000N4tHAAS",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2022",
+  "geographicScope": "Thailand",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product URL verified against the WTW RDI catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Front Office / Trading",
+    "Risk Management",
+    "Compliance",
+    "Technology",
+    "Operations",
+    "Finance",
+    "Executive",
+    "Software Engineering",
+    "Product Management"
+  ]
+}

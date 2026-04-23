@@ -1,0 +1,23 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-texas-healthcare-smaller-2026",
+  "title": "Empsight Texas Medical Center Healthcare Survey (Smaller Institutions)",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026_Texas_Medical_Center_Smaller_Results",
+  "description": "Healthcare compensation for Texas institutions with ≤400 beds or research-only focus.",
+  "edition": "2026",
+  "geographicScope": "Texas (US)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Clinical",
+    "Healthcare",
+    "R&D",
+    "Nursing"
+  ]
+}

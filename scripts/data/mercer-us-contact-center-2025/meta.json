@@ -1,0 +1,41 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-contact-center-2025",
+  "title": "US Contact Center and Customer Service Compensation Survey",
+  "url": "https://www.imercer.com/products/us-contact-center",
+  "description": "Compensation benchmarks for contact-center and customer-service roles across 2,176 organizations — CSR, supervisor, and center-management positions.",
+  "edition": "2025",
+  "geographicScope": "United States (national, regional, metropolitan)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Mercer product — position list and participant list XLSX files downloaded directly from imercer.com.",
+  "families": [
+    "Customer Success",
+    "Sales/Marketing/Product Management",
+    "Finance",
+    "Quality Management"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Position List",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Mercer Job Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

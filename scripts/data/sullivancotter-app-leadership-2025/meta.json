@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "sullivancotter",
+  "slug": "sullivancotter-app-leadership-2025",
+  "title": "SullivanCotter Advanced Practice Provider Leadership & Organizational Survey",
+  "url": "https://sullivancotter.com/surveys/advanced-practice-provider-leadership-and-organizational-survey/",
+  "description": "Utilization and benchmarking data to support APP workforce strategies — leadership roles and organizational design.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Clinical",
+    "Healthcare",
+    "Executive"
+  ]
+}

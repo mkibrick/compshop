@@ -1,0 +1,49 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-mbd-2025",
+  "title": "US MBD — Mercer Benchmark Database (Full Suite)",
+  "url": "https://www.imercer.com/products/us-mercer-benchmark-database",
+  "description": "Mercer's flagship US cross-industry compensation database — approximately 7,120 positions and 8+ million employee records organized across nine functional modules.",
+  "edition": "2025",
+  "geographicScope": "United States (national, regional, metropolitan)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real Mercer product — position list and participant list XLSX files downloaded directly from imercer.com.",
+  "families": [
+    "Corporate Services",
+    "Human Resources",
+    "Engineering & Design",
+    "Executive",
+    "Finance",
+    "Accounting",
+    "Legal",
+    "Information Technology",
+    "Logistics/Supply Chain",
+    "Sales/Marketing/Product Management",
+    "Communications",
+    "Manufacturing"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Position List",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Mercer Job Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

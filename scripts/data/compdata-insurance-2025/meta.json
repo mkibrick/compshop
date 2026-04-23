@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-insurance-2025",
+  "title": "CompData Insurance Compensation Survey",
+  "url": "https://store.salary.com/compdata/insurance/",
+  "description": "Insurance industry compensation — actuarial, underwriting, claims, and corporate roles at P&C, life, and health insurers.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Actuarial",
+    "Underwriting",
+    "Claims",
+    "Risk Management",
+    "Finance",
+    "Sales & Marketing"
+  ]
+}

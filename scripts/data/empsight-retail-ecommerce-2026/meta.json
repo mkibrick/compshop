@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-retail-ecommerce-2026",
+  "title": "Empsight Retail / E-Commerce Industry Supplement",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026-Retail-E-Commerce-Compensation-Results",
+  "description": "Free retail & e-commerce supplement — store operations, pharmacy, groceries, and corporate retail roles.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Retail",
+    "Operations",
+    "Supply Chain"
+  ]
+}

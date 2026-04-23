@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-hong-kong-private-equity-2024",
+  "title": "2024 Private Equity Survey Report — Hong Kong",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2024-private-equity-survey-report-hong-kong/01t8d0000086At3AAE",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2024",
+  "geographicScope": "Hong Kong",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product. URL and title verified against WTW RDI product catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Front Office / Trading",
+    "Risk Management",
+    "Compliance",
+    "Technology",
+    "Operations",
+    "Finance",
+    "Executive"
+  ]
+}

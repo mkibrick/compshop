@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "birches-group",
+  "slug": "birches-community-jobs",
+  "title": "Birches Community™ Jobs — Job Evaluation Framework",
+  "url": "https://www.birchesgroup.com/community/jobs/",
+  "description": "Job evaluation and organizational design framework — underlying leveling structure for all Community™ market data.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Birches Group product. URL verified against vendor catalog.",
+  "families": [
+    "Human Resources",
+    "Total Rewards"
+  ]
+}

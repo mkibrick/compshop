@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "sullivancotter",
+  "slug": "sullivancotter-medical-group-comp-productivity-2025",
+  "title": "SullivanCotter Medical Group Compensation & Productivity Survey",
+  "url": "https://sullivancotter.com/surveys/medical-group-compensation-and-productivity-survey/",
+  "description": "Largest medical group compensation dataset — pay practices and productivity across physician specialties in medical group settings.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Clinical",
+    "Healthcare",
+    "Medical Affairs"
+  ]
+}

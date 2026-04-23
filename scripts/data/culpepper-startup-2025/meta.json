@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "culpepper",
+  "slug": "culpepper-startup-2025",
+  "title": "Culpepper Startup Compensation Survey",
+  "url": "https://www.culpepper.com/surveys/complete-compensation-survey/",
+  "description": "Compensation survey for venture-backed startups — early-stage benchmarks with emphasis on equity and stage-based leveling.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Software Engineering",
+    "Product Management",
+    "Sales & Marketing",
+    "Finance",
+    "Human Resources",
+    "Executive"
+  ]
+}

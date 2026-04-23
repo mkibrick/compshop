@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-singapore-reinsurance-2025",
+  "title": "2025 Reinsurance Survey Report — Singapore",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2025-reinsurance-survey-report-singapore/01tTu000006gW2CIAU",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2025",
+  "geographicScope": "Singapore",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product URL verified against the WTW RDI catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Underwriting",
+    "Actuarial",
+    "Claims",
+    "Risk Management",
+    "Finance",
+    "Sales & Marketing",
+    "Executive"
+  ]
+}

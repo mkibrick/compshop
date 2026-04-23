@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "gallagher",
+  "slug": "gallagher-national-healthcare-leadership",
+  "title": "National Healthcare Leadership Compensation Survey",
+  "url": "https://www.gallaghersurveys.com/surveys",
+  "description": "Executive and senior management compensation at US health systems and hospitals.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Gallagher Surveys product. Participation generally required for results access. Real URLs from gallaghersurveys.com.",
+  "families": [
+    "Executive",
+    "Healthcare"
+  ]
+}

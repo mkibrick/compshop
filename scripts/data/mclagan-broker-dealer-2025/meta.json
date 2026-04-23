@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "mclagan-broker-dealer-2025",
+  "title": "McLagan Broker-Dealer Compensation Survey",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "US broker-dealer compensation — institutional sales, research, trading, and advisory roles.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Front Office / Trading",
+    "Equity Research",
+    "Sales & Trading",
+    "Investment Banking",
+    "Risk Management",
+    "Compliance",
+    "Executive"
+  ]
+}

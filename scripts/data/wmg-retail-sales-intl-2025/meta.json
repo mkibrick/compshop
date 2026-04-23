@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "western-management-group",
+  "slug": "wmg-retail-sales-intl-2025",
+  "title": "Retail Sales Compensation Survey — International",
+  "url": "https://www.wmgnet.com/dnn8/Salary-Surveys/International/Retail-Sales-Compensation-Survey",
+  "description": "International retail sales compensation benchmarks across global markets.",
+  "edition": "2025",
+  "geographicScope": "International",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Western Management Group product. URL verified against wmgnet.com catalog.",
+  "families": [
+    "Retail",
+    "Sales",
+    "Sales & Marketing"
+  ]
+}

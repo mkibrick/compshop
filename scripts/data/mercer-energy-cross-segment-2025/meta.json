@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-energy-cross-segment-2025",
+  "title": "US MTCS — Mercer Energy Cross-Segment Compensation",
+  "url": "https://www.imercer.com/products/energy-sector-cross-segment-compensation",
+  "description": "Cross-segment compensation view spanning upstream, midstream, downstream, oilfield, and energy trading.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Drilling/Exploration/Operations",
+    "Engineering & Science",
+    "Supply Chain",
+    "Finance",
+    "Human Resources"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "parentSurveySlug": "compdata",
+  "slug": "compdata-executive-compensation-2025",
+  "title": "CompData Executive Compensation Survey",
+  "url": "http://www.salary.com/data/compensation-survey/compdata",
+  "description": "Base, incentive, and total cash compensation analysis for 130 executive and senior management positions.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata. Real URL and industry focus sourced from CompData (Salary.com) product catalog.",
+  "families": [
+    "Executive"
+  ]
+}

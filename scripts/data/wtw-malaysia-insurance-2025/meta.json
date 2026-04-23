@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-malaysia-insurance-2025",
+  "title": "2025 Insurance Survey Report — Malaysia",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2025-insurance-survey-report-malaysia/01tTu000006gW1YIAU",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2025",
+  "geographicScope": "Malaysia",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product URL verified against the WTW RDI catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Underwriting",
+    "Actuarial",
+    "Claims",
+    "Risk Management",
+    "Finance",
+    "Sales & Marketing",
+    "Executive"
+  ]
+}

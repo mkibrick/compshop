@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-canadian-fss-2025",
+  "title": "Mercer Canadian Financial Services Suite",
+  "url": "https://www.imercer.com/products/financial-services-suite-ca",
+  "description": "Canadian financial services compensation — banking, insurance, and capital markets.",
+  "edition": "2025",
+  "geographicScope": "Canada",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Stub loaded with family-level metadata. Real Mercer product URL from imercer.com sitemap. Position and participant lists available with subscriber access.",
+  "families": [
+    "Front Office / Trading",
+    "Finance",
+    "Risk Management",
+    "Compliance",
+    "Operations"
+  ]
+}

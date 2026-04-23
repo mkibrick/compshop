@@ -1,0 +1,19 @@
+{
+  "parentSurveySlug": "radford-mclagan",
+  "slug": "radford-sales-2025",
+  "title": "Radford Global Sales Compensation Survey",
+  "url": "https://humancapital.aon.com/solutions/rewards-solutions/compensation-surveys",
+  "description": "Radford's specialized survey for sales and go-to-market roles in technology and life sciences — covers quotas, OTE, commission structures, and territory benchmarks.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": { "base": true, "sti": true, "lti": true, "benefits": false },
+  "priceRange": "$$$$",
+  "notes": "Specialized sales compensation benchmarks including quota achievement, OTE, and commission plans. Used alongside Radford's main Tech/Life Sciences surveys. Position/participant details behind Radford Network login.",
+  "families": [
+    "Sales",
+    "Sales & Marketing",
+    "Customer Success",
+    "Business Development",
+    "Sales Operations"
+  ]
+}

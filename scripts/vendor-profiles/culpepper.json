@@ -1,0 +1,17 @@
+{
+  "vendor": "Culpepper",
+  "parentSurveySlug": "culpepper",
+  "parentSurveyDefaults": {
+    "provider": "Culpepper",
+    "title": "Culpepper Compensation Surveys",
+    "url": "https://www.culpepper.com/surveys",
+    "category": ["tech", "general-industry"],
+    "notes": "Culpepper publishes compensation surveys focused on technology, life sciences, engineering, and knowledge industries. Position and participant lists are typically provided to subscribers and participants."
+  },
+  "catalogUrls": [
+    "https://www.culpepper.com/surveys"
+  ],
+  "productUrlPattern": "^https?://(?:www\\.)?culpepper\\.com/surveys/[a-z0-9-]+",
+  "accessLevel": "gated",
+  "throttleMs": 1500
+}

@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "mra",
+  "slug": "mra-benchmark-2026",
+  "title": "MRA Benchmark Compensation Survey",
+  "url": "https://www.mranet.org/surveys",
+  "description": "MRA's core compensation survey covering staff-level through executive roles across key business areas for Midwest and national employers.",
+  "edition": "2026",
+  "geographicScope": "United States — Midwest (WI, IL, IA, MN, OH) and national",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata and geographic scope. Subscriber/member access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Sales & Marketing",
+    "Operations",
+    "Administrative",
+    "Executive"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-sirs-medical-device-sales-2025",
+  "title": "US Mercer SIRS® — Medical Device Sales Compensation Survey",
+  "url": "https://www.imercer.com/products/sirs-medical-device-sales-compensation",
+  "description": "Specialized cut for medical-device sales roles — salaries, quotas, and commission structures across device product lines.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Mercer product — position list and participant list XLSX files downloaded directly from imercer.com.",
+  "families": [
+    "Sales",
+    "Sales & Marketing",
+    "Engineering",
+    "Clinical"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Position List",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Mercer Job Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

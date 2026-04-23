@@ -1,0 +1,20 @@
+{
+  "parentSurveySlug": "empsight",
+  "slug": "empsight-executive-2026",
+  "title": "Empsight Executive Compensation Survey",
+  "url": "https://www.empsight.com/Compensation-Surveys/Pre-Order-Survey-Results/2026-Executive-Results",
+  "description": "Top executive positions in Fortune 500 and multinational corporations.",
+  "edition": "2026",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Stub loaded with family-level metadata. Subscriber access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Executive"
+  ]
+}

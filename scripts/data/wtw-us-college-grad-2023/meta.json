@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "wtw",
+  "slug": "wtw-us-college-grad-2023",
+  "title": "2023 College Graduate Starting Salary Survey Report — U.S.",
+  "url": "https://www.wtwrewardsdataintel.com/s/product/2023-college-graduate-starting-salary-survey-report-us/01t8d000000NzSwAAK",
+  "description": "WTW Rewards Data Intelligence compensation survey — detailed position lists and participant rosters available to subscribers/participants via WTW RDI.",
+  "edition": "2023",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real WTW Rewards Data Intelligence product. URL and title verified against WTW RDI product catalog. Position/participant detail requires WTW client login.",
+  "families": [
+    "Human Resources",
+    "Total Rewards"
+  ]
+}

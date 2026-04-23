@@ -1,0 +1,36 @@
+{
+  "vendor": "Mercer",
+  "parentSurveySlug": "mercer-benchmark-database",
+  "parentSurveyDefaults": {
+    "provider": "Mercer",
+    "title": "Mercer Benchmark Database (MBD)",
+    "url": "https://www.imercer.com/",
+    "category": ["general-industry"]
+  },
+  "catalogUrls": [
+    "https://www.imercer.com/products"
+  ],
+  "productUrlPattern": "^https?://(?:www\\.)?imercer\\.com/products/[a-z0-9-]+$",
+  "xlsxLinkPatterns": {
+    "positions": "Position[_ ]List\\.xlsx",
+    "participants": "Participant[_ ]List\\.xlsx"
+  },
+  "xlsxColumns": {
+    "positions": {
+      "sheet": "Position List",
+      "headerRow": 3,
+      "columns": {
+        "title": "Position Title",
+        "code": "Mercer Job Code",
+        "description": "Position Description"
+      }
+    },
+    "participants": {
+      "sheet": "Participant List",
+      "headerRow": 3,
+      "columns": { "name": "Company Name" }
+    }
+  },
+  "accessLevel": "public-xlsx",
+  "throttleMs": 800
+}

@@ -1,0 +1,47 @@
+{
+  "parentSurveySlug": "mercer-benchmark-database",
+  "slug": "mercer-us-tlw-2025",
+  "title": "US Transportation, Logistics & Warehousing Industry Survey",
+  "url": "https://www.imercer.com/products/us-transportation-logistics-and-warehousing-industry-survey",
+  "description": "Salary and benefits data specific to transportation, logistics, and warehousing — 237 positions from 92 organizations.",
+  "edition": "2025",
+  "geographicScope": "United States (national, regional, metropolitan)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$$",
+  "notes": "Real Mercer product — position list and participant list XLSX files downloaded directly from imercer.com.",
+  "families": [
+    "Transportation Services",
+    "Supply Chain",
+    "Production & Skilled Trades",
+    "Operations",
+    "Engineering & Science",
+    "Finance",
+    "Human Resources",
+    "Sales/Marketing/Product Management",
+    "Quality Management",
+    "Administrative"
+  ],
+  "positions": {
+    "file": "positions.xlsx",
+    "sheet": "Position List",
+    "headerRow": 3,
+    "columns": {
+      "title": "Position Title",
+      "code": "Mercer Job Code",
+      "description": "Position Description"
+    }
+  },
+  "participants": {
+    "file": "participants.xlsx",
+    "sheet": "Participant List",
+    "headerRow": 3,
+    "columns": {
+      "name": "Company Name"
+    }
+  }
+}

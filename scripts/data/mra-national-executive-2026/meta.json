@@ -1,0 +1,20 @@
+{
+  "parentSurveySlug": "mra",
+  "slug": "mra-national-executive-2026",
+  "title": "MRA National Executive Compensation Survey",
+  "url": "https://www.mranet.org/surveys",
+  "description": "Executive compensation benchmarks with strong Midwest employer participation — C-suite, VP, and director-level roles.",
+  "edition": "2026",
+  "geographicScope": "United States (national)",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Stub loaded with family-level metadata and geographic scope. Subscriber/member access required for position/participant detail — see gated_reports.md.",
+  "families": [
+    "Executive"
+  ]
+}

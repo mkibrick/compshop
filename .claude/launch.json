@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "compshop",
+      "runtimeExecutable": "/usr/local/bin/node",
+      "runtimeArgs": ["/usr/local/bin/npx", "next", "dev"],
+      "env": {"PATH": "/usr/local/bin:/usr/bin:/bin"},
+      "port": 3000
+    },
+    {
+      "name": "groundhog-prototype",
+      "runtimeExecutable": "/usr/bin/python3",
+      "runtimeArgs": ["-m", "http.server", "4242", "--directory", "/Users/maxkibrick/Downloads"],
+      "port": 4242
+    }
+  ]
+}
