@@ -1,5 +1,6 @@
 import Database from "better-sqlite3";
 import path from "path";
+import fs from "fs";
 
 const DB_PATH = path.join(process.cwd(), "data", "compshop.db");
 
@@ -11,12 +12,34 @@ let _db: Database.Database | null = null;
 
 export function getDb(): Database.Database {
   if (!_db) {
-    _db = new Database(DB_PATH, { readonly: IS_READONLY, fileMustExist: true });
-    // WAL requires writable filesystem. Keep DELETE journal for read-only deploys.
-    if (!IS_READONLY) _db.pragma("journal_mode = WAL");
-    _db.pragma("foreign_keys = ON");
+    if (!fs.existsSync(DB_PATH)) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `[CompShop] DB file missing at ${DB_PATH}. cwd=${process.cwd()}. ` +
+          `Listing parent dir for debugging:`,
+        safeLs(path.dirname(DB_PATH))
+      );
+      throw new Error(`SQLite file not found at ${DB_PATH}`);
+    }
+    try {
+      _db = new Database(DB_PATH, { readonly: IS_READONLY, fileMustExist: true });
+      if (!IS_READONLY) _db.pragma("journal_mode = WAL");
+      _db.pragma("foreign_keys = ON");
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error("[CompShop] Failed to open SQLite DB:", err);
+      throw err;
+    }
   }
   return _db;
+}
+
+function safeLs(dir: string): string[] {
+  try {
+    return fs.readdirSync(dir);
+  } catch {
+    return [`<readdir failed for ${dir}>`];
+  }
 }
 
 export function initDb() {

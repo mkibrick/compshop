@@ -92,7 +92,14 @@
       "Bash(git commit -m ' *)",
       "Bash(git remote *)",
       "Bash(git push *)",
-      "Bash(NODE_ENV=production NEXT_PUBLIC_SITE_URL=\"this is not a url\" npm run build)"
+      "Bash(NODE_ENV=production NEXT_PUBLIC_SITE_URL=\"this is not a url\" npm run build)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} /\\\\n\" https://compshop-iota.vercel.app/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} /surveys\\\\n\" https://compshop-iota.vercel.app/surveys)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} /surveys/mercer-benchmark-database\\\\n\" https://compshop-iota.vercel.app/surveys/mercer-benchmark-database)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} /sitemap.xml\\\\n\" https://compshop-iota.vercel.app/sitemap.xml)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} /api/search?q=finance\\\\n\" \"https://compshop-iota.vercel.app/api/search?q=finance\")",
+      "Bash(curl -s https://compshop-iota.vercel.app/sitemap.xml)",
+      "Bash(curl -s \"https://compshop-iota.vercel.app/api/search?q=finance\")"
     ]
   }
 }
