@@ -33,10 +33,13 @@ export default function HomePage() {
       {/* Hero */}
       <section className="bg-navy text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-tight">
+          <h1
+            className="font-display text-5xl sm:text-6xl leading-[1.05]"
+            style={{ letterSpacing: "-0.02em", fontWeight: 400 }}
+          >
             Find the right salary survey
             <br />
-            <span className="text-accent">for your organization</span>
+            <em className="italic text-plum-200">for your organization.</em>
           </h1>
           <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
             Browse and compare compensation data sources. Filter by industry,
@@ -81,7 +84,7 @@ export default function HomePage() {
             </div>
             <h3 className="text-lg font-semibold text-navy">Compare Data</h3>
             <p className="mt-2 text-gray-600 text-sm">
-              See what each survey covers — benchmarks, industries, job levels, and data elements.
+              See what each survey covers: benchmarks, industries, job levels, and data elements.
             </p>
           </div>
           <div className="text-center">

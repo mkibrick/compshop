@@ -22,7 +22,7 @@ export function GET(
     content: vendor.slug,
   });
 
-  // Structured click log — visible in Vercel's Runtime Logs. Easy to parse
+  // Structured click log: visible in Vercel's Runtime Logs. Easy to parse
   // later with `vercel logs | grep '"event":"outbound_click"'` or to swap
   // for a PostHog / Plausible / webhook write.
   console.log(

@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 /**
- * Manual overrides — vendors whose product-catalog URL doesn't have a great
+ * Manual overrides: vendors whose product-catalog URL doesn't have a great
  * favicon. We map to the parent brand domain or a better-branded domain.
  */
 const DOMAIN_OVERRIDES: Record<string, string> = {
@@ -87,7 +87,7 @@ export default function VendorLogo({
     );
   }
 
-  // Google's favicon service — free, no auth, returns PNG up to 256px
+  // Google's favicon service: free, no auth, returns PNG up to 256px
   const src = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
   return (
     <div

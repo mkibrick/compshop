@@ -202,7 +202,12 @@ export default function SurveyDirectory({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-navy">Browse Salary Surveys</h1>
+        <h1
+          className="font-display text-4xl sm:text-5xl text-navy"
+          style={{ letterSpacing: "-0.02em", fontWeight: 400, lineHeight: 1.1 }}
+        >
+          Browse Salary Surveys
+        </h1>
         <p className="mt-2 text-gray-600">
           {filtered.length} survey{filtered.length !== 1 ? "s" : ""} found
         </p>

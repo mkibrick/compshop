@@ -88,7 +88,7 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
       url: v.url,
     }));
 
-  // --- Reports (with expanded match tokens — family/position mentions) ---
+  // --- Reports (with expanded match tokens: family/position mentions) ---
   const reports = index.reports
     .map((r) => {
       let score = 0;

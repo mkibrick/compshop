@@ -132,7 +132,14 @@
       "WebFetch(domain:www.cupahr.org)",
       "WebFetch(domain:croner.co.uk)",
       "Bash(curl -s https://www.comp-shop.com/)",
-      "Bash(git commit -m 'Plausible: use raw script tags in head so verifier sees them in initial HTML *)"
+      "Bash(git commit -m 'Plausible: use raw script tags in head so verifier sees them in initial HTML *)",
+      "Read(//Users/maxkibrick/Downloads/**)",
+      "Bash(unzip -o \"/Users/maxkibrick/Downloads/CompShop Design System.zip\" -d /tmp/compshop-design)",
+      "Bash(npx tsc *)",
+      "Bash(grep -v \":0$\")",
+      "Bash(node -e ' *)",
+      "Bash(git check-ignore *)",
+      "Bash(node -e \"const Database = require\\('better-sqlite3'\\); const db = new Database\\('data/compshop.db'\\); db.pragma\\('wal_checkpoint\\(TRUNCATE\\)'\\); db.close\\(\\); console.log\\('checkpointed'\\);\")"
     ]
   }
 }

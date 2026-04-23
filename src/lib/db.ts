@@ -180,7 +180,7 @@ export function initDb() {
   try {
     db.exec(`ALTER TABLE surveys ADD COLUMN has_reports INTEGER NOT NULL DEFAULT 0`);
   } catch {
-    // Column already exists — no-op
+    // Column already exists; no-op
   }
 
   return db;

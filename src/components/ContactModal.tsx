@@ -141,7 +141,7 @@ export default function ContactModal({
                 />
               </svg>
             </div>
-            <p className="text-sm text-gray-800 font-medium">Thanks — got it.</p>
+            <p className="text-sm text-gray-800 font-medium">Thanks, got it.</p>
             <p className="text-xs text-gray-500 mt-1">
               We&rsquo;ll reply if a response is needed.
             </p>
@@ -155,7 +155,7 @@ export default function ContactModal({
           </div>
         ) : (
           <form onSubmit={submit} className="p-5 space-y-3">
-            {/* Honeypot — hidden from real users, catches naive bots. */}
+            {/* Honeypot: hidden from real users, catches naive bots. */}
             <div
               aria-hidden="true"
               style={{ position: "absolute", left: "-10000px", top: "auto" }}

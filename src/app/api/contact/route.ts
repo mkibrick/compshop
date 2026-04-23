@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  // Honeypot — bots fill every field they see
+  // Honeypot: bots fill every field they see
   if (body.honeypot) {
     // Pretend success so bots don't retry
     return NextResponse.json({ ok: true }, { status: 200 });
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
   const referer = request.headers.get("referer") ?? "";
   const ua = request.headers.get("user-agent") ?? "";
 
-  // Structured log — always written so you can scan Vercel logs even if
+  // Structured log: always written so you can scan Vercel logs even if
   // Resend isn't configured yet.
   console.log(
     JSON.stringify({
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
   if (!apiKey) {
     // Graceful fallback: no email sent, but submission is logged.
     console.warn(
-      "[contact] RESEND_API_KEY not set — submission logged but email not sent"
+      "[contact] RESEND_API_KEY not set; submission logged but email not sent"
     );
     return NextResponse.json({ ok: true, delivered: false }, { status: 200 });
   }

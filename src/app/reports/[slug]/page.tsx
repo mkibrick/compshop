@@ -32,7 +32,7 @@ export function generateMetadata({
   const title = `${report.title}`;
   const description = (
     report.description ||
-    `${vendorName} compensation survey report — ${report.title}. Geographic scope: ${report.geographicScope || "N/A"}.`
+    `${vendorName} compensation survey report: ${report.title}. Geographic scope: ${report.geographicScope || "N/A"}.`
   ).slice(0, 180);
   const canonical = `${SITE_URL}/reports/${report.slug}`;
   return {

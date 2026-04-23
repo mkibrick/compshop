@@ -32,7 +32,7 @@ export function generateMetadata({
   params: { slug: string };
 }): Metadata {
   const survey = getSurveyBySlug(params.slug);
-  if (!survey) return { title: "Vendor not found — CompShop" };
+  if (!survey) return { title: "Vendor not found | CompShop" };
 
   const reports = getReportsForSurveySlug(params.slug);
   const reportCount = reports.length;
