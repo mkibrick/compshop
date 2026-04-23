@@ -139,7 +139,8 @@
       "Bash(grep -v \":0$\")",
       "Bash(node -e ' *)",
       "Bash(git check-ignore *)",
-      "Bash(node -e \"const Database = require\\('better-sqlite3'\\); const db = new Database\\('data/compshop.db'\\); db.pragma\\('wal_checkpoint\\(TRUNCATE\\)'\\); db.close\\(\\); console.log\\('checkpointed'\\);\")"
+      "Bash(node -e \"const Database = require\\('better-sqlite3'\\); const db = new Database\\('data/compshop.db'\\); db.pragma\\('wal_checkpoint\\(TRUNCATE\\)'\\); db.close\\(\\); console.log\\('checkpointed'\\);\")",
+      "Bash(node -e \"try{require\\('sharp'\\);console.log\\('sharp available'\\)}catch\\(e\\){console.log\\('no sharp'\\)}\")"
     ]
   }
 }
