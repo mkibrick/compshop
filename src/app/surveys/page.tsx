@@ -2,8 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getAllSurveys } from "@/lib/surveys";
 import SurveyDirectory from "@/components/SurveyDirectory";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { SITE_URL } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   title: "Browse Salary & Compensation Surveys",

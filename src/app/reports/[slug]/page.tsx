@@ -10,11 +10,10 @@ import {
   getFamiliesForReport,
 } from "@/lib/reports";
 import VendorLogo from "@/components/VendorLogo";
+import { SITE_URL } from "@/lib/site-url";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export function generateStaticParams() {
   return getAllReports().map((r) => ({ slug: r.slug }));

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getAllSurveys, getSurveyBySlug } from "@/lib/surveys";
 import { getReportsForSurveySlug } from "@/lib/reports";
 import VendorLogo from "@/components/VendorLogo";
+import { SITE_URL } from "@/lib/site-url";
 
 function ReportLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -23,7 +24,6 @@ export function generateStaticParams() {
   return getAllSurveys().map((s) => ({ slug: s.slug }));
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export function generateMetadata({
   params,

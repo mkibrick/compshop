@@ -91,7 +91,8 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(git remote *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(NODE_ENV=production NEXT_PUBLIC_SITE_URL=\"this is not a url\" npm run build)"
     ]
   }
 }
