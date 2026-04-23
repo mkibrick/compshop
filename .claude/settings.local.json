@@ -109,7 +109,12 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://compshop-iota.vercel.app/families/finance)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://compshop-iota.vercel.app/positions/clinical-data-scientist)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://compshop-iota.vercel.app/sitemap.xml)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"https://compshop-iota.vercel.app/api/search?q=finance\")"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"https://compshop-iota.vercel.app/api/search?q=finance\")",
+      "Bash(curl -s https://compshop-iota.vercel.app/)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}, %{size_download} bytes\\\\n\" https://compshop-iota.vercel.app/search-index.json)",
+      "Bash(curl -sI https://compshop-iota.vercel.app/search-index.json)",
+      "Bash(curl -s --compressed -o /dev/null -w \"bytes over wire: %{size_download}\\\\n\" https://compshop-iota.vercel.app/search-index.json)",
+      "Bash(git commit -m 'Prefetch search index on SearchBar mount so first keystroke is instant *)"
     ]
   }
 }

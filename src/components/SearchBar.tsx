@@ -22,6 +22,12 @@ export default function SearchBar({
   const [loading, setLoading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Warm the search index as soon as the component mounts so the first
+  // keystroke doesn't wait on a ~350KB fetch.
+  useEffect(() => {
+    loadIndex().catch(() => {});
+  }, []);
+
   // Debounced client-side search against the static index
   useEffect(() => {
     const q = value.trim();
