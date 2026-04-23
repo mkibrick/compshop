@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { SearchResults, LinkedReport } from "@/lib/types";
+import { loadIndex, search } from "@/lib/client-search";
 
 interface SearchBarProps {
   value: string;
@@ -21,7 +22,7 @@ export default function SearchBar({
   const [loading, setLoading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Debounced search
+  // Debounced client-side search against the static index
   useEffect(() => {
     const q = value.trim();
     if (!q) {
@@ -30,23 +31,21 @@ export default function SearchBar({
       return;
     }
     setLoading(true);
-    const ctrl = new AbortController();
+    let cancelled = false;
     const timer = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`, {
-          signal: ctrl.signal,
-        });
-        const data: SearchResults = await res.json();
-        setResults(data);
+        const idx = await loadIndex();
+        if (cancelled) return;
+        setResults(search(idx, q));
       } catch (e) {
-        if ((e as { name?: string })?.name !== "AbortError") console.error(e);
+        console.error(e);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
-    }, 200);
+    }, 150);
     return () => {
+      cancelled = true;
       clearTimeout(timer);
-      ctrl.abort();
     };
   }, [value]);
 

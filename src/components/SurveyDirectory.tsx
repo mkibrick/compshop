@@ -6,6 +6,7 @@ import { Survey } from "@/lib/types";
 import SurveyCard from "@/components/SurveyCard";
 import SearchBar from "@/components/SearchBar";
 import VendorModal from "@/components/VendorModal";
+import { loadIndex, vendorMatchCounts } from "@/lib/client-search";
 
 const categoryOptions = [
   { label: "All", value: "" },
@@ -102,30 +103,26 @@ export default function SurveyDirectory({ initialSurveys }: { initialSurveys: Su
     if (cat) setCategory(cat);
   }, [searchParams]);
 
-  // Fetch which vendors have reports matching the search query
+  // Compute vendor match counts against the client-side search index
   useEffect(() => {
     const q = search.trim();
     if (!q) {
       setMatchingSlugs(null);
       return;
     }
-    const ctrl = new AbortController();
+    let cancelled = false;
     const timer = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/vendors?q=${encodeURIComponent(q)}`, {
-          signal: ctrl.signal,
-        });
-        const data = await res.json();
-        const map = new Map<string, number>();
-        for (const v of data.vendors) map.set(v.slug, v.matchCount);
-        setMatchingSlugs(map);
+        const idx = await loadIndex();
+        if (cancelled) return;
+        setMatchingSlugs(vendorMatchCounts(idx, q));
       } catch (e) {
-        if ((e as { name?: string })?.name !== "AbortError") console.error(e);
+        console.error(e);
       }
-    }, 200);
+    }, 150);
     return () => {
+      cancelled = true;
       clearTimeout(timer);
-      ctrl.abort();
     };
   }, [search]);
 
