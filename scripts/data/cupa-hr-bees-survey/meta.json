@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "cupa-hr-administrators",
+  "slug": "cupa-hr-bees-survey",
+  "title": "CUPA-HR Benefits, Employee Experience, and Structure Survey (BEES)",
+  "url": "https://www.cupahr.org/research-data/about-our-surveys/bees-survey/",
+  "description": "Institutional-level data on benefits programs, employee-experience practices, and HR organizational structure at US colleges and universities.",
+  "edition": "2024-2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": false,
+    "lti": false,
+    "benefits": true
+  },
+  "priceRange": "$$",
+  "notes": "Real CUPA-HR survey. Free for participating members, affordable non-member tiers.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

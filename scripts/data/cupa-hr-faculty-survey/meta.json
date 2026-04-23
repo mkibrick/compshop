@@ -1,0 +1,20 @@
+{
+  "parentSurveySlug": "cupa-hr-administrators",
+  "slug": "cupa-hr-faculty-survey",
+  "title": "CUPA-HR Faculty in Higher Education Survey",
+  "url": "https://www.cupahr.org/research-data/about-our-surveys/faculty-survey/",
+  "description": "Faculty compensation and workforce data across higher-education institutions — tenure track, non-tenure track, and instructional faculty. Uses CIP (Classification of Instructional Programs) codes to benchmark by academic discipline.",
+  "edition": "2024-2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": false,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Real CUPA-HR survey. Free for participating members, affordable non-member tiers.",
+  "families": [
+    "Academic Affairs"
+  ]
+}

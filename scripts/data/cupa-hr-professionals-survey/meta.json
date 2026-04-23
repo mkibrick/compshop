@@ -1,0 +1,28 @@
+{
+  "parentSurveySlug": "cupa-hr-administrators",
+  "slug": "cupa-hr-professionals-survey",
+  "title": "CUPA-HR Professionals in Higher Education Survey",
+  "url": "https://www.cupahr.org/research-data/about-our-surveys/professionals-survey/",
+  "description": "Professional staff compensation — exempt non-faculty roles across institutional functions including research, IT, finance, HR, student services, and more.",
+  "edition": "2024-2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": false,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Real CUPA-HR survey. Free for participating members, affordable non-member tiers.",
+  "families": [
+    "Academic Affairs",
+    "Administrative",
+    "Research Administration",
+    "Library",
+    "Information Technology",
+    "Finance",
+    "Human Resources",
+    "Legal",
+    "Healthcare"
+  ]
+}

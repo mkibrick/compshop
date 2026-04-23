@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "cupa-hr-administrators",
+  "slug": "cupa-hr-administrators-survey",
+  "title": "CUPA-HR Administrators in Higher Education Survey",
+  "url": "https://www.cupahr.org/research-data/about-our-surveys/administrators-survey/",
+  "description": "Compensation and employment data for administrators at US colleges and universities — presidents, provosts, AVPs, VPs, deans, and other senior leadership. Matches positions to specific CUPA position codes for consistency across institutions.",
+  "edition": "2024-2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": false,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Real CUPA-HR survey. Free for participating members, affordable non-member tiers.",
+  "families": [
+    "Administrative",
+    "Academic Affairs",
+    "Executive"
+  ]
+}

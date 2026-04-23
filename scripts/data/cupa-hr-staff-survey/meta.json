@@ -1,0 +1,22 @@
+{
+  "parentSurveySlug": "cupa-hr-administrators",
+  "slug": "cupa-hr-staff-survey",
+  "title": "CUPA-HR Staff in Higher Education Survey",
+  "url": "https://www.cupahr.org/research-data/about-our-surveys/staff-survey/",
+  "description": "Non-exempt staff compensation and workforce metrics — administrative support, operations, skilled trades, and service positions across US higher education.",
+  "edition": "2024-2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": false,
+    "lti": false,
+    "benefits": false
+  },
+  "priceRange": "$$",
+  "notes": "Real CUPA-HR survey. Free for participating members, affordable non-member tiers.",
+  "families": [
+    "Administrative",
+    "Production & Skilled Trades",
+    "Operations"
+  ]
+}
