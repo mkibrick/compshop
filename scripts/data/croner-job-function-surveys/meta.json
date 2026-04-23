@@ -1,0 +1,28 @@
+{
+  "parentSurveySlug": "croner-reward",
+  "slug": "croner-job-function-surveys",
+  "title": "Croner Job Function Salary Surveys",
+  "url": "https://croner.co.uk/services/reward/salary-surveys-benchmarking/",
+  "description": "Functional cuts across corporate departments — HR, IT, finance, marketing, sales, operations, and more. Benchmark role-by-role across UK employers.",
+  "edition": "2025",
+  "geographicScope": "United Kingdom",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": true
+  },
+  "priceRange": "$$$",
+  "notes": "Real Croner Reward product. Data accessed via Croner subscription or SalarySearch tool.",
+  "families": [
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Sales & Marketing",
+    "Operations",
+    "Engineering",
+    "Legal",
+    "Administrative",
+    "Executive"
+  ]
+}

@@ -129,7 +129,8 @@
       "Bash(curl -s https://www.comp-shop.com/sitemap.xml)",
       "Bash(curl -s https://www.comp-shop.com/robots.txt)",
       "WebFetch(domain:www.kornferry.com)",
-      "WebFetch(domain:www.cupahr.org)"
+      "WebFetch(domain:www.cupahr.org)",
+      "WebFetch(domain:croner.co.uk)"
     ]
   }
 }

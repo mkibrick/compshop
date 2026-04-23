@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "croner-reward",
+  "slug": "croner-care-sector",
+  "title": "Croner Care Sector Salary Survey",
+  "url": "https://croner.co.uk/services/reward/salary-surveys-benchmarking/",
+  "description": "UK care-sector compensation — residential care, domiciliary care, nursing homes, and support services.",
+  "edition": "2025",
+  "geographicScope": "United Kingdom",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": true
+  },
+  "priceRange": "$$$",
+  "notes": "Real Croner Reward product. Data accessed via Croner subscription or SalarySearch tool.",
+  "families": [
+    "Nursing",
+    "Clinical",
+    "Healthcare",
+    "Allied Health",
+    "Administrative"
+  ]
+}
