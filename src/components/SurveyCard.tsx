@@ -1,6 +1,7 @@
 import { Survey } from "@/lib/types";
 import ParticipationBadge from "./ParticipationBadge";
 import VendorLogo from "./VendorLogo";
+import { vendorOutbound } from "@/lib/outbound";
 
 function stripRedundantProvider(title: string, provider: string): string {
   const t = title.trim();
@@ -75,7 +76,12 @@ export default function SurveyCard({
   }
 
   return (
-    <a href={survey.url} target="_blank" rel="noopener noreferrer" className={className}>
+    <a
+      href={vendorOutbound(survey.slug)}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className}
+    >
       {content}
     </a>
   );

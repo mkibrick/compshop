@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Survey } from "@/lib/types";
 import VendorLogo from "./VendorLogo";
+import { vendorOutbound } from "@/lib/outbound";
 
 interface VendorReport {
   slug: string;
@@ -165,7 +166,7 @@ export default function VendorModal({ slug, query, onClose }: VendorModalProps) 
         {data && (
           <div className="p-5 border-t border-gray-200 bg-gray-50 rounded-b-xl flex items-center justify-between gap-3 flex-wrap">
             <a
-              href={data.vendor.url}
+              href={vendorOutbound(data.vendor.slug)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white font-semibold hover:bg-accent-dark transition-colors"

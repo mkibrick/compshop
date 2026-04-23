@@ -5,6 +5,7 @@ import { getAllSurveys, getSurveyBySlug } from "@/lib/surveys";
 import { getReportsForSurveySlug } from "@/lib/reports";
 import VendorLogo from "@/components/VendorLogo";
 import { SITE_URL } from "@/lib/site-url";
+import { vendorOutbound } from "@/lib/outbound";
 
 function ReportLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -173,7 +174,7 @@ export default function VendorPage({ params }: { params: { slug: string } }) {
             )}
             <div className="mt-5">
               <a
-                href={survey.url}
+                href={vendorOutbound(survey.slug)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white font-semibold hover:bg-accent-dark transition-colors"

@@ -11,6 +11,7 @@ import {
 } from "@/lib/reports";
 import VendorLogo from "@/components/VendorLogo";
 import { SITE_URL } from "@/lib/site-url";
+import { reportOutbound } from "@/lib/outbound";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
@@ -193,7 +194,7 @@ export default function ReportPage({ params }: { params: { slug: string } }) {
 
             <div className="mt-5">
               <a
-                href={report.url || vendor?.url}
+                href={reportOutbound(report.slug)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white font-semibold hover:bg-accent-dark transition-colors"

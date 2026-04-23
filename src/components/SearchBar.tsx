@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { SearchResults, LinkedReport } from "@/lib/types";
 import { loadIndex, search } from "@/lib/client-search";
+import { vendorOutbound, reportOutbound } from "@/lib/outbound";
 
 interface SearchBarProps {
   value: string;
@@ -113,7 +114,7 @@ export default function SearchBar({
                   {results.reports.map((r) => (
                     <ExternalRow
                       key={r.slug}
-                      href={r.url}
+                      href={reportOutbound(r.slug)}
                       primary={r.title}
                       secondary={r.vendorProvider}
                     />
@@ -125,7 +126,7 @@ export default function SearchBar({
                   {results.vendors.map((v) => (
                     <ExternalRow
                       key={v.slug}
-                      href={v.url}
+                      href={vendorOutbound(v.slug)}
                       primary={v.title}
                       secondary={`${v.provider}${v.industry ? " · " + v.industry : ""}`}
                     />
@@ -214,7 +215,7 @@ function EntityWithReports({
           {reports.map((r) => (
             <li key={r.slug}>
               <a
-                href={r.url}
+                href={reportOutbound(r.slug)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between gap-2 py-1 text-xs text-gray-700 hover:text-accent transition-colors group"
