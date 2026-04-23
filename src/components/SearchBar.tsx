@@ -16,7 +16,7 @@ const EMPTY: SearchResults = { vendors: [], reports: [], positions: [], orgs: []
 export default function SearchBar({
   value,
   onChange,
-  placeholder = "Search by job title, industry, company, or report...",
+  placeholder = "Search by job title, industry or geography..",
 }: SearchBarProps) {
   const [results, setResults] = useState<SearchResults>(EMPTY);
   const [open, setOpen] = useState(false);
