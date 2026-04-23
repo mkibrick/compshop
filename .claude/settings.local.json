@@ -114,7 +114,21 @@
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}, %{size_download} bytes\\\\n\" https://compshop-iota.vercel.app/search-index.json)",
       "Bash(curl -sI https://compshop-iota.vercel.app/search-index.json)",
       "Bash(curl -s --compressed -o /dev/null -w \"bytes over wire: %{size_download}\\\\n\" https://compshop-iota.vercel.app/search-index.json)",
-      "Bash(git commit -m 'Prefetch search index on SearchBar mount so first keystroke is instant *)"
+      "Bash(git commit -m 'Prefetch search index on SearchBar mount so first keystroke is instant *)",
+      "Bash(dig +short comp-shop.com @1.1.1.1)",
+      "Bash(dig +short www.comp-shop.com @1.1.1.1)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" -L https://comp-shop.com/)",
+      "Bash(curl -sI -L https://www.comp-shop.com/)",
+      "Bash(curl -sI -L https://comp-shop.com/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://www.comp-shop.com/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://www.comp-shop.com/surveys)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://www.comp-shop.com/surveys/mercer-benchmark-database)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://www.comp-shop.com/sitemap.xml)",
+      "Bash(curl -s --compressed -o /dev/null -w \"%{http_code} — %{size_download} bytes gzip\\\\n\" https://www.comp-shop.com/search-index.json)",
+      "Bash(curl -sI https://www.comp-shop.com/sitemap.xml)",
+      "Bash(curl -s https://www.comp-shop.com/sitemap.xml)",
+      "Bash(curl -s https://www.comp-shop.com/robots.txt)",
+      "WebFetch(domain:www.kornferry.com)"
     ]
   }
 }

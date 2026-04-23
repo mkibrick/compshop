@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "korn-ferry",
+  "slug": "korn-ferry-ics-industrial-2024",
+  "title": "Korn Ferry Industrial Compensation Survey (ICS)",
+  "url": "https://www.kornferry.com/about-us/events-webinars/insights-from-korn-ferrys-2024-ics-compensation-survey",
+  "description": "Industrial Compensation Survey — US manufacturing, industrial, and engineering sectors. Signature Korn Ferry product.",
+  "edition": "2024",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real Korn Ferry Pay product. Access requires a Korn Ferry Pay subscription.",
+  "families": [
+    "Manufacturing",
+    "Engineering",
+    "Operations",
+    "Production & Skilled Trades",
+    "Supply Chain",
+    "Executive"
+  ]
+}

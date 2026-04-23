@@ -1,0 +1,24 @@
+{
+  "parentSurveySlug": "korn-ferry",
+  "slug": "korn-ferry-healthcare",
+  "title": "Korn Ferry Healthcare Compensation Survey",
+  "url": "https://www.kornferry.com/capabilities/talent-suite/korn-ferry-pay",
+  "description": "Healthcare industry compensation — hospitals, health systems, payers, and providers. Executive and senior management focus.",
+  "edition": "2025",
+  "geographicScope": "United States",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real Korn Ferry Pay product. Access requires a Korn Ferry Pay subscription.",
+  "families": [
+    "Executive",
+    "Healthcare",
+    "Clinical",
+    "Finance",
+    "Human Resources"
+  ]
+}

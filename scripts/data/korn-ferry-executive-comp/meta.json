@@ -1,0 +1,20 @@
+{
+  "parentSurveySlug": "korn-ferry",
+  "slug": "korn-ferry-executive-comp",
+  "title": "Korn Ferry Executive Compensation Survey",
+  "url": "https://www.kornferry.com/capabilities/talent-suite/korn-ferry-pay",
+  "description": "Executive compensation benchmarks — cash, incentive, and equity for C-suite and senior leadership globally.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Real Korn Ferry Pay product. Access requires a Korn Ferry Pay subscription.",
+  "families": [
+    "Executive"
+  ]
+}

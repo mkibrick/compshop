@@ -1,0 +1,26 @@
+{
+  "parentSurveySlug": "korn-ferry",
+  "slug": "korn-ferry-high-tech",
+  "title": "Korn Ferry High Tech Compensation Survey",
+  "url": "https://www.kornferry.com/capabilities/talent-suite/korn-ferry-pay",
+  "description": "High-tech industry compensation — software, hardware, SaaS, and emerging tech companies. Deep equity benchmarks.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Real Korn Ferry Pay product. Access requires a Korn Ferry Pay subscription.",
+  "families": [
+    "Software Engineering",
+    "Hardware Engineering",
+    "Information Technology",
+    "Product Management",
+    "Data Science",
+    "Sales & Marketing",
+    "Executive"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "parentSurveySlug": "korn-ferry",
+  "slug": "korn-ferry-global-total-rewards-pulse",
+  "title": "Korn Ferry Global Total Rewards Pulse Survey",
+  "url": "https://www.kornferry.com/insights/featured-topics/employee-experience/global-rewards-pulse-survey",
+  "description": "Global pulse of total rewards practices — salary budgets, incentive trends, and benefits practices across multinational employers.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real Korn Ferry Pay product. Access requires a Korn Ferry Pay subscription.",
+  "families": [
+    "Total Rewards",
+    "Human Resources"
+  ]
+}

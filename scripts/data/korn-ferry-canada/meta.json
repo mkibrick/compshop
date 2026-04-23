@@ -1,0 +1,28 @@
+{
+  "parentSurveySlug": "korn-ferry",
+  "slug": "korn-ferry-canada",
+  "title": "Korn Ferry Canada Compensation Survey",
+  "url": "https://www.kornferry.com/capabilities/talent-suite/korn-ferry-pay/pay-data-map",
+  "description": "Canadian cross-industry compensation benchmarks.",
+  "edition": "2025",
+  "geographicScope": "Canada",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real Korn Ferry Pay product. Access requires a Korn Ferry Pay subscription.",
+  "families": [
+    "Finance",
+    "Human Resources",
+    "Information Technology",
+    "Sales & Marketing",
+    "Operations",
+    "Engineering",
+    "Legal",
+    "Administrative",
+    "Executive"
+  ]
+}

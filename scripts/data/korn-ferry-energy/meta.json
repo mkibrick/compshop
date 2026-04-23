@@ -1,0 +1,25 @@
+{
+  "parentSurveySlug": "korn-ferry",
+  "slug": "korn-ferry-energy",
+  "title": "Korn Ferry Energy & Natural Resources Compensation Survey",
+  "url": "https://www.kornferry.com/capabilities/talent-suite/korn-ferry-pay",
+  "description": "Energy and natural resources compensation — oil & gas, utilities, mining, renewables. Field operations to corporate.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$",
+  "notes": "Real Korn Ferry Pay product. Access requires a Korn Ferry Pay subscription.",
+  "families": [
+    "Drilling & Oilfield Operations",
+    "Engineering",
+    "Operations",
+    "Production & Skilled Trades",
+    "Supply Chain",
+    "Executive"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "parentSurveySlug": "korn-ferry",
+  "slug": "korn-ferry-life-sciences",
+  "title": "Korn Ferry Life Sciences Compensation Survey",
+  "url": "https://www.kornferry.com/capabilities/talent-suite/korn-ferry-pay",
+  "description": "Life sciences industry compensation — pharma, biotech, and medical devices. R&D, regulatory, clinical, commercial, and executive roles.",
+  "edition": "2025",
+  "geographicScope": "Global",
+  "includes": {
+    "base": true,
+    "sti": true,
+    "lti": true,
+    "benefits": false
+  },
+  "priceRange": "$$$$$",
+  "notes": "Real Korn Ferry Pay product. Access requires a Korn Ferry Pay subscription.",
+  "families": [
+    "R&D",
+    "Clinical",
+    "Regulatory",
+    "Quality",
+    "Medical Affairs",
+    "Manufacturing",
+    "Sales & Marketing",
+    "Executive"
+  ]
+}
