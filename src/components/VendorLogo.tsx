@@ -15,7 +15,29 @@ const DOMAIN_OVERRIDES: Record<string, string> = {
   mercer: "imercer.com",
   "u.s. bureau of labor statistics": "bls.gov",
   compdata: "salary.com",
+  "croner reward": "croner.co.uk",
 };
+
+// Double-suffix public TLDs where "last two labels" would return the
+// wrong domain (e.g. "co.uk" instead of "croner.co.uk"). Keep as last
+// two labels === three total labels case.
+const DOUBLE_TLDS = new Set([
+  "co.uk",
+  "org.uk",
+  "ac.uk",
+  "gov.uk",
+  "co.jp",
+  "co.kr",
+  "com.au",
+  "net.au",
+  "com.br",
+  "com.mx",
+  "com.sg",
+  "com.hk",
+  "co.in",
+  "co.nz",
+  "co.za",
+]);
 
 /**
  * Extract the registrable domain from a URL string.
@@ -30,9 +52,13 @@ function deriveDomain(name: string, url: string): string | null {
     const host = u.hostname.replace(/^www\./, "");
     const parts = host.split(".");
     if (parts.length <= 2) return host;
-    // Handle known double-suffix TLDs (.co.uk, etc.). For simplicity we keep
-    // the last two labels which is correct for ~every vendor we have.
-    return parts.slice(-2).join(".");
+    // If the last two labels form a known double-suffix TLD (e.g. "co.uk"),
+    // keep three labels so we return e.g. "croner.co.uk" not "co.uk".
+    const lastTwo = parts.slice(-2).join(".");
+    if (DOUBLE_TLDS.has(lastTwo) && parts.length >= 3) {
+      return parts.slice(-3).join(".");
+    }
+    return lastTwo;
   } catch {
     return null;
   }

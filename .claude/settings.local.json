@@ -153,7 +153,8 @@
       "Bash(mkdir -p /tmp/resvg)",
       "Bash(npm init *)",
       "Bash(node render.js)",
-      "Bash(node fix-milliman.js)"
+      "Bash(node fix-milliman.js)",
+      "Bash(curl -sI \"https://www.google.com/s2/favicons?domain=croner.co.uk&sz=128\")"
     ]
   }
 }
