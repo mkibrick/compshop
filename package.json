@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npx tsx scripts/derive-categories.ts && npx tsx scripts/build-search-index.ts",
+    "prebuild": "npx tsx scripts/dedupe-report-editions.ts && npx tsx scripts/derive-categories.ts && npx tsx scripts/build-search-index.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

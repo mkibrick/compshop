@@ -142,7 +142,18 @@
       "Bash(node -e \"const Database = require\\('better-sqlite3'\\); const db = new Database\\('data/compshop.db'\\); db.pragma\\('wal_checkpoint\\(TRUNCATE\\)'\\); db.close\\(\\); console.log\\('checkpointed'\\);\")",
       "Bash(node -e \"try{require\\('sharp'\\);console.log\\('sharp available'\\)}catch\\(e\\){console.log\\('no sharp'\\)}\")",
       "Bash(node /tmp/fix-categories.js)",
-      "Bash(node fix-categories.js)"
+      "Bash(node fix-categories.js)",
+      "Bash(fc-list)",
+      "Bash(system_profiler SPFontsDataType)",
+      "Bash(curl -sL -o __TRACKED_VAR__/Library/Fonts/InstrumentSerif-Regular.ttf https://github.com/googlefonts/instrument-serif/raw/main/fonts/ttf/InstrumentSerif-Regular.ttf)",
+      "Bash(curl -sL -o __TRACKED_VAR__/Library/Fonts/InstrumentSerif-Regular.ttf https://raw.githubusercontent.com/googlefonts/instrument-serif/main/fonts/ttf/InstrumentSerif-Regular.ttf)",
+      "Bash(curl -sL \"https://api.github.com/repos/googlefonts/instrument-serif/contents/fonts\")",
+      "Bash(curl -sL \"https://api.github.com/search/repositories?q=instrument-serif\")",
+      "Bash(curl -sL -o __TRACKED_VAR__/Library/Fonts/InstrumentSerif-Regular.ttf https://raw.githubusercontent.com/Instrument/instrument-serif/main/fonts/ttf/InstrumentSerif-Regular.ttf)",
+      "Bash(mkdir -p /tmp/resvg)",
+      "Bash(npm init *)",
+      "Bash(node render.js)",
+      "Bash(node fix-milliman.js)"
     ]
   }
 }
