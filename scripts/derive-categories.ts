@@ -34,38 +34,53 @@ interface Rule {
   rx: RegExp;
 }
 
-// Order doesn't matter — all rules are evaluated. Keep patterns tight.
+// Derivation runs against REPORT TITLES only (plus the vendor's own title),
+// which are short and intentional. Descriptions and best_for prose are
+// deliberately excluded: too much stray text ("academic medical centers",
+// "Association for Human Resources") flipped vendors into wrong buckets.
+//
+// Patterns here must hit terms that would only appear in an industry-
+// specific survey title. Single words like "medical" or "clinical" are
+// too broad; we require more specific phrases.
 const RULES: Rule[] = [
   {
     category: "higher-ed",
-    rx: /\b(higher[-\s]?ed(ucation)?|colleges?|universit(y|ies)|faculty|academic|cupa|campus)\b/i,
+    rx: /\b(higher[-\s]?ed(ucation)?|colleges?\s+(and|&)\s+universit|universit(y|ies)|faculty|CUPA[-\s]?HR)\b/i,
   },
   {
     category: "healthcare",
-    rx: /\b(health[-\s]?care|hospitals?|health\s+systems?|nursing|physicians?|nurses?|clinical|life\s*sciences|biotech(nology)?|pharmaceutical|pharma\b|medical(?!\s+device\s+startup)|care\s+sector)\b/i,
+    rx: /\b(health[-\s]?care|hospitals?|health\s+systems?|nursing|nurses?|physicians?|life\s*sciences|biotech(nology)?|pharmaceutical|pharma\b|medical\s+(device|practice|group|center)|health\s+plan|HMO|clinical\s+(trial|research)|healthcare\s+(compensation|comp|benefits))\b/i,
   },
   {
     category: "tech",
-    rx: /\b(technology|software|SaaS|cloud\b|IT\s+services|high[-\s]?tech|engineering\s*&\s*technology|\btech\s+survey|tech\s+industry|information\s+technology)\b/i,
+    rx: /\b(technology\s+(survey|compensation|comp)|software\s+(games|compensation|comp|survey)|SaaS\b|cloud\s+(services|survey|compensation)|IT\s+(services|jobs|compensation|survey)|high[-\s]?tech|engineering\s*&\s*technology|digital\s+(content|media)|information\s+technology)\b/i,
   },
   {
     category: "legal",
-    rx: /\b(legal\s+(services|department|sector)?|law\s+firms?|law\s+department|attorneys?|paralegals?)\b/i,
+    rx: /\b(legal\s+(services|department|sector|compensation)|law\s+firms?|law\s+department|attorneys?|paralegals?)\b/i,
   },
   {
+    // "nonprofit" requires the word itself or a tightly-related sector
+    // term. We deliberately drop bare "associations?" and "foundations?"
+    // because they match org names ("Management Association", "George
+    // Lucas Educational Foundation") rather than nonprofit coverage.
+    // Foundations-as-coverage is rare enough that the one legit match
+    // (Croner Total Compensation Survey of Foundations) is caught by
+    // the "foundations?\s+compensation|compensation\s+survey\s+of\s+foundations"
+    // phrasing.
     category: "nonprofit",
-    rx: /\b(nonprofits?|non[-\s]?profit|not[-\s]?for[-\s]?profit|charit(y|ies|able)|endowments?|foundations?|associations?(\s+and\s+soc)?)\b/i,
+    rx: /\b(nonprofits?|non[-\s]?profit|not[-\s]?for[-\s]?profit|charit(y|ies|able)|endowments?|grantmaking|compensation\s+survey\s+of\s+foundations|foundations?\s+compensation)\b/i,
   },
   {
     category: "executive",
-    rx: /\b(executives?\b|CEOs?\b|c[-\s]?suite|c[-\s]?level|chief\s+executive|board\s+(of\s+directors|compensation)|NEOs?\b|senior\s+executive|top\s+executives?)\b/i,
+    rx: /\b(executive\s+(compensation|comp|survey|benefits|pay)|CEO\s+(compensation|comp|survey|pay)|c[-\s]?suite|chief\s+executive|board\s+(of\s+directors|compensation)|NEOs?\b|senior\s+executive)\b/i,
   },
   {
     category: "general-industry",
-    rx: /\b(general\s+industry|cross[-\s]?industry|multi[-\s]?industry|all\s+industries|total\s+remuneration\s+survey|TRS\b)\b/i,
+    rx: /\b(general\s+industry|cross[-\s]?industry|multi[-\s]?industry|all\s+industries|total\s+remuneration\s+survey|\bTRS\b)\b/i,
   },
   {
-    // "free" is a special case: match price fields, not title/description.
+    // "free" is a special case: match price fields, not title text.
     // Handled below in derive() via a separate check.
     category: "free",
     rx: /\b(free|no\s+cost|no\s+charge|\$0\b|complimentary)\b/i,
@@ -100,16 +115,10 @@ function normalize(cats: string): string[] {
 }
 
 function derive(vendor: VendorRow, reports: ReportRow[]): Set<string> {
-  // Two separate text blobs: industry blob (for most rules) and price blob
-  // (for the "free" rule — we don't want the word "free" in report notes
-  // like "free trial available" to flip the vendor).
-  const industryBlob = [
-    vendor.title,
-    vendor.industry_focus,
-    vendor.best_for,
-    vendor.notes,
-    ...reports.flatMap((r) => [r.title, r.description, r.notes]),
-  ]
+  // Only match against report titles + the vendor's own title. Descriptions
+  // and best_for prose kept flipping vendors into wrong buckets via stray
+  // words (e.g. CUPA-HR -> healthcare on "academic medical centers").
+  const industryBlob = [vendor.title, ...reports.map((r) => r.title)]
     .filter(Boolean)
     .join(" \n ");
 

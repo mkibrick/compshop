@@ -13,6 +13,8 @@ export interface SearchIndex {
     bestFor: string;
     jobFamilies: string;
     url: string;
+    regions?: string[];
+    geographicScope?: string;
   }[];
   reports: {
     slug: string;

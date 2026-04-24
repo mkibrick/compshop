@@ -154,7 +154,13 @@
       "Bash(npm init *)",
       "Bash(node render.js)",
       "Bash(node fix-milliman.js)",
-      "Bash(curl -sI \"https://www.google.com/s2/favicons?domain=croner.co.uk&sz=128\")"
+      "Bash(curl -sI \"https://www.google.com/s2/favicons?domain=croner.co.uk&sz=128\")",
+      "Bash(grep -n \"allSurveys,\\\\s*$\\\\|matchingSlugs,\\\\s*$\\\\|]\\\\\\);\\\\s*$\\\\|geoOptions\" /Users/maxkibrick/compshop/src/components/SurveyDirectory.tsx)",
+      "WebFetch(domain:www.croner.com)",
+      "WebFetch(domain:croner.com)",
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" \"https://www.croner.com/compensation-surveys\" -o /tmp/croner.html)",
+      "Bash(python3)",
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\" \"https://www.croner.com/croner-digital-content-technology-survey\" -o /tmp/croner-dct.html)"
     ]
   }
 }

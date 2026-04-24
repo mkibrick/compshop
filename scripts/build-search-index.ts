@@ -9,6 +9,7 @@ import Database from "better-sqlite3";
 import { writeFileSync, mkdirSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
+import { regionsForVendor } from "../src/lib/geography";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DB_PATH = resolve(__dirname, "../data/compshop.db");
@@ -32,6 +33,10 @@ interface VendorIdx {
   bestFor: string;
   jobFamilies: string;
   url: string;
+  /** Canonical region buckets: union of vendor scope + every report scope. */
+  regions: string[];
+  /** Raw vendor-level geographic_scope (kept for card display). */
+  geographicScope: string;
 }
 
 interface ReportIdx {
@@ -71,14 +76,29 @@ function main() {
   const db = new Database(DB_PATH, { readonly: true, fileMustExist: true });
 
   // ---------- Vendors ----------
-  const vendors = db
+  const vendorRows = db
     .prepare(
-      `SELECT slug, title, provider, industry_focus AS industry,
-              categories, best_for AS bestFor, job_families AS jobFamilies, url
+      `SELECT id, slug, title, provider, industry_focus AS industry,
+              categories, best_for AS bestFor, job_families AS jobFamilies,
+              url, geographic_scope AS geographicScope
        FROM surveys
        ORDER BY provider`
     )
-    .all() as VendorIdx[];
+    .all() as (Omit<VendorIdx, "regions"> & { id: number })[];
+
+  const reportScopesStmt = db.prepare(
+    "SELECT geographic_scope AS g FROM reports WHERE survey_id = ?"
+  );
+  const vendors: VendorIdx[] = vendorRows.map((v) => {
+    const reportScopes = (
+      reportScopesStmt.all(v.id) as { g: string }[]
+    ).map((r) => r.g);
+    const { id: _id, ...rest } = v;
+    return {
+      ...rest,
+      regions: regionsForVendor([v.geographicScope, ...reportScopes]),
+    };
+  });
 
   // ---------- Reports ----------
   const reports = db

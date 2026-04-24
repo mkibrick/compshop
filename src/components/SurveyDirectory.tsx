@@ -8,6 +8,7 @@ import SearchBar from "@/components/SearchBar";
 import VendorModal from "@/components/VendorModal";
 import MultiSelect, { MultiSelectOption } from "@/components/MultiSelect";
 import { loadIndex, vendorMatchCounts } from "@/lib/client-search";
+import { ALL_REGIONS, regionsForVendor } from "@/lib/geography";
 
 const categoryOptions: MultiSelectOption[] = [
   { label: "General Industry", value: "general-industry" },
@@ -26,12 +27,16 @@ const participationOptions: MultiSelectOption[] = [
   { label: "Not Required", value: "Not Required" },
 ];
 
-function buildGeoOptions(surveys: Survey[]): MultiSelectOption[] {
-  return Array.from(new Set(surveys.map((s) => s.geographicScope)))
-    .filter(Boolean)
-    .sort()
-    .map((g) => ({ label: g, value: g }));
-}
+/**
+ * Filter options are the full canonical region list from src/lib/geography.ts.
+ * The actual per-vendor membership comes from the search index (which unions
+ * vendor + report scopes at build time), not from `Survey.geographicScope`
+ * alone.
+ */
+const GEO_OPTIONS: MultiSelectOption[] = ALL_REGIONS.map((r) => ({
+  label: r,
+  value: r,
+}));
 
 function buildDeliveryOptions(surveys: Survey[]): MultiSelectOption[] {
   return Array.from(
@@ -71,6 +76,10 @@ export default function SurveyDirectory({
   const [matchingSlugs, setMatchingSlugs] = useState<Map<string, number> | null>(
     null
   );
+  /** vendor slug → canonical regions, loaded lazily from the search index. */
+  const [vendorRegions, setVendorRegions] = useState<Map<string, string[]>>(
+    new Map()
+  );
 
   useEffect(() => {
     const q = searchParams.get("q");
@@ -78,6 +87,29 @@ export default function SurveyDirectory({
     if (q) setSearch(q);
     if (cat) setCategories([cat]);
   }, [searchParams]);
+
+  // Load the region map once. The search index is the source of truth
+  // because its regions include report-level scopes (not just the vendor's
+  // own geographic_scope field).
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const idx = await loadIndex();
+        if (cancelled) return;
+        const m = new Map<string, string[]>();
+        for (const v of idx.vendors) {
+          m.set(v.slug, (v.regions as string[] | undefined) ?? []);
+        }
+        setVendorRegions(m);
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Compute vendor match counts against the client-side search index
   useEffect(() => {
@@ -102,7 +134,6 @@ export default function SurveyDirectory({
     };
   }, [search]);
 
-  const geoOptions = useMemo(() => buildGeoOptions(allSurveys), [allSurveys]);
   const deliveryOptions = useMemo(
     () => buildDeliveryOptions(allSurveys),
     [allSurveys]
@@ -120,13 +151,16 @@ export default function SurveyDirectory({
         !participation.includes(s.participationRequired)
       )
         return false;
-      if (
-        geos.length > 0 &&
-        !geos.some((g) =>
-          s.geographicScope.toLowerCase().includes(g.toLowerCase())
-        )
-      )
-        return false;
+      if (geos.length > 0) {
+        // Prefer the index-backed regions map (which unions vendor + report
+        // scopes). Fall back to the vendor's own scope classifier if the
+        // index hasn't loaded yet — prevents the filter from looking empty
+        // on first paint.
+        const regions =
+          vendorRegions.get(s.slug) ??
+          regionsForVendor([s.geographicScope]);
+        if (!geos.some((g) => regions.includes(g))) return false;
+      }
       if (
         deliveries.length > 0 &&
         !deliveries.some((d) =>
@@ -153,6 +187,7 @@ export default function SurveyDirectory({
     deliveries,
     allSurveys,
     matchingSlugs,
+    vendorRegions,
   ]);
 
   const activeFilters: ActiveFilter[] = [
@@ -232,7 +267,7 @@ export default function SurveyDirectory({
         />
         <MultiSelect
           label="Geography"
-          options={geoOptions}
+          options={GEO_OPTIONS}
           values={geos}
           onChange={setGeos}
         />
