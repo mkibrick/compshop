@@ -161,7 +161,8 @@
       "Bash(curl -sL -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\" \"https://www.croner.com/compensation-surveys\" -o /tmp/croner.html)",
       "Bash(python3)",
       "Bash(curl -sL -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\" \"https://www.croner.com/croner-digital-content-technology-survey\" -o /tmp/croner-dct.html)",
-      "WebFetch(domain:pas1.com)"
+      "WebFetch(domain:pas1.com)",
+      "Bash(xargs -r kill -9 sleep 2 lsof -ti :3000 :3001 :3002 :3003)"
     ]
   }
 }

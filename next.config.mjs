@@ -10,6 +10,9 @@ const nextConfig = {
       "*": [
         "./data/compshop.db",
         "./node_modules/better-sqlite3/build/Release/*.node",
+        // Bundled into serverless functions so /api/mcp can read it via fs
+        // at request time (much cheaper than refetching from the public URL).
+        "./public/search-index.json",
       ],
     },
   },

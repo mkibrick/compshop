@@ -80,6 +80,34 @@ const RULES: Rule[] = [
     rx: /\b(general\s+industry|cross[-\s]?industry|multi[-\s]?industry|all\s+industries|total\s+remuneration\s+survey|\bTRS\b)\b/i,
   },
   {
+    category: "construction",
+    rx: /\b(construction\s+(staff|management|support|industry|wage|compensation|comp|survey|sector)|for\s+contractors?\b|aggregates?\s+(industry|compensation|comp)|heavy\s*,?\s*highway|merit\s+shop|engineering\s+(and|&)\s+construction|construction\s+(and|&)\s+engineering)\b/i,
+  },
+  {
+    category: "energy",
+    rx: /\b(energy\s+(sector|industry|survey|compensation|comp|cross[-\s]segment|field|trading|chemical|policy\s+practices)|oilfield|upstream|downstream|midstream|utilities\s+(survey|compensation|industry)|natural\s+resources\s+survey|renewable\s+energy)\b/i,
+  },
+  {
+    category: "financial-services",
+    rx: /\b(financial\s+services|banking\s+(survey|compensation|comp|industry)|investment\s+(banking|management)|asset\s+management|wealth\s+management|fintech\b|consumer\s+finance|trust\s+(and|&)\s+private\s+banking|capital\s+markets|hedge\s+funds?|private\s+equity\s+portfolio|\bFSS\b)\b/i,
+  },
+  {
+    category: "insurance",
+    rx: /\b(insurance\s+(industry|carrier|executive|survey|company|compensation|comp|operations|supplement)|p[&\.\s]+c\s+insurance|life\s+insurance\s+(industry|compensation|comp|survey)|health\s+insurance\s+(industry|survey|suite)|property\s+(and|&)\s+casualty)\b/i,
+  },
+  {
+    category: "life-sciences",
+    rx: /\b(life\s+sciences?|biotech(nology)?|biopharma|pharmaceutical|pharma\b|medical\s+device)\b/i,
+  },
+  {
+    category: "media",
+    rx: /\b(media\s+(survey|compensation|comp|industry|sales)|entertainment\s+(survey|compensation|comp)|broadcasting|digital\s+content|software\s+games|animation\s+(and|&)\s+visual\s+effects|local\s+media|tech,\s*media\s+(and|&)\s+gaming|content\s+developers|connectivity\s+providers)\b/i,
+  },
+  {
+    category: "retail",
+    rx: /\b(retail\s+(compensation|industry|survey|banking|benefits|comp)|consumer\s+products\s+(and|&)\s+retail|consumer\s+goods\s+(and|&)\s+retail)\b/i,
+  },
+  {
     // "free" is a special case: match price fields, not title text.
     // Handled below in derive() via a separate check.
     category: "free",
