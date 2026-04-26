@@ -22,6 +22,12 @@ export default function Footer() {
             >
               Blog
             </Link>
+            <Link
+              href="/mcp"
+              className="text-xs text-gray-400 hover:text-white underline underline-offset-2"
+            >
+              For AI tools
+            </Link>
             <button
               type="button"
               onClick={() => setOpen(true)}
