@@ -2,19 +2,7 @@ import { Survey } from "@/lib/types";
 import ParticipationBadge from "./ParticipationBadge";
 import VendorLogo from "./VendorLogo";
 import { vendorOutbound } from "@/lib/outbound";
-
-function stripRedundantProvider(title: string, provider: string): string {
-  const t = title.trim();
-  const p = provider.trim();
-  if (!p) return t;
-  // Drop a leading provider name (with optional separator) from the title.
-  const re = new RegExp(
-    `^${p.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}\\s*[-—:|·]?\\s*`,
-    "i"
-  );
-  const stripped = t.replace(re, "").trim();
-  return stripped.length > 0 ? stripped : t;
-}
+import { stripProviderPrefix } from "@/lib/strip-provider";
 
 export default function SurveyCard({
   survey,
@@ -25,7 +13,7 @@ export default function SurveyCard({
   onOpen?: (slug: string) => void;
   matchCount?: number;
 }) {
-  const displayTitle = stripRedundantProvider(survey.title, survey.provider);
+  const displayTitle = stripProviderPrefix(survey.title, survey.provider);
 
   const content = (
     <>

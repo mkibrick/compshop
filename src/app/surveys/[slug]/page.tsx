@@ -6,6 +6,7 @@ import { getReportsForSurveySlug } from "@/lib/reports";
 import VendorLogo from "@/components/VendorLogo";
 import { SITE_URL } from "@/lib/site-url";
 import { vendorOutbound } from "@/lib/outbound";
+import { stripProviderPrefix } from "@/lib/strip-provider";
 
 function ReportLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -98,6 +99,23 @@ function subBrand(slug: string): { label: string; className: string } | null {
   if (slug.startsWith("radford-"))
     return { label: "Radford", className: "bg-teal-50 text-teal-700 border-teal-200" };
   return null;
+}
+
+/**
+ * Vendor-specific shortened forms used as a report-title prefix. The
+ * vendor's `provider` name is always tried first; this list catches
+ * vendors whose reports start with a brand abbreviation rather than
+ * the legal name.
+ */
+const PROVIDER_ALIASES: Record<string, string[]> = {
+  "the croner company": ["Croner"],
+  "willis towers watson (wtw)": ["WTW", "Willis Towers Watson"],
+  "u.s. bureau of labor statistics": ["BLS"],
+  "pas, inc.": ["PAS"],
+};
+
+function aliasesFor(provider: string): string[] {
+  return PROVIDER_ALIASES[provider.toLowerCase()] ?? [];
 }
 
 export default function VendorPage({ params }: { params: { slug: string } }) {
@@ -294,7 +312,7 @@ function ReportsSection({
               </div>
               <ul className="space-y-2">
                 {buckets[bucket].map((r) => (
-                  <ReportItem key={r.slug} report={r} />
+                  <ReportItem key={r.slug} report={r} provider={provider} />
                 ))}
               </ul>
             </div>
@@ -303,7 +321,7 @@ function ReportsSection({
       ) : (
         <ul className="space-y-2">
           {reports.map((r) => (
-            <ReportItem key={r.slug} report={r} />
+            <ReportItem key={r.slug} report={r} provider={provider} />
           ))}
         </ul>
       )}
@@ -319,10 +337,19 @@ function bucketLabel(b: ScopeBucket): string {
 
 function ReportItem({
   report: r,
+  provider,
 }: {
   report: ReturnType<typeof getReportsForSurveySlug>[number];
+  provider: string;
 }) {
   const sb = subBrand(r.slug);
+  // On the vendor page the provider context is implicit, so strip a
+  // redundant leading provider name from each report title. Sub-branded
+  // reports (Aon's McLagan/Radford) keep their full title because the
+  // sub-brand badge handles the visual prefix.
+  const displayTitle = sb
+    ? r.title
+    : stripProviderPrefix(r.title, provider, aliasesFor(provider));
   return (
     <li>
       <ReportLink href={`/reports/${r.slug}`}>
@@ -336,7 +363,7 @@ function ReportItem({
                   {sb.label}
                 </span>
               )}
-              {r.title}
+              {displayTitle}
             </h3>
             {r.description && (
               <p className="mt-1 text-sm text-gray-600 line-clamp-2">
