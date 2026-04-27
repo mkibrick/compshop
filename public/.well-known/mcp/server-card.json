@@ -1,0 +1,213 @@
+{
+  "serverInfo": {
+    "name": "compshop",
+    "version": "0.1.0",
+    "title": "CompShop",
+    "description": "Independent directory of 350+ compensation surveys. Read-only MCP tools to search, filter, and recommend salary-survey publishers (Mercer, WTW, Aon Radford, Pearl Meyer, SullivanCotter, Gallagher, Empsight, Culpepper, Croner, PAS, and more) by industry, region, or job title.",
+    "homepage": "https://www.comp-shop.com/mcp"
+  },
+  "protocolVersion": "2024-11-05",
+  "capabilities": {
+    "tools": {}
+  },
+  "authentication": {
+    "required": false,
+    "schemes": []
+  },
+  "tools": [
+    {
+      "name": "search",
+      "description": "Free-text search across the CompShop directory of compensation surveys. Returns matching vendors, reports, job families, and positions. Use for open-ended discovery questions like 'biotech surveys in Europe' or 'CEO compensation data'.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Free-text query (job title, industry, vendor, geography, etc.)"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Max results per group (default 5, max 15)",
+            "minimum": 1,
+            "maximum": 15
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "list_vendors_by_industry",
+      "description": "List every CompShop vendor that publishes surveys for a given industry. Use when the user asks 'what survey publishers cover [industry]?'",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "industry": {
+            "type": "string",
+            "description": "Industry category. One of: general-industry, healthcare, life-sciences, tech, media, financial-services, insurance, energy, construction, retail, higher-ed, legal, nonprofit, executive, free.",
+            "enum": [
+              "general-industry",
+              "healthcare",
+              "life-sciences",
+              "tech",
+              "media",
+              "financial-services",
+              "insurance",
+              "energy",
+              "construction",
+              "retail",
+              "higher-ed",
+              "legal",
+              "nonprofit",
+              "executive",
+              "free"
+            ]
+          }
+        },
+        "required": [
+          "industry"
+        ]
+      }
+    },
+    {
+      "name": "list_vendors_by_region",
+      "description": "List vendors with survey coverage in a given region. Use when the user asks 'what publishers cover [region]?' Region is matched against both vendor-level scope and individual report scopes.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "region": {
+            "type": "string",
+            "description": "One of: United States, Canada, United Kingdom, Europe, Asia Pacific, Latin America, Middle East & Africa, Global.",
+            "enum": [
+              "United States",
+              "Canada",
+              "United Kingdom",
+              "Europe",
+              "Asia Pacific",
+              "Latin America",
+              "Middle East & Africa",
+              "Global"
+            ]
+          }
+        },
+        "required": [
+          "region"
+        ]
+      }
+    },
+    {
+      "name": "find_surveys_for_position",
+      "description": "Find compensation surveys that benchmark a specific job title or position (e.g. 'Software Engineer', 'Director of Finance', 'Registered Nurse'). Returns matching positions and the surveys that cover them.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "position": {
+            "type": "string",
+            "description": "Job title or position to look up (free text)."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Max position matches to return (default 5, max 20)",
+            "minimum": 1,
+            "maximum": 20
+          }
+        },
+        "required": [
+          "position"
+        ]
+      }
+    },
+    {
+      "name": "get_vendor",
+      "description": "Detailed info on a specific vendor by slug, including all of their reports. Use after `search` or `list_vendors_by_industry` returns a candidate.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "Vendor slug (e.g. 'mercer-benchmark-database', 'pas', 'wtw')."
+          }
+        },
+        "required": [
+          "slug"
+        ]
+      }
+    },
+    {
+      "name": "get_report",
+      "description": "Detailed info on a single survey report by slug.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "Report slug (e.g. 'pas-aggregates-industry')."
+          }
+        },
+        "required": [
+          "slug"
+        ]
+      }
+    },
+    {
+      "name": "recommend_surveys",
+      "description": "Recommend the best-fit compensation surveys given a hiring/benchmarking context. Use when the user asks 'what survey should I use for [situation]?' Returns ranked vendors with rationale. Required: industry. Optional: region, role focus.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "industry": {
+            "type": "string",
+            "description": "Primary industry. One of: general-industry, healthcare, life-sciences, tech, media, financial-services, insurance, energy, construction, retail, higher-ed, legal, nonprofit, executive, free.",
+            "enum": [
+              "general-industry",
+              "healthcare",
+              "life-sciences",
+              "tech",
+              "media",
+              "financial-services",
+              "insurance",
+              "energy",
+              "construction",
+              "retail",
+              "higher-ed",
+              "legal",
+              "nonprofit",
+              "executive",
+              "free"
+            ]
+          },
+          "region": {
+            "type": "string",
+            "description": "Optional. One of: United States, Canada, United Kingdom, Europe, Asia Pacific, Latin America, Middle East & Africa, Global.",
+            "enum": [
+              "United States",
+              "Canada",
+              "United Kingdom",
+              "Europe",
+              "Asia Pacific",
+              "Latin America",
+              "Middle East & Africa",
+              "Global"
+            ]
+          },
+          "role_focus": {
+            "type": "string",
+            "description": "Optional free-text describing the role types being benchmarked (e.g. 'software engineers', 'physicians', 'sales reps', 'CEO and C-suite')."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Max recommendations (default 5, max 10)",
+            "minimum": 1,
+            "maximum": 10
+          }
+        },
+        "required": [
+          "industry"
+        ]
+      }
+    }
+  ],
+  "resources": [],
+  "prompts": []
+}
