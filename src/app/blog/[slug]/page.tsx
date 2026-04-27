@@ -68,12 +68,37 @@ export default function BlogPostPage({
     mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
   };
 
+  // Emit FAQPage JSON-LD when the post supplies a faq array. Helps LLMs
+  // and AI Overviews pull Q&A pairs as direct answers (and is one of the
+  // few schema types that still gets surfaced in modern Google results).
+  const faqJsonLd =
+    post.faq && post.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: post.faq.map((entry) => ({
+            "@type": "Question",
+            name: entry.q,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: entry.a,
+            },
+          })),
+        }
+      : null;
+
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
 
       <nav className="mb-8 text-sm">
         <Link

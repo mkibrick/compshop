@@ -179,7 +179,9 @@
       "Read(//tmp/**)",
       "Bash(curl -sL \"https://raw.githubusercontent.com/modelcontextprotocol/registry/main/docs/modelcontextprotocol-io/quickstart.mdx\" -o /tmp/quickstart.mdx)",
       "Read(//private/tmp/**)",
-      "Bash(curl -sL \"https://raw.githubusercontent.com/modelcontextprotocol/registry/main/docs/modelcontextprotocol-io/remote-servers.mdx\" -o /tmp/remote.mdx)"
+      "Bash(curl -sL \"https://raw.githubusercontent.com/modelcontextprotocol/registry/main/docs/modelcontextprotocol-io/remote-servers.mdx\" -o /tmp/remote.mdx)",
+      "Bash(python3 -c ' *)",
+      "Bash(git commit -m 'Shorten server.json description to 100-char registry limit *)"
     ]
   }
 }

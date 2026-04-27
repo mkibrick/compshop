@@ -27,6 +27,12 @@ export interface BlogPost {
   /** SEO target + secondary keywords. Becomes the <meta name="keywords">. */
   keywords?: string[];
   body: string;
+  /**
+   * Optional Q&A pairs that get emitted as schema.org FAQPage JSON-LD on
+   * the post page. Increases citation rate when LLMs and AI Overviews
+   * extract direct answers from the post.
+   */
+  faq?: Array<{ q: string; a: string }>;
 }
 
 const POSTS: BlogPost[] = [
@@ -47,6 +53,24 @@ const POSTS: BlogPost[] = [
       "LLM salary benchmarks",
       "AI pay benchmarking",
       "salary survey vs AI",
+    ],
+    faq: [
+      {
+        q: "Can I use ChatGPT for salary benchmarking?",
+        a: "For exploratory research, yes. For setting actual pay ranges or defending pay decisions, no. Large language models don't have access to primary survey data and can't verify what they generate.",
+      },
+      {
+        q: "Is AI salary data accurate?",
+        a: "AI salary estimates reflect what was in the training data, typically public sources that are self-reported and often stale. Accuracy varies widely by role and market, and it should not be treated as a primary data source.",
+      },
+      {
+        q: "What's the difference between AI and a salary survey?",
+        a: "A salary survey collects primary data from employers, applies job matching, and documents methodology. AI generates plausible responses based on public content. Different inputs, different reliability.",
+      },
+      {
+        q: "Will AI replace salary surveys in the future?",
+        a: "Unlikely for formal pay decisions. AI could make survey data easier to query and summarize, but without a verified, audited source of primary data underneath, the outputs won't be defensible.",
+      },
     ],
     body: `If you've ever asked ChatGPT "what's the market rate for a senior software engineer in Boston," you've probably gotten a fluent, confident, specific-looking answer. It probably looked good enough to paste into a slide.
 

@@ -1,0 +1,48 @@
+# CompShop
+
+> Independent directory of compensation and salary surveys. Search 350+ reports from 20+ publishers (Mercer, WTW, Aon Radford McLagan, SullivanCotter, Pearl Meyer, Gallagher, Empsight, Culpepper, Milliman, Croner, PAS, and more) by industry, geography, or job title.
+
+CompShop is independent: not a reseller, not a referral broker. Vendor data is compiled from public sources. Each report links directly to the publisher's product page.
+
+## Browse the directory
+
+- [All surveys](https://www.comp-shop.com/surveys): filterable directory of every report and publisher
+- [Sitemap (XML)](https://www.comp-shop.com/sitemap.xml): every vendor, report, family, and position page
+- [Search index (JSON)](https://www.comp-shop.com/search-index.json): pre-built JSON of all directory entities — useful for bulk programmatic access
+
+## For AI agents and integrations
+
+- [MCP server](https://www.comp-shop.com/mcp): seven read-only Model Context Protocol tools for searching, filtering, and recommending surveys directly from AI assistants. Endpoint: `https://www.comp-shop.com/api/mcp`.
+- [Server card](https://www.comp-shop.com/.well-known/mcp/server-card.json): full MCP capability descriptor
+
+## Vendors
+
+- [Aon](https://www.comp-shop.com/surveys/radford-mclagan): Technology, Life Sciences, Financial Services
+- [Birches Group](https://www.comp-shop.com/surveys/birches-group): International NGOs, Development Organizations, Government
+- [CUPA-HR](https://www.comp-shop.com/surveys/cupa-hr-administrators): Higher Education
+- [CompData](https://www.comp-shop.com/surveys/compdata): Multi-industry (18 named cuts)
+- [Culpepper](https://www.comp-shop.com/surveys/culpepper): Technology, Life Sciences, Engineering
+- [Empsight](https://www.comp-shop.com/surveys/empsight): General Industry, Executive, Functional
+- [Gallagher](https://www.comp-shop.com/surveys/gallagher): Healthcare, Nonprofit, Regional, General Industry
+- [Korn Ferry](https://www.comp-shop.com/surveys/korn-ferry): Multi-industry (exec comp, industrial, financial services, life sciences, tech)
+- [LOMA](https://www.comp-shop.com/surveys/loma): Life Insurance, Health Insurance, Financial Services
+- [MGMA](https://www.comp-shop.com/surveys/mgma-provider-compensation): Healthcare
+- [MRA](https://www.comp-shop.com/surveys/mra): General Industry, Manufacturing, Nonprofit
+- [Mercer](https://www.comp-shop.com/surveys/mercer-benchmark-database): General Industry / Cross-Industry
+- [Milliman](https://www.comp-shop.com/surveys/milliman): General Industry (Pacific Northwest), Insurance, Healthcare, Actuarial
+- [PAS, Inc.](https://www.comp-shop.com/surveys/pas): Construction (general contractors, construction management, heavy civil/highway, aggregates, merit shop)
+- [Pearl Meyer](https://www.comp-shop.com/surveys/pearl-meyer): Executive Compensation, Banking, Healthcare, Multi-Industry
+- [SullivanCotter](https://www.comp-shop.com/surveys/sullivancotter): Healthcare, Physicians, Advanced Practice Providers, Nursing
+- [The Croner Company](https://www.comp-shop.com/surveys/croner): Digital Media, Software & Games, Animation & VFX, Entertainment, Broadcasting, Foundations
+- [U.S. Bureau of Labor Statistics](https://www.comp-shop.com/surveys/bls-oews): Cross-industry (all NAICS sectors)
+- [Western Management Group](https://www.comp-shop.com/surveys/western-management-group): Wine, Utilities, Government Contractors, Education, Retail, Distribution, Credit Unions
+- [Willis Towers Watson (WTW)](https://www.comp-shop.com/surveys/wtw): Multi-industry
+
+## Editorial
+
+- [Blog](https://www.comp-shop.com/blog): notes on the salary-survey market, vendor methodology, AI vs surveys
+
+## Optional
+
+- [Job families](https://www.comp-shop.com/sitemap.xml): every canonical job-family page (linked from sitemap)
+- [Positions](https://www.comp-shop.com/sitemap.xml): every canonical position page (linked from sitemap)
