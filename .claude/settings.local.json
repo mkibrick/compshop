@@ -166,7 +166,20 @@
       "Bash(curl -sS https://www.comp-shop.com/api/mcp -H 'content-type: application/json' -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\"}')",
       "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('tools count:', len\\(d['result']['tools']\\)\\); print\\('names:', [t['name'] for t in d['result']['tools']]\\)\")",
       "WebFetch(domain:smithery.ai)",
-      "Bash(python3 -c \"import json; d=json.load\\(open\\('public/.well-known/mcp/server-card.json'\\)\\); print\\('serverInfo:', d['serverInfo']['name'], d['serverInfo']['version']\\); print\\('tools:', len\\(d['tools']\\)\\); print\\('first tool:', d['tools'][0]['name']\\)\")"
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('public/.well-known/mcp/server-card.json'\\)\\); print\\('serverInfo:', d['serverInfo']['name'], d['serverInfo']['version']\\); print\\('tools:', len\\(d['tools']\\)\\); print\\('first tool:', d['tools'][0]['name']\\)\")",
+      "Bash(curl -sI \"https://www.comp-shop.com/.well-known/mcp/server-card.json\")",
+      "Bash(curl -sI \"https://comp-shop.com/.well-known/mcp/server-card.json\")",
+      "Bash(curl -sI \"https://www.comp-shop.com/search-index.json\")",
+      "WebFetch(domain:mcp.so)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" -A \"Mozilla/5.0\" \"https://mcp.so/server/this-definitely-does-not-exist-zzz\")",
+      "Bash(curl -sL -A \"Mozilla/5.0\" \"https://mcp.so/server/github\")",
+      "Bash(curl -sL -A \"Mozilla/5.0\" \"https://mcp.so/server/compshop\")",
+      "Bash(curl -sL -A \"Mozilla/5.0\" \"https://mcp.so/server/comp-shop\")",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/modelcontextprotocol/servers/main/CONTRIBUTING.md\" -o /tmp/contrib.md)",
+      "Read(//tmp/**)",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/modelcontextprotocol/registry/main/docs/modelcontextprotocol-io/quickstart.mdx\" -o /tmp/quickstart.mdx)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/modelcontextprotocol/registry/main/docs/modelcontextprotocol-io/remote-servers.mdx\" -o /tmp/remote.mdx)"
     ]
   }
 }

@@ -60,67 +60,74 @@ Go to https://glama.ai/mcp/servers and click "Submit a server":
 
 ---
 
-## 4. Anthropic's official MCP servers registry (GitHub PR)
+## 4. Anthropic's official MCP Registry (`mcp-publisher` CLI)
 
-Repo: https://github.com/modelcontextprotocol/servers
+Repo: https://github.com/modelcontextprotocol/registry
+Browse: https://registry.modelcontextprotocol.io/
 
-The README has a `### 🌎 Third-Party Servers` section with sub-sections.
-The right one is "Official Integrations" if Anthropic has worked with you,
-otherwise "Community Servers" — use **Community Servers**.
+**Note:** The old `modelcontextprotocol/servers` README list of
+third-party servers was retired in April 2026. Anthropic now points
+discovery at the MCP Registry instead. Submission is via a CLI tool, not
+a GitHub PR. Higher leverage than the old README — this is the canonical
+list every official MCP client checks.
 
-### PR title
+### What's already in this repo
 
-```
-Add CompShop: directory of compensation surveys
-```
+`server.json` at the repo root is the metadata file the registry reads:
 
-### PR body
+- `name: io.github.mkibrick/compshop` — namespace must start with
+  `io.github.<github-username>/` for GitHub-based auth.
+- `remotes` array with our `streamable-http` endpoint.
+- Icon, repo link, website URL.
 
-```markdown
-Adds the CompShop MCP server to the Community Servers list.
+If our endpoint URL or version ever changes, bump `version` in
+`server.json` and re-run the publish step below.
 
-CompShop is an independent directory of 350+ compensation surveys
-(Mercer, Aon Radford McLagan, WTW, SullivanCotter, Gallagher, Pearl
-Meyer, Empsight, Culpepper, Milliman, MRA, Birches Group, LOMA,
-CompData, Croner, PAS, and more). The MCP server exposes seven
-read-only tools so AI assistants can search, filter, and recommend
-surveys with real, sourced data instead of hallucinated salary ranges.
+### One-time setup (local machine, ~5 minutes)
 
-- Endpoint: https://www.comp-shop.com/api/mcp
-- Install docs: https://www.comp-shop.com/mcp
-- Source: this repository (Next.js App Router route handler at /api/mcp)
+Install the CLI:
 
-Tools:
-- `search` — free-text discovery across vendors, reports, families, positions
-- `list_vendors_by_industry` — filter by industry category
-- `list_vendors_by_region` — filter by canonical region
-- `find_surveys_for_position` — surveys that benchmark a given job title
-- `get_vendor` / `get_report` — detail lookups
-- `recommend_surveys` — ranked best-fit recommendations
+```bash
+brew install mcp-publisher
+# or, without homebrew:
+curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" \
+  | tar xz mcp-publisher \
+  && sudo mv mcp-publisher /usr/local/bin/
 
-No authentication required. Read-only.
+mcp-publisher --help   # smoke-test the install
 ```
 
-### README diff
+### Publish
 
-In the Community Servers section, add this line in alphabetical order
-(should slot between B and D entries):
+From the repo root (where `server.json` lives):
 
-```markdown
-- **[CompShop](https://www.comp-shop.com/mcp)** - Independent directory of 350+ compensation surveys. Search, filter, and recommend salary-survey publishers by industry, region, or job title.
+```bash
+mcp-publisher login github
+# Follow the device-code flow it prints. Authorize the MCP Registry app.
+
+mcp-publisher publish
+# Reads server.json, validates against the schema, publishes.
 ```
 
-### Steps
+Successful output ends with a line like:
 
-1. Fork github.com/modelcontextprotocol/servers
-2. Edit `README.md`, add the line above to the Community Servers list
-3. Commit:
-   ```
-   git checkout -b add-compshop
-   git commit -am "Add CompShop to community servers"
-   git push origin add-compshop
-   ```
-4. Open the PR with the title and body above.
+```
+Published io.github.mkibrick/compshop@0.1.0 to https://registry.modelcontextprotocol.io
+```
+
+### Verify
+
+```bash
+curl "https://registry.modelcontextprotocol.io/v0.1/servers?search=compshop"
+```
+
+Should return a JSON document containing the entry you just published.
+
+### Updating later
+
+To push changes, bump `version` in `server.json` and re-run
+`mcp-publisher publish`. The registry treats each version as immutable;
+the latest version is what clients see.
 
 ---
 

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.mkibrick/compshop",
+  "title": "CompShop",
+  "description": "Independent directory of 350+ compensation surveys. Search, filter, and recommend salary-survey publishers (Mercer, WTW, Aon Radford, Pearl Meyer, SullivanCotter, Gallagher, Empsight, Culpepper, Croner, PAS, and more) by industry, region, or job title. Read-only, no auth required.",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/mkibrick/compshop",
+    "source": "github"
+  },
+  "websiteUrl": "https://www.comp-shop.com/mcp",
+  "icons": [
+    {
+      "src": "https://www.comp-shop.com/logo-mark.svg",
+      "mimeType": "image/svg+xml",
+      "sizes": ["any"]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://www.comp-shop.com/api/mcp"
+    }
+  ]
+}
