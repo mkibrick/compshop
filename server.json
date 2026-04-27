@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.mkibrick/compshop",
   "title": "CompShop",
-  "description": "Independent directory of 350+ compensation surveys. Search, filter, and recommend salary-survey publishers (Mercer, WTW, Aon Radford, Pearl Meyer, SullivanCotter, Gallagher, Empsight, Culpepper, Croner, PAS, and more) by industry, region, or job title. Read-only, no auth required.",
+  "description": "Search 350+ compensation surveys by industry, region, or job title. Independent directory.",
   "version": "0.1.0",
   "repository": {
     "url": "https://github.com/mkibrick/compshop",
