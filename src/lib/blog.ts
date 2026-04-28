@@ -157,6 +157,130 @@ Unlikely for formal pay decisions. AI could make survey data easier to query and
 
 [Browse the CompShop directory of salary surveys.](/surveys)`,
   },
+  {
+    slug: "what-is-a-salary-survey",
+    title:
+      "What Is a Salary Survey? A Guide to Compensation Benchmarking and Pay Strategy",
+    description:
+      "A salary survey is the foundation of any defensible compensation program. Here's what they are, how they work, and how they power benchmarking and pay strategy.",
+    date: "2026-04-27",
+    readTime: "5 min read",
+    author: "CompShop",
+    tags: ["Compensation 101"],
+    keywords: [
+      "what is a salary survey",
+      "salary survey definition",
+      "compensation benchmarking",
+      "compensation strategy",
+      "market pricing",
+      "salary benchmarking process",
+    ],
+    body: `A salary survey is the backbone of every defensible compensation program. Most HR and finance leaders don't think about them seriously until the first time someone asks "how did we set this pay range," and they don't have a good answer.
+
+This post covers the basics: what a salary survey is, the different types, and how survey data feeds into compensation benchmarking and broader pay strategy.
+
+## What is a salary survey?
+
+A salary survey is a structured, third-party-collected dataset of compensation information for specific jobs at specific companies. Survey publishers gather pay data from participating employers, clean and validate it, and report it back as benchmarks: medians, percentiles, and comparison cuts by industry, geography, company size, and revenue.
+
+The value of a salary survey is not just the numbers. It's the structure: standardized job descriptions, consistent leveling, and statistical cleaning that lets you compare your pay against the market on like-for-like terms.
+
+## How salary surveys differ from free salary data
+
+Free salary data sources rely on self-reported, unverified information. Salary surveys collect data directly from HR teams using a defined methodology, typically:
+
+- **Incumbent-based:** data reported per employee (job, comp, tenure, location).
+- **Job-match-based:** data reported per role, matched to a benchmark job description.
+
+Both methodologies produce the standardized, defensible data you need for setting formal pay ranges, supporting board decisions, and answering pay equity questions.
+
+## Types of salary surveys
+
+Comp pros typically choose surveys across four dimensions:
+
+1. **Scope.** Broad multi-industry vs. industry-specific (healthcare, tech, nonprofit, higher education, financial services).
+2. **Methodology.** Incumbent-based vs. job-match-based.
+3. **Geography.** US national, regional, global, or country-specific.
+4. **Pay element coverage.** Base salary only, total cash compensation, or total direct compensation including equity and long-term incentives.
+
+The right mix for your organization depends on your industry, geographic footprint, and the kinds of decisions you need to make.
+
+## How salary surveys power compensation benchmarking
+
+Compensation benchmarking is the process of comparing your internal pay against the external market. Salary surveys are the input.
+
+The basic benchmarking workflow:
+
+1. **Match jobs.** Map your internal roles to benchmark jobs in the survey using leveling and job descriptions.
+2. **Pull market data.** Extract relevant percentiles (typically 25th, 50th, 75th, 90th) for each matched job.
+3. **Age the data.** Adjust survey data forward by an aging factor to reflect current values.
+4. **Cut by relevant dimensions.** Filter by industry, geography, company size, or revenue.
+5. **Compare to internal pay.** Calculate compa-ratios, range penetration, and pay equity gaps.
+
+Without survey data, benchmarking is guesswork. With survey data, it becomes a defensible, repeatable process you can re-run every year.
+
+## How salary surveys shape compensation strategy
+
+Once you have benchmarking data, you can make strategic decisions about how your organization positions itself in the market:
+
+- **Pay positioning.** Will you pay at the 50th percentile (market median), 75th (above market to attract talent), or 25th (cost-conservative)? Different decisions for different roles is normal and common.
+- **Pay range structure.** Survey data informs range minimums, midpoints, and maximums for each pay grade.
+- **Geographic differentials.** How much should you pay an engineer in Atlanta vs. San Francisco? Surveys provide the answer.
+- **Variable pay design.** Bonus targets, sales commission rates, and equity mix decisions all reference survey norms.
+- **Long-term planning.** Year-over-year survey trends tell you whether your market is moving 3% or 15%, which drives merit budgets and total comp planning.
+
+A compensation strategy without survey data is opinion. With survey data, it becomes a position you can defend to the board, employees, regulators, and candidates.
+
+## A simple buying framework for first-time buyers
+
+If you've never bought a salary survey before, the decision tree is straightforward:
+
+1. **Define your scope.** Industry, geography, and the segments you most need data for.
+2. **Shortlist vendors that match that scope.** Use a directory or peer recommendations to find providers covering your industry and geography.
+3. **Compare on coverage and methodology** rather than headline price. The cheapest survey is the wrong choice if it doesn't cover your roles.
+4. **Confirm publication cadence and aging factors.** Make sure the data refresh aligns with your comp cycle.
+5. **Buy, match, benchmark, repeat annually.**
+
+## FAQ
+
+### How often should you buy a new salary survey?
+
+Annually for primary surveys. Semi-annually or as needed for hot segments. Two-year-old survey data is generally too stale for setting current pay ranges.
+
+### Do you need a salary survey if you already have free data?
+
+Yes. Free data is self-reported and unverified, so it cannot support defensible pay decisions. Paid salary surveys are the standard for setting formal pay ranges, supporting board-level decisions, and meeting pay equity and pay transparency requirements.
+
+### What is the most widely used salary survey?
+
+There is no single dominant survey. Mercer, Radford (now part of Aon), Willis Towers Watson, and Korn Ferry are the largest by participant count. Industry-specific surveys (CUPA-HR for higher education, SullivanCotter for healthcare, CompData for general industry) often outperform general-market surveys within their domains.
+
+### Can a small business buy a salary survey?
+
+Yes. Many regional, association, and specialty surveys are sized for small to mid-sized employers. Some industry associations and regional chambers of commerce also offer compensation data as a member benefit.
+
+## Looking for the right salary survey?
+
+[Browse the CompShop directory](/surveys) and filter by industry, geography, and methodology.`,
+    faq: [
+      {
+        q: "How often should you buy a new salary survey?",
+        a: "Annually for primary surveys. Semi-annually or as needed for hot segments. Two-year-old survey data is generally too stale for setting current pay ranges.",
+      },
+      {
+        q: "Do you need a salary survey if you already have free data?",
+        a: "Yes. Free data is self-reported and unverified, so it cannot support defensible pay decisions. Paid salary surveys are the standard for setting formal pay ranges, supporting board-level decisions, and meeting pay equity and pay transparency requirements.",
+      },
+      {
+        q: "What is the most widely used salary survey?",
+        a: "There is no single dominant survey. Mercer, Radford (now part of Aon), Willis Towers Watson, and Korn Ferry are the largest by participant count. Industry-specific surveys (CUPA-HR for higher education, SullivanCotter for healthcare, CompData for general industry) often outperform general-market surveys within their domains.",
+      },
+      {
+        q: "Can a small business buy a salary survey?",
+        a: "Yes. Many regional, association, and specialty surveys are sized for small to mid-sized employers. Some industry associations and regional chambers of commerce also offer compensation data as a member benefit.",
+      },
+    ],
+  },
 ];
 
 export function getAllPosts(): BlogPost[] {
