@@ -27,23 +27,12 @@ export default function BlogIndexPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
       <header className="mb-10 sm:mb-14">
-        <p
-          className="text-xs font-medium uppercase text-stone-500 mb-3"
-          style={{ letterSpacing: "0.08em" }}
-        >
-          CompShop Blog
-        </p>
         <h1
           className="font-display text-4xl sm:text-5xl text-navy"
           style={{ letterSpacing: "-0.02em", fontWeight: 400, lineHeight: 1.1 }}
         >
-          Notes on the salary-survey market.
+          Blog
         </h1>
-        <p className="mt-4 text-base sm:text-lg text-stone-500 max-w-2xl">
-          Short, practical writing about how compensation surveys work, what
-          each publisher actually covers, and how to assemble a benchmarking
-          stack that fits your organization.
-        </p>
       </header>
 
       {posts.length === 0 ? (
