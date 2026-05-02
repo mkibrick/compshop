@@ -6,12 +6,23 @@
  * doesn't kill the build. On parse failure we log a warning and fall back
  * to localhost.
  */
+/**
+ * Hostnames we should canonicalize to a `www.` prefix even if the env var
+ * was set to the apex form. Vercel serves the apex with a 308 redirect to
+ * www, so emitting apex URLs in canonicals / sitemap / JSON-LD just adds
+ * redirect chains and confuses indexers.
+ */
+const WWW_HOSTS = new Set(["comp-shop.com"]);
+
 function resolve(): string {
   const raw = process.env.NEXT_PUBLIC_SITE_URL;
   if (!raw) return "http://localhost:3000";
   const trimmed = raw.trim();
   try {
     const u = new URL(trimmed);
+    if (WWW_HOSTS.has(u.hostname)) {
+      u.hostname = `www.${u.hostname}`;
+    }
     return u.origin;
   } catch {
     // eslint-disable-next-line no-console
