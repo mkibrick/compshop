@@ -281,6 +281,145 @@ Yes. Many regional, association, and specialty surveys are sized for small to mi
       },
     ],
   },
+  {
+    slug: "get-salary-survey-approved-by-cfo",
+    title: "How to Get Your CFO to Approve a Salary Survey Purchase",
+    description:
+      "Need budget for a compensation survey but finance is pushing back? Here's the ROI case, objection handling, and template to get your CFO to sign off.",
+    date: "2026-04-27",
+    readTime: "5 min read",
+    author: "CompShop",
+    tags: ["Compensation Strategy"],
+    keywords: [
+      "justify salary survey budget",
+      "salary survey ROI",
+      "CFO approval compensation data",
+      "compensation budget justification",
+      "HR budget salary survey",
+      "how to expense a salary survey",
+    ],
+    body: `You know you need current, defensible market data. Finance wants to know why a paid compensation survey is worth budgeting for when "free salary sites are right there."
+
+Here's the argument that works.
+
+## Reframe the ask from cost to risk
+
+The first mistake most HR leaders make is pitching salary surveys as a "data subscription." CFOs don't fund subscriptions. They fund risk reduction, revenue protection, and compliance.
+
+Reframe it:
+
+- **Instead of:** "We'd like to budget for a compensation survey."
+- **Try:** "To protect against turnover, compression, and pay equity exposure, we need current third-party market data. The downside of not having it is materially higher than the cost."
+
+## The four arguments CFOs respond to
+
+### 1. Turnover cost
+
+The cost to replace a professional employee, when you count recruiting, onboarding, and lost productivity, is substantial. Industry research consistently puts it at a meaningful fraction or multiple of annual salary.
+
+If current market data prevents even one regrettable exit per year, the salary survey pays for itself several times over.
+
+### 2. Compression and internal equity
+
+Hiring at current market while ranges reflect last year's data creates compression: new hires earn more than tenured peers in the same role. The fix is usually a mid-cycle adjustment across affected employees, which dwarfs the cost of the survey that would have prevented it.
+
+A small percentage compression adjustment across a department of fifty employees becomes a real payroll line item. The salary survey that would have kept ranges accurate is a small fraction of that adjustment.
+
+### 3. Pay equity and regulatory exposure
+
+States are tightening pay transparency and pay equity requirements (California, Colorado, New York, Washington, and more). Internal pay decisions increasingly need to be backed by defensible market data.
+
+"We set this range using ChatGPT" or "we used free salary site averages" are not defenses. Third-party, dated, methodologically documented survey data is.
+
+The cost of a single pay equity settlement or Department of Labor audit finding is orders of magnitude larger than any salary survey budget.
+
+### 4. Hiring velocity and offer acceptance
+
+Stale ranges mean stale offers. Stale offers mean rejected candidates and extended time-to-hire. Each additional week of open requisition has a measurable cost in revenue leakage or productivity loss.
+
+If your recruiters are coming back asking for range exceptions every month, that's data confirming you're behind the market. Fresh salary survey data reduces exception frequency and accelerates offer acceptance.
+
+## What to put in your budget request
+
+A simple four-line business case most CFOs will sign off on:
+
+1. **Purpose.** Maintain defensible, current market pay data for key roles.
+2. **Cost.** The vendor quote for one primary survey, plus any specialized coverage you need.
+3. **Avoided cost.** One regrettable turnover event at our typical replacement cost exceeds the full survey budget.
+4. **Compliance angle.** Supports state pay transparency and pay equity requirements in the states where we operate.
+
+Attach a one-pager citing turnover cost research and the specific state laws you need to comply with. Don't over-sell it.
+
+## Common CFO objections and how to answer them
+
+### Can't we just use free salary data sites?
+
+Free sources are self-reported and unleveled. They cannot support defensible pay ranges or audit-ready decisions, and the cost of a single pay equity case dwarfs any survey budget.
+
+### Why this vendor instead of a cheaper one?
+
+Vendor choice should match your industry, job mix, and geography. A cheaper survey that doesn't cover your roles is more expensive, not less. Bring a comparison (using a directory like CompShop speeds this up).
+
+### Can we buy it every other year to save money?
+
+Two-year-old compensation data is meaningfully stale in normal markets and dramatically off in hot segments. The savings from skipping a year rarely outweigh the compression and turnover cost.
+
+### Should Legal or Finance fund this instead?
+
+If you have the HR budget, use it. If not, Finance and Legal both benefit from defensible comp data, so co-funding is common.
+
+## One tactic that closes the deal
+
+Bring the actual shortlist to the conversation. CFOs respond to specifics, not categories. Walking in with "we've narrowed it to Radford and Culpepper for tech, here's the coverage and methodology" is far more credible than "we'd like budget for compensation data."
+
+## FAQ
+
+### What if my company has unique jobs that aren't directly covered by the survey?
+
+This is common. Survey job catalogs cannot capture every role at every company. The standard approach is hybrid matching: blending data from two or three similar surveyed jobs, adjusting for scope or level differences, and triangulating across multiple surveys where possible. Informed approximation, with documented reasoning, is materially more defensible than no market data at all. Match what you can directly, slot or blend the rest, and document your method.
+
+### Can I justify a salary survey as an ROI investment?
+
+Yes. Frame it as turnover prevention and compliance protection. One prevented regrettable exit typically covers the full annual cost.
+
+### What department should pay for a salary survey?
+
+Most commonly HR / People, but Finance and Legal often co-fund because defensible pay data supports financial planning and compliance. Talk to both stakeholders before submitting the request.
+
+## Build your salary survey shortlist in one place
+
+[Browse compensation surveys by industry, geography, and methodology.](/surveys)`,
+    faq: [
+      {
+        q: "Can't we just use free salary data sites?",
+        a: "Free sources are self-reported and unleveled. They cannot support defensible pay ranges or audit-ready decisions, and the cost of a single pay equity case dwarfs any survey budget.",
+      },
+      {
+        q: "Why pick this vendor instead of a cheaper one?",
+        a: "Vendor choice should match your industry, job mix, and geography. A cheaper survey that doesn't cover your roles is more expensive, not less. Bring a comparison.",
+      },
+      {
+        q: "Can we buy a salary survey every other year to save money?",
+        a: "Two-year-old compensation data is meaningfully stale in normal markets and dramatically off in hot segments. The savings from skipping a year rarely outweigh the compression and turnover cost.",
+      },
+      {
+        q: "Should Legal or Finance fund the salary survey instead of HR?",
+        a: "If you have the HR budget, use it. If not, Finance and Legal both benefit from defensible comp data, so co-funding is common.",
+      },
+      {
+        q: "What if my company has unique jobs that aren't directly covered by the survey?",
+        a: "Survey job catalogs cannot capture every role at every company. The standard approach is hybrid matching: blending data from two or three similar surveyed jobs, adjusting for scope or level differences, and triangulating across multiple surveys where possible. Match what you can directly, slot or blend the rest, and document your method.",
+      },
+      {
+        q: "Can I justify a salary survey as an ROI investment?",
+        a: "Yes. Frame it as turnover prevention and compliance protection. One prevented regrettable exit typically covers the full annual cost.",
+      },
+      {
+        q: "What department should pay for a salary survey?",
+        a: "Most commonly HR or People Operations, but Finance and Legal often co-fund because defensible pay data supports financial planning and compliance. Talk to both stakeholders before submitting the request.",
+      },
+    ],
+  },
 ];
 
 export function getAllPosts(): BlogPost[] {
