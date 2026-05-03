@@ -185,6 +185,55 @@ export function getReportsForPosition(positionId: number): ReportWithVendor[] {
     .all(positionId) as ReportWithVendor[];
 }
 
+/**
+ * Find sibling positions related to the given one. Strategy:
+ *   1. Prefer positions sharing at least one job family (canonical
+ *      taxonomic siblings).
+ *   2. If that pool is empty (positions without family tags — common
+ *      for raw vendor catalogs), fall back to positions appearing in
+ *      the same reports (functionally co-published siblings).
+ *
+ * Used for the "Related positions" cross-link block on each position
+ * page. Internal-link equity + extra crawl paths for new pages.
+ */
+export function getRelatedPositions(
+  positionId: number,
+  limit = 8
+): PositionDetail[] {
+  const db = getDb();
+  const byFamily = db
+    .prepare(
+      `SELECT p.id, p.slug, p.canonical_title AS canonicalTitle, p.description
+       FROM positions p
+       JOIN position_families pf ON pf.position_id = p.id
+       WHERE pf.family_id IN (
+         SELECT family_id FROM position_families WHERE position_id = ?
+       )
+       AND p.id != ?
+       GROUP BY p.id
+       ORDER BY p.canonical_title
+       LIMIT ?`
+    )
+    .all(positionId, positionId, limit) as PositionDetail[];
+  if (byFamily.length > 0) return byFamily;
+
+  return db
+    .prepare(
+      `SELECT p.id, p.slug, p.canonical_title AS canonicalTitle, p.description,
+              COUNT(DISTINCT rp2.report_id) AS shared
+       FROM positions p
+       JOIN report_positions rp2 ON rp2.position_id = p.id
+       WHERE rp2.report_id IN (
+         SELECT report_id FROM report_positions WHERE position_id = ?
+       )
+       AND p.id != ?
+       GROUP BY p.id
+       ORDER BY shared DESC, p.canonical_title
+       LIMIT ?`
+    )
+    .all(positionId, positionId, limit) as PositionDetail[];
+}
+
 export function getFamiliesForPosition(positionId: number) {
   const db = getDb();
   return db
