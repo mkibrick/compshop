@@ -22,6 +22,7 @@ CompShop is independent: not a reseller, not a referral broker. Vendor data is c
 - [CUPA-HR](https://www.comp-shop.com/surveys/cupa-hr-administrators): Higher Education
 - [CompData](https://www.comp-shop.com/surveys/compdata): Multi-industry (18 named cuts)
 - [Culpepper](https://www.comp-shop.com/surveys/culpepper): Technology, Life Sciences, Engineering
+- [ERI Economic Research Institute](https://www.comp-shop.com/surveys/eri): Multi-industry (20 industry cuts), Job-function (8 cuts), Executive, Salary Increase, Government Contractor, Benefits
 - [Empsight](https://www.comp-shop.com/surveys/empsight): General Industry, Executive, Functional
 - [Gallagher](https://www.comp-shop.com/surveys/gallagher): Healthcare, Nonprofit, Regional, General Industry
 - [Korn Ferry](https://www.comp-shop.com/surveys/korn-ferry): Multi-industry (exec comp, industrial, financial services, life sciences, tech)
