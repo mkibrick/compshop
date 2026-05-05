@@ -42,3 +42,9 @@ data/*.db-journal
 next-env.d.ts
 
 /src/generated/prisma
+
+# Position embeddings — generated at build time when OPENAI/VOYAGE key is set.
+# Vercel rebuilds on every deploy via prebuild; locally run:
+#   set -a; source .env.local; set +a; npx tsx scripts/build-position-embeddings.ts
+public/position-embeddings.bin
+public/position-embeddings.json
