@@ -112,6 +112,10 @@ const PROVIDER_ALIASES: Record<string, string[]> = {
   "willis towers watson (wtw)": ["WTW", "Willis Towers Watson"],
   "u.s. bureau of labor statistics": ["BLS"],
   "pas, inc.": ["PAS"],
+  // Birches's reports use the trademarked product-family brand
+  // "Birches Community™" rather than the legal name "Birches Group".
+  "birches group": ["Birches Community™", "Birches Community"],
+  "eri economic research institute": ["ERI Economic Research Institute", "ERI"],
 };
 
 function aliasesFor(provider: string): string[] {
