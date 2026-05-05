@@ -26,6 +26,11 @@ interface ReportRow {
   includes_benefits: number;
   price_range: string;
   notes: string;
+  cycle: string;
+  participation_opens: string;
+  publication_month: string;
+  effective_date: string;
+  cycle_notes: string;
   survey_slug: string;
 }
 
@@ -53,6 +58,11 @@ function rowToReport(row: ReportRow): Report {
     includesBenefits: !!row.includes_benefits,
     priceRange: row.price_range,
     notes: row.notes,
+    cycle: row.cycle ?? "",
+    participationOpens: row.participation_opens ?? "",
+    publicationMonth: row.publication_month ?? "",
+    effectiveDate: row.effective_date ?? "",
+    cycleNotes: row.cycle_notes ?? "",
   };
 }
 

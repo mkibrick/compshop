@@ -214,6 +214,8 @@ export default function ReportPage({ params }: { params: { slug: string } }) {
         </div>
       </header>
 
+      <SurveyCycleSection report={report} />
+
       {families.length > 0 && (
         <section className="bg-white rounded-lg border border-gray-200 p-6 sm:p-8 mb-6">
           <h2 className="text-xl font-bold text-navy mb-3">Job families covered</h2>
@@ -277,6 +279,95 @@ export default function ReportPage({ params }: { params: { slug: string } }) {
         </section>
       )}
     </div>
+  );
+}
+
+/**
+ * Visual timeline of a survey's annual cycle: when participation
+ * opens, when the data is "as of" (effective date), when results
+ * publish. Free-text fields so the same component renders cleanly
+ * whether the vendor expressed dates as a month, a quarter, or "varies".
+ */
+function SurveyCycleSection({
+  report,
+}: {
+  report: ReturnType<typeof getReportBySlug>;
+}) {
+  if (!report) return null;
+  const hasAny =
+    report.cycle ||
+    report.participationOpens ||
+    report.publicationMonth ||
+    report.effectiveDate;
+  if (!hasAny) return null;
+
+  const stages: { label: string; value: string; helper?: string }[] = [];
+  if (report.participationOpens) {
+    stages.push({
+      label: "Participation opens",
+      value: report.participationOpens,
+      helper: "When employers can submit data",
+    });
+  }
+  if (report.effectiveDate) {
+    stages.push({
+      label: "Effective date",
+      value: report.effectiveDate,
+      helper: "Data is reported \u201Cas of\u201D this date",
+    });
+  }
+  if (report.publicationMonth) {
+    stages.push({
+      label: "Results published",
+      value: report.publicationMonth,
+      helper: "When subscribers receive the dataset",
+    });
+  }
+
+  return (
+    <section className="bg-white rounded-lg border border-gray-200 p-6 sm:p-8 mb-6">
+      <div className="flex items-baseline gap-3 mb-1 flex-wrap">
+        <h2 className="text-xl font-bold text-navy">Survey cycle</h2>
+        {report.cycle && (
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-accent/10 text-accent">
+            {report.cycle}
+          </span>
+        )}
+      </div>
+      <p className="text-sm text-gray-500 mb-5">
+        Plan your purchase against this publisher&rsquo;s schedule.
+      </p>
+
+      {stages.length > 0 && (
+        <ol className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+          {stages.map((s, i) => (
+            <li
+              key={s.label}
+              className="border border-gray-200 rounded-lg p-4 bg-gray-50"
+            >
+              <div className="flex items-center gap-2 text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-accent text-white text-[10px] font-bold">
+                  {i + 1}
+                </span>
+                {s.label}
+              </div>
+              <div className="text-base font-semibold text-navy">{s.value}</div>
+              {s.helper && (
+                <p className="mt-1 text-xs text-gray-500 leading-relaxed">
+                  {s.helper}
+                </p>
+              )}
+            </li>
+          ))}
+        </ol>
+      )}
+
+      {report.cycleNotes && (
+        <p className="text-sm text-gray-700 leading-relaxed">
+          {report.cycleNotes}
+        </p>
+      )}
+    </section>
   );
 }
 

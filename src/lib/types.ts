@@ -59,6 +59,13 @@ export interface Report {
   includesBenefits: boolean;
   priceRange: string;
   notes: string;
+  // Survey cycle fields. All free-text — vendors describe their
+  // schedules with varying precision (month, quarter, exact date).
+  cycle: string;              // "Annual" | "Semi-annual" | "Quarterly" | "Continuous" | etc.
+  participationOpens: string; // when employers can submit data
+  publicationMonth: string;   // when results are released to subscribers
+  effectiveDate: string;      // "as of" date the data represents
+  cycleNotes: string;         // free-text addendum
 }
 
 export interface Position {

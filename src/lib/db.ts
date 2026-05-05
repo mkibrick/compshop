@@ -183,5 +183,23 @@ export function initDb() {
     // Column already exists; no-op
   }
 
+  // Survey cycle fields — when participation opens/closes, when results
+  // publish, when data is "effective as of." Free-text strings since
+  // some vendors describe these as months ("October") or quarters
+  // ("Q3") rather than exact dates.
+  for (const col of [
+    "cycle TEXT NOT NULL DEFAULT ''",
+    "participation_opens TEXT NOT NULL DEFAULT ''",
+    "publication_month TEXT NOT NULL DEFAULT ''",
+    "effective_date TEXT NOT NULL DEFAULT ''",
+    "cycle_notes TEXT NOT NULL DEFAULT ''",
+  ]) {
+    try {
+      db.exec(`ALTER TABLE reports ADD COLUMN ${col}`);
+    } catch {
+      // Column already exists; no-op
+    }
+  }
+
   return db;
 }
