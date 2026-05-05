@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { SearchResults, LinkedReport } from "@/lib/types";
 import { loadIndex, search } from "@/lib/client-search";
 import { vendorOutbound, reportOutbound } from "@/lib/outbound";
@@ -11,7 +12,16 @@ interface SearchBarProps {
   placeholder?: string;
 }
 
+interface SemanticHit {
+  slug: string;
+  title: string;
+  score: number;
+}
+
 const EMPTY: SearchResults = { vendors: [], reports: [], positions: [], orgs: [], families: [] };
+
+/** In-memory cache so retyping the same query doesn't re-hit the API. */
+const semanticCache = new Map<string, SemanticHit[]>();
 
 export default function SearchBar({
   value,
@@ -19,6 +29,7 @@ export default function SearchBar({
   placeholder = "Search by job title, industry or geography..",
 }: SearchBarProps) {
   const [results, setResults] = useState<SearchResults>(EMPTY);
+  const [semantic, setSemantic] = useState<SemanticHit[]>([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -52,6 +63,51 @@ export default function SearchBar({
     }, 150);
     return () => {
       cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [value]);
+
+  // Semantic search — fires on a longer debounce. Returns "Similar
+  // roles" matches by meaning (e.g., "CPA" → "Accountant III") so the
+  // dropdown can suggest related positions even when literal search
+  // returns nothing. Cheap and async, doesn't block literal results.
+  useEffect(() => {
+    const q = value.trim();
+    if (q.length < 3) {
+      setSemantic([]);
+      return;
+    }
+    const cached = semanticCache.get(q);
+    if (cached) {
+      setSemantic(cached);
+      return;
+    }
+    let cancelled = false;
+    const ctrl = new AbortController();
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `/api/semantic-search?q=${encodeURIComponent(q)}&limit=8`,
+          { signal: ctrl.signal }
+        );
+        if (cancelled) return;
+        if (!res.ok) {
+          // 503 when no provider is configured — fail silent, semantic
+          // section just stays empty.
+          setSemantic([]);
+          return;
+        }
+        const data = (await res.json()) as { results: SemanticHit[] };
+        const hits = data.results ?? [];
+        semanticCache.set(q, hits);
+        if (!cancelled) setSemantic(hits);
+      } catch {
+        // Network error or aborted; ignore.
+      }
+    }, 350);
+    return () => {
+      cancelled = true;
+      ctrl.abort();
       clearTimeout(timer);
     };
   }, [value]);
@@ -159,6 +215,22 @@ export default function SearchBar({
                   ))}
                 </Group>
               )}
+              {(() => {
+                const literalSlugs = new Set(
+                  results.positions.map((p) => p.slug)
+                );
+                const fresh = semantic.filter(
+                  (h) => !literalSlugs.has(h.slug)
+                );
+                if (fresh.length === 0) return null;
+                return (
+                  <Group label="Similar roles">
+                    {fresh.map((h) => (
+                      <SemanticRow key={h.slug} hit={h} />
+                    ))}
+                  </Group>
+                );
+              })()}
               {results.orgs.length > 0 && (
                 <Group label="Participating Organizations">
                   {results.orgs.map((o) => (
@@ -245,6 +317,28 @@ function EntityWithReports({
         </ul>
       )}
     </div>
+  );
+}
+
+/**
+ * One result row from the semantic-search endpoint. Internal-link only —
+ * we route to the canonical position page, where the full report list
+ * lives. The similarity score is shown subtly so power users can tell
+ * which matches the model thinks are strongest.
+ */
+function SemanticRow({ hit }: { hit: SemanticHit }) {
+  return (
+    <Link
+      href={`/positions/${hit.slug}`}
+      className="w-full block px-4 py-2.5 hover:bg-gray-50 transition-colors flex items-center justify-between gap-3"
+    >
+      <span className="text-sm text-navy font-medium truncate">
+        {hit.title}
+      </span>
+      <span className="text-[10px] text-gray-400 flex-shrink-0">
+        similar match
+      </span>
+    </Link>
   );
 }
 

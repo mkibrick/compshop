@@ -13,6 +13,11 @@ const nextConfig = {
         // Bundled into serverless functions so /api/mcp can read it via fs
         // at request time (much cheaper than refetching from the public URL).
         "./public/search-index.json",
+        // Embeddings for the /api/semantic-search endpoint. The .bin file
+        // holds the binary Float32 vectors; the .json sidecar holds the
+        // aligned slug+title metadata.
+        "./public/position-embeddings.bin",
+        "./public/position-embeddings.json",
       ],
     },
   },
