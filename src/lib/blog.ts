@@ -426,7 +426,7 @@ Most commonly HR / People, but Finance and Legal often co-fund because defensibl
       "Pay Transparency Laws by State: A 2026 Guide for HR and Compensation Teams",
     description:
       "An easy state-by-state guide to U.S. pay transparency laws in 2026. Who's required to disclose, what salary range disclosures are required, and what HR teams need to do.",
-    date: "2026-04-27",
+    date: "2026-05-03",
     readTime: "6 min read",
     author: "CompShop",
     tags: ["Pay Transparency"],
