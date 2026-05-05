@@ -286,7 +286,7 @@ Yes. Many regional, association, and specialty surveys are sized for small to mi
     title: "How to Get Your CFO to Approve a Salary Survey Purchase",
     description:
       "Need budget for a compensation survey but finance is pushing back? Here's the ROI case, objection handling, and template to get your CFO to sign off.",
-    date: "2026-04-27",
+    date: "2026-05-03",
     readTime: "5 min read",
     author: "CompShop",
     tags: ["Compensation Strategy"],
