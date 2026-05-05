@@ -14,7 +14,15 @@ import { regionsForVendor } from "../src/lib/geography";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DB_PATH = resolve(__dirname, "../data/compshop.db");
 const OUT_PATH = resolve(__dirname, "../public/search-index.json");
-const LINKED_REPORTS_PER_ENTITY = 6;
+const LINKED_REPORTS_PER_ENTITY = 3;
+/**
+ * Positions that appear in only one report don't benefit much from
+ * inline-embedded report previews in the search dropdown — the user
+ * lands on the position page and sees the single report immediately.
+ * Skipping the embed for those keeps the index size in check after the
+ * Mercer load (29K positions, ~25K of which are single-report).
+ */
+const EMBED_REPORTS_MIN_COUNT = 2;
 
 interface LinkedReport {
   slug: string;
@@ -192,10 +200,13 @@ function main() {
   );
   const positions: PositionIdx[] = positionsRaw.map((p) => ({
     ...p,
-    reports: reportsForPositionStmt.all(
-      p.slug,
-      LINKED_REPORTS_PER_ENTITY
-    ) as LinkedReport[],
+    reports:
+      p.reportCount >= EMBED_REPORTS_MIN_COUNT
+        ? (reportsForPositionStmt.all(
+            p.slug,
+            LINKED_REPORTS_PER_ENTITY
+          ) as LinkedReport[])
+        : [],
   }));
 
   // ---------- Families ----------
