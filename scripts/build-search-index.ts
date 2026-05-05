@@ -151,6 +151,16 @@ function main() {
     )
     .all() as Omit<PositionIdx, "reports">[];
 
+  // Per-position report ranking, biased toward broad-coverage surveys.
+  // The default expectation when someone searches an "Accountant" is
+  // a US/Global general-industry survey, not a niche "Mercer Canadian
+  // Energy Industry" cut where Accountant is incidental coverage.
+  //
+  // Order:
+  //   1. Vendor tagged 'general-industry' (broad surveys first)
+  //   2. US scope, then Global, then country-specific international
+  //   3. Bigger surveys first (num_positions desc)
+  //   4. Provider, title (stable tiebreak)
   const reportsForPositionStmt = db.prepare(
     `SELECT r.slug, r.title,
             CASE WHEN r.url != '' THEN r.url ELSE s.url END AS url,
@@ -162,7 +172,22 @@ function main() {
      JOIN surveys s ON s.id = r.survey_id
      WHERE p.slug = ?
      GROUP BY r.id
-     ORDER BY r.title
+     ORDER BY
+       CASE WHEN ',' || s.categories || ',' LIKE '%,general-industry,%' THEN 0 ELSE 1 END,
+       CASE
+         WHEN LOWER(r.title) LIKE '%general industry%' THEN 0
+         WHEN LOWER(r.title) LIKE '%all industries%' THEN 0
+         WHEN LOWER(r.title) LIKE '%cross-industry%' THEN 0
+         ELSE 1
+       END,
+       CASE
+         WHEN LOWER(r.geographic_scope) LIKE '%united states%'
+           OR LOWER(r.geographic_scope) LIKE '%(us)%' THEN 0
+         WHEN LOWER(r.geographic_scope) LIKE 'global%' THEN 1
+         ELSE 2
+       END,
+       r.num_positions DESC,
+       s.provider, r.title
      LIMIT ?`
   );
   const positions: PositionIdx[] = positionsRaw.map((p) => ({

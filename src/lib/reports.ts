@@ -168,6 +168,9 @@ export interface ReportWithVendor {
 
 export function getReportsForPosition(positionId: number): ReportWithVendor[] {
   const db = getDb();
+  // See note in scripts/build-search-index.ts on the ranking: surface
+  // broad-coverage surveys first (general-industry, US scope) so a
+  // search like "Accountant" doesn't lead with niche international cuts.
   return db
     .prepare(
       `SELECT r.slug, r.title, r.description,
@@ -180,7 +183,16 @@ export function getReportsForPosition(positionId: number): ReportWithVendor[] {
        JOIN surveys s ON s.id = r.survey_id
        WHERE rp.position_id = ?
        GROUP BY r.id
-       ORDER BY s.provider, r.title`
+       ORDER BY
+         CASE WHEN ',' || s.categories || ',' LIKE '%,general-industry,%' THEN 0 ELSE 1 END,
+         CASE
+           WHEN LOWER(r.geographic_scope) LIKE '%united states%'
+             OR LOWER(r.geographic_scope) LIKE '%(us)%' THEN 0
+           WHEN LOWER(r.geographic_scope) LIKE 'global%' THEN 1
+           ELSE 2
+         END,
+         r.num_positions DESC,
+         s.provider, r.title`
     )
     .all(positionId) as ReportWithVendor[];
 }
