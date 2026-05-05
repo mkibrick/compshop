@@ -20,7 +20,7 @@
  * per position × 30K positions ≈ $0.003 per full rebuild.
  */
 import Database from "better-sqlite3";
-import { writeFileSync, mkdirSync } from "fs";
+import { writeFileSync, mkdirSync, existsSync, readFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import { detectProvider, embedBatch, OUTPUT_DIMS } from "../src/lib/embeddings";
@@ -38,6 +38,49 @@ const BATCH_SIZE = 96;
 interface Row {
   slug: string;
   title: string;
+}
+
+/**
+ * Try to load the previous embedding output, returning a Map keyed by
+ * position slug. Used for incremental rebuilds — if a slug we've
+ * already embedded reappears in the DB, we reuse its vector instead of
+ * paying the API again. Mismatched dim or provider invalidates the
+ * cache (better to re-embed with the right config than mix vectors
+ * across providers).
+ */
+function loadPreviousEmbeddings(currentProvider: string): Map<string, Float32Array> {
+  if (!existsSync(VEC_PATH) || !existsSync(META_PATH)) return new Map();
+  let meta: { dims: number; count: number; provider: string; items: Row[] };
+  try {
+    meta = JSON.parse(readFileSync(META_PATH, "utf8"));
+  } catch {
+    return new Map();
+  }
+  if (meta.dims !== OUTPUT_DIMS) {
+    console.log(
+      `  cache invalidated: existing dims=${meta.dims}, code expects ${OUTPUT_DIMS}`
+    );
+    return new Map();
+  }
+  if (meta.provider !== currentProvider) {
+    console.log(
+      `  cache invalidated: existing provider=${meta.provider}, current=${currentProvider}`
+    );
+    return new Map();
+  }
+  const buf = readFileSync(VEC_PATH);
+  const ab = buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
+  const all = new Float32Array(ab);
+  if (all.length !== meta.count * meta.dims) {
+    console.log("  cache invalidated: vector count mismatch");
+    return new Map();
+  }
+  const out = new Map<string, Float32Array>();
+  for (let i = 0; i < meta.count; i++) {
+    const slice = all.slice(i * meta.dims, (i + 1) * meta.dims);
+    out.set(meta.items[i].slug, slice);
+  }
+  return out;
 }
 
 async function main() {
@@ -58,37 +101,65 @@ async function main() {
     .all() as Row[];
   db.close();
 
-  console.log(`  embedding ${positions.length} positions in batches of ${BATCH_SIZE}…`);
+  // Incremental cache: reuse vectors for positions whose slug already
+  // exists in the previous build's output. Keyed on slug only —
+  // slugifyPosition() is deterministic from the title, so a slug
+  // collision implies a near-identical title and the embedding is
+  // safe to reuse.
+  const cache = loadPreviousEmbeddings(provider);
+  const reused = positions.filter((p) => cache.has(p.slug)).length;
+  const toEmbed = positions.filter((p) => !cache.has(p.slug));
+  console.log(
+    `  ${positions.length} total; ${reused} reusing cached vectors, ${toEmbed.length} new positions to embed`
+  );
+  if (toEmbed.length > 0) {
+    console.log(`  embedding ${toEmbed.length} in batches of ${BATCH_SIZE}…`);
+  }
 
+  // Build the merged vector buffer in slug-sorted order.
   const vec = new Float32Array(positions.length * OUTPUT_DIMS);
-  let done = 0;
-  const t0 = Date.now();
+  const newEmbeddings = new Map<string, Float32Array>();
 
-  for (let start = 0; start < positions.length; start += BATCH_SIZE) {
-    const batch = positions.slice(start, start + BATCH_SIZE);
-    const inputs = batch.map((p) => p.title);
-    let { vectors } = await embedBatch(inputs);
-    if (vectors.length !== batch.length) {
-      throw new Error(
-        `provider returned ${vectors.length} vectors for ${batch.length} inputs`
-      );
-    }
-    for (let i = 0; i < batch.length; i++) {
-      const v = vectors[i];
-      if (v.length !== OUTPUT_DIMS) {
+  if (toEmbed.length > 0) {
+    let done = 0;
+    const t0 = Date.now();
+    for (let start = 0; start < toEmbed.length; start += BATCH_SIZE) {
+      const batch = toEmbed.slice(start, start + BATCH_SIZE);
+      const inputs = batch.map((p) => p.title);
+      const { vectors } = await embedBatch(inputs);
+      if (vectors.length !== batch.length) {
         throw new Error(
-          `provider returned ${v.length}-dim vector, expected ${OUTPUT_DIMS}`
+          `provider returned ${vectors.length} vectors for ${batch.length} inputs`
         );
       }
-      vec.set(v, (start + i) * OUTPUT_DIMS);
+      for (let i = 0; i < batch.length; i++) {
+        const v = vectors[i];
+        if (v.length !== OUTPUT_DIMS) {
+          throw new Error(
+            `provider returned ${v.length}-dim vector, expected ${OUTPUT_DIMS}`
+          );
+        }
+        newEmbeddings.set(batch[i].slug, v);
+      }
+      done += batch.length;
+      if (done % (BATCH_SIZE * 10) === 0 || done === toEmbed.length) {
+        const rate = done / ((Date.now() - t0) / 1000);
+        console.log(
+          `  ${done}/${toEmbed.length} embedded (${rate.toFixed(0)}/sec)`
+        );
+      }
     }
-    done += batch.length;
-    if (done % (BATCH_SIZE * 10) === 0 || done === positions.length) {
-      const rate = done / ((Date.now() - t0) / 1000);
-      console.log(
-        `  ${done}/${positions.length} embedded (${rate.toFixed(0)}/sec)`
-      );
+  }
+
+  // Stitch cached + new vectors into the final array, in the same order
+  // as `positions` (which is slug-sorted from the DB query).
+  for (let i = 0; i < positions.length; i++) {
+    const p = positions[i];
+    const v = newEmbeddings.get(p.slug) ?? cache.get(p.slug);
+    if (!v) {
+      throw new Error(`internal: missing vector for ${p.slug}`);
     }
+    vec.set(v, i * OUTPUT_DIMS);
   }
 
   mkdirSync(dirname(VEC_PATH), { recursive: true });

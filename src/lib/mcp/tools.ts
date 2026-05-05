@@ -16,6 +16,7 @@ import {
   type ReportEntry,
 } from "./index-cache";
 import { SITE_URL } from "@/lib/site-url";
+import { searchSemantic } from "@/lib/semantic";
 
 export interface ToolDefinition {
   name: string;
@@ -352,13 +353,13 @@ const listVendorsByRegion: ToolDefinition = {
 const findSurveysForPosition: ToolDefinition = {
   name: "find_surveys_for_position",
   description:
-    "Find compensation surveys that benchmark a specific job title or position (e.g. 'Software Engineer', 'Director of Finance', 'Registered Nurse'). Returns matching positions and the surveys that cover them.",
+    "Find compensation surveys that benchmark a specific job title or position (e.g. 'Software Engineer', 'CPA', 'Sr Acct', 'head of finance'). Combines literal title matching with embedding-based semantic similarity, so abbreviations and paraphrases work — 'CPA' returns 'Certified Public Accountant', 'Sr Acct' returns 'Senior Accountant'. Reports per position are ranked to surface broad-coverage surveys (general-industry, US scope) before niche cuts.",
   inputSchema: {
     type: "object",
     properties: {
       position: {
         type: "string",
-        description: "Job title or position to look up (free text).",
+        description: "Job title or position to look up (free text). Abbreviations and paraphrases are fine.",
       },
       limit: {
         type: "integer",
@@ -378,20 +379,54 @@ const findSurveysForPosition: ToolDefinition = {
     const ql = q.toLowerCase();
     const tokens = tokenize(q);
 
-    const scored = idx.positions
-      .map((p) => {
-        const t = p.canonicalTitle.toLowerCase();
-        let s = 0;
-        if (t === ql) s += 10;
-        else if (t.includes(ql)) s += 5;
-        for (const tok of tokens) if (t.includes(tok)) s += 1;
-        return { p, s };
-      })
-      .filter((x) => x.s > 0)
+    // Score every position by literal match strength.
+    const literalScored = new Map<string, { p: typeof idx.positions[number]; s: number }>();
+    for (const p of idx.positions) {
+      const t = p.canonicalTitle.toLowerCase();
+      let s = 0;
+      if (t === ql) s += 100;
+      else if (t.includes(ql)) s += 50;
+      for (const tok of tokens) if (t.includes(tok)) s += 10;
+      if (s > 0) literalScored.set(p.slug, { p, s });
+    }
+
+    // Semantic search returns positions whose meaning is close to the
+    // query, even when no literal substring overlap exists. Cosine
+    // similarity is on a 0-1 scale; we map it into the same magnitude
+    // as literal scores so blending is sensible.
+    let semanticHits: { slug: string; title: string; score: number }[] = [];
+    try {
+      const sem = await searchSemantic(q, Math.max(limit * 3, 15), 0.45);
+      semanticHits = sem ?? [];
+    } catch (e) {
+      // Embedding API issues are non-fatal; fall back to literal-only.
+      console.warn(
+        "find_surveys_for_position: semantic search failed",
+        e instanceof Error ? e.message : e
+      );
+    }
+
+    // Merge: existing literal scores get a semantic boost where applicable;
+    // semantic-only hits enter at their similarity score (scaled).
+    const merged = new Map<string, { p: typeof idx.positions[number]; s: number }>(literalScored);
+    const positionBySlug = new Map(idx.positions.map((p) => [p.slug, p]));
+    for (const hit of semanticHits) {
+      const p = positionBySlug.get(hit.slug);
+      if (!p) continue;
+      const semScore = hit.score * 60; // 0.45 * 60 = 27, 0.8 * 60 = 48
+      const existing = merged.get(hit.slug);
+      if (existing) {
+        existing.s += semScore;
+      } else {
+        merged.set(hit.slug, { p, s: semScore });
+      }
+    }
+
+    const ranked = Array.from(merged.values())
       .sort((a, b) => b.s - a.s || b.p.reportCount - a.p.reportCount)
       .slice(0, limit);
 
-    const positions = scored.map(({ p }) => ({
+    const positions = ranked.map(({ p }) => ({
       slug: p.slug,
       title: p.canonicalTitle,
       report_count: p.reportCount,
@@ -404,6 +439,7 @@ const findSurveysForPosition: ToolDefinition = {
       })),
     }));
 
+    const usedSemantic = semanticHits.length > 0;
     return {
       content: [
         {
@@ -411,13 +447,17 @@ const findSurveysForPosition: ToolDefinition = {
           text:
             positions.length === 0
               ? `No positions matched "${q}".`
-              : `Found ${positions.length} position${positions.length === 1 ? "" : "s"} matching "${q}". Top: ${positions
+              : `Found ${positions.length} position${positions.length === 1 ? "" : "s"} matching "${q}"${usedSemantic ? " (literal + semantic)" : ""}. Top: ${positions
                   .slice(0, 3)
                   .map((p) => `${p.title} (${p.report_count} surveys)`)
                   .join(", ")}.`,
         },
       ],
-      structuredContent: { query: q, positions },
+      structuredContent: {
+        query: q,
+        match_mode: usedSemantic ? "literal+semantic" : "literal",
+        positions,
+      },
     };
   },
 };

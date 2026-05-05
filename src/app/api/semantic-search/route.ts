@@ -20,59 +20,12 @@
  * filesystem access to the bundled embedding files.
  */
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-import { embedQuery, dot, OUTPUT_DIMS, detectProvider } from "@/lib/embeddings";
+import { detectProvider } from "@/lib/embeddings";
+import { loadEmbeddingIndex, searchSemantic } from "@/lib/semantic";
 import { SITE_URL } from "@/lib/site-url";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-
-interface MetaItem {
-  slug: string;
-  title: string;
-}
-
-interface MetaFile {
-  dims: number;
-  count: number;
-  provider: string;
-  items: MetaItem[];
-}
-
-let _vectors: Float32Array | null = null;
-let _meta: MetaFile | null = null;
-
-function loadIndex(): { vectors: Float32Array; meta: MetaFile } | null {
-  if (_vectors && _meta) return { vectors: _vectors, meta: _meta };
-  const vecPath = path.join(process.cwd(), "public", "position-embeddings.bin");
-  const metaPath = path.join(process.cwd(), "public", "position-embeddings.json");
-  if (!fs.existsSync(vecPath) || !fs.existsSync(metaPath)) {
-    return null;
-  }
-  const meta = JSON.parse(fs.readFileSync(metaPath, "utf8")) as MetaFile;
-  if (meta.dims !== OUTPUT_DIMS) {
-    throw new Error(
-      `embedding dim mismatch: file has ${meta.dims}, code expects ${OUTPUT_DIMS}`
-    );
-  }
-  const buf = fs.readFileSync(vecPath);
-  // Slice the underlying buffer into a Float32Array view. Buffer guarantees
-  // 4-byte alignment for files we wrote, so this is safe.
-  const ab = buf.buffer.slice(
-    buf.byteOffset,
-    buf.byteOffset + buf.byteLength
-  );
-  const vectors = new Float32Array(ab);
-  if (vectors.length !== meta.count * meta.dims) {
-    throw new Error(
-      `embedding count mismatch: ${vectors.length / meta.dims} vectors in bin, ${meta.count} in meta`
-    );
-  }
-  _vectors = vectors;
-  _meta = meta;
-  return { vectors, meta };
-}
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -116,8 +69,7 @@ export async function GET(request: Request) {
     );
   }
 
-  const idx = loadIndex();
-  if (!idx) {
+  if (!loadEmbeddingIndex()) {
     return NextResponse.json(
       {
         error:
@@ -127,11 +79,9 @@ export async function GET(request: Request) {
     );
   }
 
-  // Embed the query.
-  let queryVec: Float32Array;
+  let hits;
   try {
-    const r = await embedQuery(q);
-    queryVec = r.vector;
+    hits = await searchSemantic(q, limit);
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
     console.error(
@@ -146,34 +96,10 @@ export async function GET(request: Request) {
       { status: 502, headers: CORS }
     );
   }
-
-  // Brute-force similarity. 30K × 512 dot products ≈ 5–15ms on a Vercel
-  // Node function. Fast enough that a vector-DB is overkill at this scale.
-  const { vectors, meta } = idx;
-  const dims = meta.dims;
-  const count = meta.count;
-  const scores = new Float32Array(count);
-  for (let i = 0; i < count; i++) {
-    const slice = vectors.subarray(i * dims, (i + 1) * dims);
-    scores[i] = dot(queryVec, slice);
-  }
-
-  // Top-N by score (small heap is overkill for limit ≤ 50; just sort).
-  const indexed = Array.from({ length: count }, (_, i) => i);
-  indexed.sort((a, b) => scores[b] - scores[a]);
-  const top = indexed.slice(0, limit);
-
-  // Drop matches below a relevance floor so we don't surface random noise.
-  const FLOOR = 0.4;
-
-  const results = top
-    .filter((i) => scores[i] >= FLOOR)
-    .map((i) => ({
-      slug: meta.items[i].slug,
-      title: meta.items[i].title,
-      score: Number(scores[i].toFixed(4)),
-      url: `${SITE_URL}/positions/${meta.items[i].slug}`,
-    }));
+  const results = (hits ?? []).map((h) => ({
+    ...h,
+    url: `${SITE_URL}/positions/${h.slug}`,
+  }));
 
   // Lightweight structured log for telemetry.
   console.log(
