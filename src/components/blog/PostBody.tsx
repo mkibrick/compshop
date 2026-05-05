@@ -19,7 +19,23 @@ type Block =
   | { kind: "h3"; text: string }
   | { kind: "ul"; items: string[] }
   | { kind: "ol"; items: string[] }
-  | { kind: "p"; text: string };
+  | { kind: "p"; text: string }
+  | { kind: "table"; header: string[]; rows: string[][] };
+
+/** Parse a single `| a | b | c |` row into trimmed cell strings. */
+function parseTableRow(line: string): string[] {
+  return line
+    .replace(/^\s*\|\s*/, "")
+    .replace(/\s*\|\s*$/, "")
+    .split(/\s*\|\s*/)
+    .map((c) => c.trim());
+}
+
+/** True if a line is a GitHub-style table separator: `|---|---|---|`. */
+function isTableSeparator(line: string): boolean {
+  const trimmed = line.trim();
+  return /^\|(?:\s*:?-+:?\s*\|)+$/.test(trimmed);
+}
 
 function splitBlocks(body: string): Block[] {
   const lines = body.split(/\n/);
@@ -52,12 +68,33 @@ function splitBlocks(body: string): Block[] {
     flushOl();
   };
 
-  for (const raw of lines) {
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i];
     const line = raw.trimEnd();
     if (!line.trim()) {
       flushAll();
       continue;
     }
+
+    // Table: header row + `|---|---|` separator + body rows.
+    if (
+      line.trim().startsWith("|") &&
+      i + 1 < lines.length &&
+      isTableSeparator(lines[i + 1])
+    ) {
+      flushAll();
+      const header = parseTableRow(line.trim());
+      i += 2; // skip header + separator
+      const rows: string[][] = [];
+      while (i < lines.length && lines[i].trim().startsWith("|")) {
+        rows.push(parseTableRow(lines[i].trim()));
+        i++;
+      }
+      i--; // outer for() will increment again
+      blocks.push({ kind: "table", header, rows });
+      continue;
+    }
+
     if (line.startsWith("## ")) {
       flushAll();
       blocks.push({ kind: "h2", text: line.slice(3).trim() });
@@ -132,6 +169,40 @@ function renderBlock(b: Block, key: number) {
         <p key={key} className="text-ink-900">
           {renderInline(b.text)}
         </p>
+      );
+    case "table":
+      return (
+        <div key={key} className="my-4 overflow-x-auto -mx-4 sm:mx-0">
+          <table className="min-w-full border-collapse text-sm">
+            <thead>
+              <tr className="border-b-2 border-stone-200 bg-oat">
+                {b.header.map((h, i) => (
+                  <th
+                    key={i}
+                    scope="col"
+                    className="px-3 py-2 text-left align-bottom font-semibold text-ink-900"
+                  >
+                    {renderInline(h)}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {b.rows.map((row, ri) => (
+                <tr key={ri} className="border-b border-stone-100">
+                  {row.map((cell, ci) => (
+                    <td
+                      key={ci}
+                      className="px-3 py-2 align-top text-ink-900"
+                    >
+                      {renderInline(cell)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       );
   }
 }

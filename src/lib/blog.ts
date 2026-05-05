@@ -420,6 +420,142 @@ Most commonly HR / People, but Finance and Legal often co-fund because defensibl
       },
     ],
   },
+  {
+    slug: "pay-transparency-laws-by-state-2026",
+    title:
+      "Pay Transparency Laws by State: A 2026 Guide for HR and Compensation Teams",
+    description:
+      "An easy state-by-state guide to U.S. pay transparency laws in 2026. Who's required to disclose, what salary range disclosures are required, and what HR teams need to do.",
+    date: "2026-04-27",
+    readTime: "6 min read",
+    author: "CompShop",
+    tags: ["Pay Transparency"],
+    keywords: [
+      "pay transparency laws by state",
+      "pay transparency 2026",
+      "state pay disclosure laws",
+      "salary range disclosure requirements",
+      "pay transparency compliance",
+      "salary transparency law",
+    ],
+    body: `State pay transparency laws have multiplied over the past five years. As of mid-2026, the United States has no federal pay transparency requirement, but a growing patchwork of state and city laws now governs how employers must disclose salary information to applicants and employees.
+
+This guide gives compensation and HR teams a quick reference for what each state requires, who's covered, and what to watch for.
+
+## Quick reference: states with active pay transparency laws (2026)
+
+| State | Effective | Posting Range Required | Employer Threshold | Key Notes |
+|---|---|---|---|---|
+| California | Jan 1, 2023 | Yes | 15+ employees | Pay scale on postings. Pay data reporting also required. |
+| Colorado | Jan 1, 2021 (expanded) | Yes | All employers | Pay range, benefits, and notification of internal promotion opportunities. |
+| Connecticut | Oct 1, 2021 | On request | All employers | Range disclosed at applicant request and at offer. |
+| Hawaii | Jan 1, 2024 | Yes | 50+ employees | Hourly or salary range on postings. |
+| Illinois | Jan 1, 2025 | Yes | 15+ employees | Pay range and benefits on postings. |
+| Maine | Jan 1, 2026 | Yes | 10+ employees | Pay range on all postings, including third-party. |
+| Maryland | Oct 1, 2024 | Yes | All employers | Good-faith range required on postings. |
+| Massachusetts | Oct 29, 2025 | Yes | 25+ employees | Pay range on postings. Pay data reporting for 100+ employers. |
+| Minnesota | Jan 1, 2025 | Yes | 30+ employees | Pay range and general benefits description on postings. |
+| Nevada | 2021 | After interview | All employers | Range disclosed to applicants who have completed an initial interview. |
+| New Jersey | 2025 | Yes | 10+ employees | Range cap of 60% spread between min and max. Promotion notifications required. |
+| New York (state) | Sep 17, 2023 | Yes | 4+ employees | Pay range on internal and external postings. |
+| Rhode Island | 2023 | On request | All employers | Range provided on request and at offer. |
+| Vermont | 2025 | Yes | 5+ employees | Applies to remote roles tied to a Vermont office. |
+| Washington | Jan 1, 2023 | Yes | 15+ employees | Pay scale, benefits, and other compensation on postings. |
+| Washington D.C. | 2024 | Yes | All employers | Pay range on postings. |
+
+**Coming soon:** Delaware's pay transparency law takes effect September 2027.
+
+**City-level laws:** Several cities have additional or stricter rules including New York City, Jersey City (NJ), Cincinnati and Toledo (OH), and Ithaca (NY). Check local jurisdictions where you hire.
+
+## What pay transparency laws typically require
+
+Most state laws fall into one or more of the following buckets:
+
+1. **Posting requirements.** Salary range must appear on internal and external job postings. Some states also require benefits and other compensation to be disclosed.
+2. **On-request disclosure.** Employer must provide pay range to applicants on request, often after a defined point in the interview process.
+3. **Promotion and transfer notifications.** Internal opportunities must be communicated to existing employees with associated pay information.
+4. **Pay data reporting.** Employers above a defined size must submit pay data by job, race, and gender to the state.
+
+## What this means for remote employers
+
+If a remote role could be filled by someone living in a covered state, the law generally applies, even if your company is headquartered elsewhere. National postings are effectively governed by the strictest applicable state.
+
+The practical implication: most multi-state employers should default to including pay ranges on every posting rather than trying to manage state-by-state exceptions.
+
+## What compensation teams need to do
+
+If you operate in any of the states above (or hire remotely from them), the practical to-do list:
+
+- **Audit your job postings.** Every posting visible in a covered state needs a pay range. National postings need ranges if they're visible in any covered state.
+- **Build defensible pay ranges.** Posted ranges trigger candidate negotiations, employee questions, and pay equity scrutiny. Ranges built on weak data become liabilities.
+- **Document range methodology.** If asked how a range was set, your team needs a consistent answer rooted in third-party market data.
+- **Coordinate with talent acquisition.** Recruiters often paste ranges from old templates. Build a single source of truth.
+- **Plan for pay data reporting.** California and Massachusetts (and others on the way) require structured submissions. Reporting is harder than it looks.
+
+## How salary surveys support compliance
+
+Posting a pay range without supporting market data is risky. Pay equity counsel, employee challenges, and DOL audits can probe how a range was set. The defensible answer is "based on third-party market data with documented methodology" rather than "based on a manager's best guess."
+
+Salary surveys provide:
+
+- **Defensible, dated market data** that supports the range you posted.
+- **Consistent methodology** across years, which matters when posting practices are challenged over time.
+- **Job-matched benchmarks** that can be cited in pay equity proceedings.
+
+In a transparency-heavy environment, the cost of weak market data goes up. Every posted range is a public claim about how you pay.
+
+## Important caveat
+
+State pay transparency laws change frequently. Several additional states are evaluating similar legislation in 2026. Always confirm current requirements with your employment counsel before posting jobs in any covered jurisdiction. This guide reflects publicly reported information and is not legal advice.
+
+## FAQ
+
+### Which states require pay transparency in 2026?
+
+California, Colorado, Connecticut, Hawaii, Illinois, Maine, Maryland, Massachusetts, Minnesota, Nevada, New Jersey, New York, Rhode Island, Vermont, Washington, and Washington D.C. all have active laws. Delaware's law takes effect in 2027. Several major cities have additional or stricter requirements.
+
+### Does pay transparency apply to remote roles?
+
+Generally, yes. If a posting is visible in a covered state or open to candidates from that state, the law typically applies. Vermont, for example, explicitly extends to remote roles tied to a Vermont office.
+
+### Is there a federal pay transparency law?
+
+Not as of 2026. Federal contractors are subject to OFCCP requirements, but there is no broad federal law equivalent to the state-level ones.
+
+### What is the penalty for non-compliance?
+
+Penalties vary by state. Most include civil fines per violation and a private right of action for affected applicants or employees. California and Washington have been particularly active on enforcement.
+
+### How wide can a posted pay range be?
+
+Most states require a "good faith" range. New Jersey is more specific: the spread between minimum and maximum cannot exceed 60% of the minimum. Other states have not codified a numeric cap but enforce reasonableness through litigation and complaint processes.
+
+## Building defensible pay ranges in a transparency-heavy environment?
+
+[Browse salary surveys by industry, geography, and methodology on CompShop.](/surveys)`,
+    faq: [
+      {
+        q: "Which states require pay transparency in 2026?",
+        a: "California, Colorado, Connecticut, Hawaii, Illinois, Maine, Maryland, Massachusetts, Minnesota, Nevada, New Jersey, New York, Rhode Island, Vermont, Washington, and Washington D.C. all have active laws. Delaware's law takes effect in 2027. Several major cities have additional or stricter requirements.",
+      },
+      {
+        q: "Does pay transparency apply to remote roles?",
+        a: "Generally, yes. If a posting is visible in a covered state or open to candidates from that state, the law typically applies. Vermont, for example, explicitly extends to remote roles tied to a Vermont office.",
+      },
+      {
+        q: "Is there a federal pay transparency law?",
+        a: "Not as of 2026. Federal contractors are subject to OFCCP requirements, but there is no broad federal law equivalent to the state-level ones.",
+      },
+      {
+        q: "What is the penalty for non-compliance with pay transparency laws?",
+        a: "Penalties vary by state. Most include civil fines per violation and a private right of action for affected applicants or employees. California and Washington have been particularly active on enforcement.",
+      },
+      {
+        q: "How wide can a posted pay range be under pay transparency laws?",
+        a: "Most states require a good-faith range. New Jersey is more specific: the spread between minimum and maximum cannot exceed 60% of the minimum. Other states have not codified a numeric cap but enforce reasonableness through litigation and complaint processes.",
+      },
+    ],
+  },
 ];
 
 export function getAllPosts(): BlogPost[] {
