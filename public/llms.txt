@@ -39,9 +39,11 @@ CompShop is independent: not a reseller, not a referral broker. Vendor data is c
 - [Western Management Group](https://www.comp-shop.com/surveys/western-management-group): Wine, Utilities, Government Contractors, Education, Retail, Distribution, Credit Unions
 - [Willis Towers Watson (WTW)](https://www.comp-shop.com/surveys/wtw): Multi-industry
 
-## Editorial
+## Editorial & reference
 
 - [Blog](https://www.comp-shop.com/blog): notes on the salary-survey market, vendor methodology, AI vs surveys
+- [Glossary](https://www.comp-shop.com/glossary): plain-language definitions of compensation terms (compa-ratio, range penetration, aging factor, market percentile, and more)
+- [Publication calendar](https://www.comp-shop.com/calendar): when each major salary survey publishes results and when participation windows open
 
 ## Optional
 

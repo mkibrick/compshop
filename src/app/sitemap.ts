@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getAllSurveys } from "@/lib/surveys";
 import { getAllReports, getAllFamilies, getAllPositions } from "@/lib/reports";
 import { getAllPosts } from "@/lib/blog";
+import { getAllTerms } from "@/lib/glossary";
 import { SITE_URL } from "@/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -11,6 +12,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${SITE_URL}/blog/${p.slug}`,
     lastModified: new Date(p.date + "T00:00:00Z"),
     changeFrequency: "yearly",
+    priority: 0.6,
+  }));
+
+  const glossary: MetadataRoute.Sitemap = getAllTerms().map((t) => ({
+    url: `${SITE_URL}/glossary/${t.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
     priority: 0.6,
   }));
 
@@ -73,6 +81,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    {
+      url: `${SITE_URL}/glossary`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    ...glossary,
     ...posts,
     ...vendors,
     ...reports,

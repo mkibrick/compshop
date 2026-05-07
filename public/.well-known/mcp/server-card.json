@@ -98,13 +98,13 @@
     },
     {
       "name": "find_surveys_for_position",
-      "description": "Find compensation surveys that benchmark a specific job title or position (e.g. 'Software Engineer', 'Director of Finance', 'Registered Nurse'). Returns matching positions and the surveys that cover them.",
+      "description": "Find compensation surveys that benchmark a specific job title or position (e.g. 'Software Engineer', 'CPA', 'Sr Acct', 'head of finance'). Combines literal title matching with embedding-based semantic similarity, so abbreviations and paraphrases work — 'CPA' returns 'Certified Public Accountant', 'Sr Acct' returns 'Senior Accountant'. Reports per position are ranked to surface broad-coverage surveys (general-industry, US scope) before niche cuts.",
       "inputSchema": {
         "type": "object",
         "properties": {
           "position": {
             "type": "string",
-            "description": "Job title or position to look up (free text)."
+            "description": "Job title or position to look up (free text). Abbreviations and paraphrases are fine."
           },
           "limit": {
             "type": "integer",

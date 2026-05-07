@@ -17,6 +17,12 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-4 flex-shrink-0">
             <Link
+              href="/glossary"
+              className="text-xs text-gray-400 hover:text-white underline underline-offset-2"
+            >
+              Glossary
+            </Link>
+            <Link
               href="/calendar"
               className="text-xs text-gray-400 hover:text-white underline underline-offset-2"
             >

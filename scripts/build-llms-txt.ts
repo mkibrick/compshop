@@ -88,10 +88,16 @@ function main() {
   }
   lines.push("");
 
-  lines.push("## Editorial");
+  lines.push("## Editorial & reference");
   lines.push("");
   lines.push(
     "- [Blog](https://www.comp-shop.com/blog): notes on the salary-survey market, vendor methodology, AI vs surveys"
+  );
+  lines.push(
+    "- [Glossary](https://www.comp-shop.com/glossary): plain-language definitions of compensation terms (compa-ratio, range penetration, aging factor, market percentile, and more)"
+  );
+  lines.push(
+    "- [Publication calendar](https://www.comp-shop.com/calendar): when each major salary survey publishes results and when participation windows open"
   );
   lines.push("");
 
