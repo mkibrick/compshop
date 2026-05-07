@@ -556,6 +556,191 @@ Most states require a "good faith" range. New Jersey is more specific: the sprea
       },
     ],
   },
+  {
+    slug: "best-healthcare-salary-surveys-2026",
+    title: "Best Healthcare Salary Surveys for 2026",
+    description:
+      "An independent guide to the best healthcare salary surveys for 2026: SullivanCotter, MGMA, Mercer IHN/IHP, Gallagher, Pearl Meyer. Picks by use case.",
+    date: "2026-05-05",
+    readTime: "7 min read",
+    author: "CompShop",
+    tags: ["Buyer's Guide", "Healthcare"],
+    keywords: [
+      "best healthcare salary surveys",
+      "healthcare compensation surveys 2026",
+      "physician compensation survey",
+      "nursing salary survey",
+      "hospital executive compensation",
+      "MGMA vs SullivanCotter",
+      "best salary surveys for hospitals",
+    ],
+    body: `Last verified: May 2026. CompShop is an independent directory and does not take placement fees from survey publishers.
+
+The healthcare compensation market is fragmented across hospital systems, physician practices, nursing, health plans, and specialty settings. No single survey covers everyone well. Here's the short version, then the detail.
+
+## TL;DR by use case
+
+| You're benchmarking... | Start with |
+|---|---|
+| Physician compensation & productivity | SullivanCotter, MGMA |
+| Advanced practice providers (NPs, PAs, CRNAs) | SullivanCotter APP, MGMA |
+| Nursing | SullivanCotter Registered Nursing, Gallagher National Nursing |
+| Hospital staff & non-clinical | Mercer IHN suite |
+| Hospital executives | SullivanCotter Health Care Mgmt & Exec, Pearl Meyer Hospitals & Health Systems |
+| Health plans / insurers | Mercer IHP suite |
+| Specialty (cancer, children's, behavioral) | Gallagher specialty surveys |
+
+## How to pick
+
+Three questions decide most of it.
+
+### Is your population mostly clinical or mostly support / admin?
+
+Clinical pulls you to SullivanCotter and MGMA. Support and admin go to Mercer IHN or a regional cut from Gallagher.
+
+### Are you a single hospital, a system, a medical group, or a payer?
+
+Each survey is built around one structure. SullivanCotter is system-grade. MGMA is medical-group-native. Mercer IHP is payer-grade.
+
+### Do you need a single source or a layered comp stack?
+
+Most health systems run two to three sources: SullivanCotter or MGMA for clinical, Pearl Meyer or Mercer IHN for executives, and Gallagher for specialty or regional context. A single source rarely covers all three populations defensibly.
+
+## Detailed picks
+
+### SullivanCotter
+
+**Best for:** hospital systems and academic medical centers running a defensible comp program.
+
+**Coverage:** Physician Comp & Productivity, APP Comp & Productivity, Registered Nursing, Health Care Mgmt & Exec, Health Care Staff, Hospital-Based Physician On-Call, Workforce Metrics, Benefits Practices, plus Endowment & Foundation Investment Staff.
+
+**Why it's a top pick:** the most-cited source in physician comp committee minutes. Built around the way health systems actually structure roles.
+
+[See all SullivanCotter reports](/surveys/sullivancotter)
+
+### MGMA
+
+**Best for:** medical groups, physician practices, and provider-comp benchmarking down to specialty and CPT level.
+
+**Coverage:** Provider compensation, productivity, work RVUs, and practice operations.
+
+**Why it's a top pick:** the practice-side counterpart to SullivanCotter. If you're a medical group rather than a system, this is usually your primary source. Many large systems use both.
+
+[See all MGMA reports](/surveys/mgma)
+
+### Mercer (IHN and IHP)
+
+**Best for:** large systems and payers needing breadth across clinical and non-clinical roles.
+
+**Coverage (IHN):** Healthcare Individual Contributors, Advanced Practice Clinicians & Nurses, Healthcare Mgmt & Supervisory, Hospital & System Executives, Home Health & Hospice, Physician Practices & Clinics, Skilled Nursing & Assisted Living, Healthcare Informatics & Technology.
+
+**Coverage (IHP):** Health Plan Executives, Health Plan Operations, Health Plan Sales & Marketing.
+
+**Effective date:** April 1.
+
+**Why it's a top pick:** the most comprehensive one-stop source if you also use the Mercer Benchmark Database for corporate roles. Methodology consistency across clinical and corporate is the unlock.
+
+[See all Mercer reports](/surveys/mercer-benchmark-database)
+
+### Gallagher
+
+**Best for:** specialty and regional benchmarking the national surveys miss.
+
+**Coverage:** National Healthcare Leadership, National Nursing, Physician & Medical Director, Behavioral Health, Cancer Centers, Children's Hospitals, Community Health Centers, Advanced Practice Providers, plus regional cuts (Delaware Valley, Illinois Statewide, Indiana, Midwest Regional, and others).
+
+**Why it's a top pick:** the deepest list for specialty hospitals and regional cuts. If you run a children's hospital or a cancer center, Gallagher is often the only source that benchmarks your true comparator group.
+
+[See all Gallagher reports](/surveys/gallagher)
+
+### Pearl Meyer
+
+**Best for:** hospital and health-system executive compensation, especially board-level pay.
+
+**Coverage:** Hospitals & Health Systems Executive Compensation & Benefits Survey.
+
+**Why it's a top pick:** a comp-committee staple, particularly for not-for-profit health systems where IRS Form 990 disclosures mean exec pay decisions need defensible market data.
+
+[See all Pearl Meyer reports](/surveys/pearl-meyer)
+
+## Comparison at a glance
+
+| Survey | Best for | Effective |
+|---|---|---|
+| SullivanCotter | Health systems, clinical + exec | Varies by report |
+| MGMA | Medical groups, provider productivity | Annual |
+| Mercer IHN | Large systems, breadth | April 1 |
+| Mercer IHP | Health plans / payers | April 1 |
+| Gallagher | Specialty + regional | Varies |
+| Pearl Meyer | Hospital executive comp | April 1 |
+
+## FAQ
+
+### What's the difference between MGMA and SullivanCotter?
+
+MGMA is built for the medical-group and physician-practice perspective. It is the standard for productivity benchmarking (wRVUs, collections per FTE, panel size). SullivanCotter is built for the health-system perspective and is the standard for comp-committee defensibility. Most large systems use both.
+
+### Which survey is best for a 200-bed community hospital?
+
+The most common stack is SullivanCotter for clinical and Pearl Meyer or Mercer IHN for executives. Adding a regional cut from Gallagher gives you geographic context for staff and non-clinical roles.
+
+### Which survey covers nurse compensation?
+
+SullivanCotter Registered Nursing and Gallagher National Nursing are the two most-cited dedicated nursing surveys. Mercer IHN includes nurses inside its broader healthcare data. MGMA covers nurses in physician-practice settings.
+
+### Which survey covers advanced practice providers?
+
+SullivanCotter APP Compensation & Productivity is the most-cited dedicated APP survey. Mercer IHN Advanced Practice Clinicians & Nurses covers APPs alongside nurses. MGMA covers APPs in medical-group settings.
+
+### When do healthcare salary surveys publish?
+
+Most publish in spring or early summer. Mercer IHN and IHP have April 1 effective dates. SullivanCotter publishes most surveys in spring. Gallagher schedules vary by report.
+
+### What about free healthcare salary data?
+
+Free sources can give directional numbers but typically lack the role leveling, productivity tie-in, and statistical depth that comp committees expect. They're useful for initial scoping or candidate-side conversations, not for defensible pay decisions or 990 disclosures.
+
+### Do I need more than one survey?
+
+Usually yes. Most health systems run a primary source for clinical (SullivanCotter or MGMA), a primary source for executives (Pearl Meyer, SullivanCotter, or Mercer), and a primary source for staff and non-clinical roles (Mercer IHN or a regional Gallagher cut). Layering two to three sources is the norm.
+
+## How we built this
+
+CompShop is an independent directory. We don't take placement fees from publishers and we don't resell the data. We list every healthcare survey we can verify, with the publisher's pricing model and a direct link to the publisher's product page.
+
+Found a survey that should be on this list? Use the Contact link in the footer to drop us a note.
+
+[Browse all healthcare surveys](/surveys)`,
+    faq: [
+      {
+        q: "What's the difference between MGMA and SullivanCotter?",
+        a: "MGMA is built for the medical-group and physician-practice perspective. It is the standard for productivity benchmarking (wRVUs, collections per FTE, panel size). SullivanCotter is built for the health-system perspective and is the standard for comp-committee defensibility. Most large systems use both.",
+      },
+      {
+        q: "Which survey is best for a 200-bed community hospital?",
+        a: "The most common stack is SullivanCotter for clinical and Pearl Meyer or Mercer IHN for executives. Adding a regional cut from Gallagher gives you geographic context for staff and non-clinical roles.",
+      },
+      {
+        q: "Which survey covers nurse compensation?",
+        a: "SullivanCotter Registered Nursing and Gallagher National Nursing are the two most-cited dedicated nursing surveys. Mercer IHN includes nurses inside its broader healthcare data. MGMA covers nurses in physician-practice settings.",
+      },
+      {
+        q: "Which survey covers advanced practice providers?",
+        a: "SullivanCotter APP Compensation & Productivity is the most-cited dedicated APP survey. Mercer IHN Advanced Practice Clinicians & Nurses covers APPs alongside nurses. MGMA covers APPs in medical-group settings.",
+      },
+      {
+        q: "When do healthcare salary surveys publish?",
+        a: "Most publish in spring or early summer. Mercer IHN and IHP have April 1 effective dates. SullivanCotter publishes most surveys in spring. Gallagher schedules vary by report.",
+      },
+      {
+        q: "What about free healthcare salary data?",
+        a: "Free sources can give directional numbers but typically lack the role leveling, productivity tie-in, and statistical depth that comp committees expect. They're useful for initial scoping or candidate-side conversations, not for defensible pay decisions or 990 disclosures.",
+      },
+      {
+        q: "Do I need more than one healthcare salary survey?",
+        a: "Usually yes. Most health systems run a primary source for clinical (SullivanCotter or MGMA), a primary source for executives (Pearl Meyer, SullivanCotter, or Mercer), and a primary source for staff and non-clinical roles (Mercer IHN or a regional Gallagher cut). Layering two to three sources is the norm.",
+      },
+    ],
+  },
 ];
 
 export function getAllPosts(): BlogPost[] {

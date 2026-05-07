@@ -9,13 +9,13 @@ export default function Footer() {
   return (
     <>
       <footer className="bg-navy text-gray-400 text-sm py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-          <p className="text-xs sm:text-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center sm:text-left">
+          <p className="text-xs sm:text-sm leading-relaxed max-w-4xl">
             CompShop is an independent directory. Vendor data, products, and
             details may contain inaccuracies and are subject to change.
             Information was compiled from publicly available sources.
           </p>
-          <div className="flex items-center gap-4 flex-shrink-0">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-5 gap-y-2 pt-2 border-t border-white/10">
             <Link
               href="/glossary"
               className="text-xs text-gray-400 hover:text-white underline underline-offset-2"
