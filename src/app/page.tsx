@@ -37,9 +37,9 @@ export default function HomePage() {
             className="font-display text-5xl sm:text-6xl leading-[1.05]"
             style={{ letterSpacing: "-0.02em", fontWeight: 400 }}
           >
-            Find the right salary survey
+            The independent directory
             <br />
-            <em className="italic text-plum-200">for your organization.</em>
+            <em className="italic text-plum-200">of salary surveys.</em>
           </h1>
           <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
             Browse and compare compensation data sources. Filter by industry,
