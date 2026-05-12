@@ -4,7 +4,8 @@
  *
  * The broader fix lives in scripts/derive-categories.ts (tightened
  * patterns, report-title-only signals). This script just scrubs the bad
- * state already in the DB.
+ * state already in the DB, and adds missing tags the derive rules don't
+ * catch (publisher-name signal, not survey-content signal).
  */
 import Database from "better-sqlite3";
 import { resolve, dirname } from "path";
@@ -44,6 +45,20 @@ const REMOVALS: Array<[string, string[]]> = [
   // genuinely their core audience. (no change)
 ];
 
+/**
+ * (vendorSlug, categoriesToAdd) pairs. Each category is added to the
+ * vendor's `categories` column if not already present.
+ *
+ * Used for tags the auto-derive misses because the signal is in the
+ * publisher's identity (org name, mandate) rather than in survey content.
+ */
+const ADDITIONS: Array<[string, string[]]> = [
+  // LOMA = Life Office Management Association, the life-insurance
+  // industry body. Their surveys (Executive, Actuarial, Group, etc.)
+  // are insurance-specific despite being titled generically.
+  ["loma", ["insurance"]],
+];
+
 function normalize(cats: string): string[] {
   return cats
     .split(",")
@@ -78,6 +93,25 @@ function main() {
       const removed = before.filter((c) => stripSet.has(c));
       set.run(after.join(","), row.id);
       console.log(`  ${slug.padEnd(32)} -[${removed.join(", ")}]`);
+      updated++;
+    }
+
+    for (const [slug, add] of ADDITIONS) {
+      const row = get.get(slug) as { id: number; categories: string } | undefined;
+      if (!row) {
+        console.log(`  skip (missing): ${slug}`);
+        continue;
+      }
+      const before = normalize(row.categories);
+      const beforeSet = new Set(before);
+      const toAdd = add.map((c) => c.toLowerCase()).filter((c) => !beforeSet.has(c));
+      if (toAdd.length === 0) {
+        console.log(`  already tagged: ${slug} (${before.join(",")})`);
+        continue;
+      }
+      const after = [...before, ...toAdd];
+      set.run(after.join(","), row.id);
+      console.log(`  ${slug.padEnd(32)} +[${toAdd.join(", ")}]`);
       updated++;
     }
   })();

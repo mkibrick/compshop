@@ -9,6 +9,7 @@ import VendorModal from "@/components/VendorModal";
 import MultiSelect, { MultiSelectOption } from "@/components/MultiSelect";
 import { loadIndex, vendorMatchCounts } from "@/lib/client-search";
 import { ALL_REGIONS, regionsForVendor } from "@/lib/geography";
+import { sortByCategoryWeight } from "@/lib/category-weights";
 
 const categoryOptions: MultiSelectOption[] = [
   { label: "General Industry", value: "general-industry" },
@@ -184,6 +185,12 @@ export default function SurveyDirectory({
         const countB = matchingSlugs.get(b.slug) ?? 0;
         return countB - countA || a.provider.localeCompare(b.provider);
       });
+    }
+    // No search query: when exactly one industry filter is active, rank
+    // by editorial authority within that industry instead of falling
+    // through to the DB's title-alphabetical default.
+    if (categories.length === 1) {
+      return sortByCategoryWeight(filteredList, categories[0]);
     }
     return filteredList;
   }, [
