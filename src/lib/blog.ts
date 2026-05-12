@@ -741,6 +741,244 @@ Found a survey that should be on this list? Use the Contact link in the footer t
       },
     ],
   },
+  {
+    slug: "best-executive-compensation-surveys-2026",
+    title: "Best Executive Compensation Surveys for 2026",
+    description:
+      "An independent guide to the best executive compensation surveys for 2026: Pearl Meyer, Empsight, Mercer Executive, Aon Radford and McLagan, SullivanCotter. Picks by use case, plus proxy data providers.",
+    date: "2026-05-12",
+    readTime: "9 min read",
+    author: "CompShop",
+    tags: ["Buyer's Guide", "Executive"],
+    keywords: [
+      "best executive compensation surveys",
+      "executive compensation surveys 2026",
+      "Pearl Meyer executive comp survey",
+      "Empsight executive compensation",
+      "Mercer executive compensation survey",
+      "Radford executive equity",
+      "McLagan financial services comp",
+      "board of director compensation survey",
+      "comp committee survey",
+      "proxy data Equilar ISS",
+    ],
+    body: `Last verified: May 2026. CompShop is an independent directory and does not take placement fees from survey publishers.
+
+Executive compensation benchmarking sits in its own category. The data is more granular (separating base, target bonus, LTI grant value, realized pay), the audience is sharper (comp committees, boards, proxy advisors), and the consequences of getting it wrong are bigger (Say-on-Pay results, IRS Form 990 scrutiny, founder dilution). Most general-industry surveys don't cut deeply enough for executive work, which is why exec-comp buyers reach for specialists.
+
+A note on scope: this page covers traditional survey publishers. Public-company exec-comp work also relies on proxy data providers (Equilar, ISS, Glass Lewis) for peer-group benchmarking off DEF 14A filings. We cover those at the end as a complement, not a substitute.
+
+## TL;DR by use case
+
+| You're benchmarking... | Start with |
+|---|---|
+| Public-company NEOs (CEO, CFO, named officers) | Pearl Meyer, Empsight, plus proxy data (Equilar, ISS) |
+| Board / non-employee director compensation | Pearl Meyer, plus proxy data (Equilar) |
+| Mid-cap and large-cap corporate executives | Empsight, Mercer Executive Compensation Survey |
+| General-industry executive benchmarking | Mercer Executive Compensation Survey |
+| Tech / life sciences executives (with equity) | Aon Radford |
+| Pre-IPO / PE-backed portfolio company executives | Aon Radford Private Equity Portfolio Company Survey |
+| Financial services MDs, partners, and senior executives | Aon McLagan |
+| Healthcare executives (hospitals, health systems, AMCs) | SullivanCotter Health Care Mgmt & Exec, Pearl Meyer Hospitals & Health Systems |
+| Healthcare physician executives (CMOs, CMIOs) | SullivanCotter Physician Executive |
+| Banking and credit union executives | Pearl Meyer Banking, Pearl Meyer Top Credit Unions CEO |
+
+## How to pick
+
+Three questions decide most of it.
+
+### Public company or private / PE / not-for-profit?
+
+Public-company comp committees lean on Pearl Meyer and Empsight for survey data, layered with proxy data from Equilar or ISS for direct peer-group benchmarking. Private and PE-backed companies pull toward Aon Radford (especially for equity and MIP design) and Mercer. Not-for-profit health systems live in SullivanCotter and Pearl Meyer Hospitals & Health Systems for 990-defensible pay.
+
+### What's your industry?
+
+The general-industry surveys (Pearl Meyer Multi-Industry, Mercer Executive) work for cross-sector benchmarking. Tech and life sciences pull toward Radford. Financial services pulls toward McLagan. Healthcare pulls toward SullivanCotter. Industry-specific surveys are nearly always sharper than general-industry cuts at the exec level because the role definitions actually match.
+
+### Are you sizing base + bonus, or also pricing equity?
+
+For base and target bonus, most of the survey market is interchangeable. Equity is where it gets specialized. Radford is the standard for tech and life sciences equity benchmarks (option refresh grants, RSU values, equity-as-percent-of-total-comp). For LTI design in public companies, Pearl Meyer and Mercer both have dedicated long-term incentive practices and survey data.
+
+## Detailed picks
+
+### Pearl Meyer
+
+**Best for:** public-company comp committees, board-of-director compensation, not-for-profit health system executives, banks, and credit unions.
+
+**Coverage:** Banking Compensation Survey, Energy Compensation Survey, Engineering & Construction Compensation Survey, Higher Education Compensation Survey, Hospitals & Health Systems Executive Compensation & Benefits Survey, Multi-Industry Compensation Survey, Real Estate Compensation Survey, Top Credit Unions CEO & Senior Executive Compensation Survey.
+
+**Effective date:** April 1.
+
+**Why it's a top pick:** Pearl Meyer is the survey publisher that comp committees cite most often in defensible exec-pay work. The combination of multi-industry coverage and dedicated industry cuts (banking, healthcare, credit unions, higher ed) means the same publisher can support a full board-level comp review.
+
+[See all Pearl Meyer reports](/surveys/pearl-meyer)
+
+### Empsight
+
+**Best for:** mid-cap and large-cap public companies, especially in the NY metro region and across general industry, financial services, and healthcare supplements.
+
+**Coverage:** Executive Compensation Survey, Executive Administrative Support Compensation Survey, Government Relations & Corporate Communications Compensation Survey, plus industry supplements for Financial Services, Insurance, Manufacturing, Renewable Energy, and Retail / E-Commerce. The Works (Full Access) bundles all of it.
+
+**Effective date:** April 1.
+
+**Why it's a top pick:** Empsight is the inside pick. Comp consultants and corporate comp teams who know the space lean on Empsight for proxy-comparable executive benchmarks and for hard-to-find roles (executive admin, government relations, corporate comms) that the big-three publishers don't price well. Strong NY metro coverage matters for finance and media headquarters.
+
+[See all Empsight reports](/surveys/empsight)
+
+### Mercer Executive Compensation Survey
+
+**Best for:** general-industry executive benchmarking, especially for comp teams already using the Mercer Benchmark Database for non-executive roles.
+
+**Coverage:** US MBD Executive Compensation Survey, plus the Long-Term Incentive & Equity Report, Short-Term Incentive Report, and dedicated exec cuts inside Health Plan Executives, Hospital & System Executives, and the Canadian and global MTRS series.
+
+**Effective date:** April 1.
+
+**Why it's a top pick:** the most comprehensive one-stop source if you also use the Mercer Benchmark Database for the rest of the workforce. Methodology consistency from individual contributor through CEO is the unlock, and the Long-Term Incentive Report adds equity-design context most cross-industry surveys lack.
+
+[See all Mercer reports](/surveys/mercer-benchmark-database)
+
+### Aon (Radford + McLagan)
+
+**Best for:** tech and life sciences executive equity, PE-backed portfolio company exec design, and financial services MD- and partner-level comp.
+
+**Coverage (Radford):** Radford Global Technology Survey, Radford Global Life Sciences Survey, Radford Private Equity Portfolio Company Survey, Radford Global Tech Survey (Startup Cut), Radford Global Sales Compensation Survey, Radford Cybersecurity Compensation Survey.
+
+**Coverage (McLagan):** McLagan Investment Banking, Asset Management, Hedge Fund, Private Equity & Private Capital, Insurance, Retail Banking, Commercial Banking, Broker-Dealer, and Fintech Compensation Surveys.
+
+**Effective dates:** April 1 and October 1 (semi-annual).
+
+**Why it's a top pick:** if your executives are paid heavily in equity (tech, life sciences, pre-IPO, PE-backed), Radford's depth on option refresh grants, RSU values, MIP design, and stage-based leveling is unmatched. McLagan is the same story for financial services MDs and partners, where bonus pools and carried-interest mechanics drive total comp.
+
+[See all Aon reports](/surveys/radford-mclagan)
+
+### SullivanCotter
+
+**Best for:** not-for-profit health systems, academic medical centers, and physician-executive compensation.
+
+**Coverage:** Health Care Management & Executive Compensation Survey, Medical Group Executive Compensation Survey, Physician Executive Compensation Survey.
+
+**Why it's a top pick:** for not-for-profit health system board comp committees navigating IRS Form 990 disclosures and intermediate-sanctions analysis, SullivanCotter is the standard. It is also the dominant source for physician executive roles (CMO, CMIO, Chief of Service) where general-industry surveys don't level the role correctly.
+
+[See all SullivanCotter reports](/surveys/sullivancotter)
+
+## Comparison at a glance
+
+| Survey | Best for | Effective |
+|---|---|---|
+| Pearl Meyer | Public-company comp committees, multi-industry + dedicated industry cuts | April 1 |
+| Empsight | Mid-cap and large-cap public companies, NY metro, hard-to-price exec roles | April 1 |
+| Mercer Executive | General industry, methodology consistency with rest of workforce | April 1 |
+| Aon Radford | Tech / life sciences equity, PE-backed portfolio companies | April 1 / October 1 |
+| Aon McLagan | Financial services MDs, partners, senior executives | April 1 / October 1 |
+| SullivanCotter | Not-for-profit health systems, physician executives | Varies by report |
+
+## Beyond surveys: proxy data providers
+
+Survey data and proxy data are different products that serve the same buyer. Survey data is confidential, role-leveled, and covers public and private companies across the full executive pyramid. Proxy data is sourced from public-disclosure filings (DEF 14A), covers only the top five named executive officers, and is limited to public companies. Comp committees use both: surveys for role-level benchmarks and proxy data for direct peer comparability and Say-on-Pay risk modeling.
+
+The four most-cited proxy data providers:
+
+- **Equilar** (TrueView, ExecAtlas, Equilar Insight). The most widely used proxy data platform for public-company comp work. Strong on peer-group construction, pay-for-performance modeling, and non-employee director compensation.
+- **ISS Corporate Solutions** (Compensation Analytics, ExecComp Analyzer). Run by the same parent as the ISS proxy advisor that influences Say-on-Pay vote recommendations. Many comp teams subscribe specifically to model how ISS will view their proposed pay design before it goes to a shareholder vote.
+- **Glass Lewis** (Compensation Insights). The second major proxy advisor with its own data services. Often paired with ISS for full Say-on-Pay risk coverage and contrarian-vote-risk analysis.
+- **Main Data Group**. A mid-market alternative with strong director compensation and benefits coverage at a lower price point than Equilar.
+
+These are not survey publishers and they are not listed on CompShop's main directory. They are the natural complement to the publishers above. Most public-company executive comp work pairs one to two surveys with one to two proxy providers: surveys for the role-level benchmarks (CFO, COO, division presidents) and proxy data for the NEO-level peer comparison the board's comp committee will actually vote on.
+
+## FAQ
+
+### What's the difference between Pearl Meyer and Mercer for executive compensation?
+
+Pearl Meyer is a comp-committee-first publisher. Its surveys are built around the cuts a public-company board or a not-for-profit comp committee needs: named-officer benchmarks, board pay, industry-specific proxy peers. Mercer's Executive Compensation Survey is built on top of the Mercer Benchmark Database, which means it gives you methodology consistency from individual contributor through CEO. Many large companies use both: Mercer for cross-workforce calibration and Pearl Meyer for the comp-committee book.
+
+### Which survey is best for a private company benchmarking executive compensation?
+
+The most common stack is Mercer Executive for general-industry benchmarks plus an industry-specific source. If you're tech or life sciences, add Radford for equity. If you're financial services, add McLagan. Empsight covers mid-cap and large-cap private companies (especially in NY metro) and is often the inside pick for fast-growing private companies that out-grew startup-stage benchmarks.
+
+### Which survey is best for a PE-backed portfolio company?
+
+Radford's Private Equity Portfolio Company Survey is built for this. It covers compensation benchmarks across PE-backed portfolio companies with emphasis on equity design, MIP (management incentive plan) structures, and exit-linked compensation. Mercer Executive provides corporate-side context. McLagan covers the sponsor (PE firm) side if you also benchmark the deal team.
+
+### Which survey covers board / non-employee director compensation?
+
+Pearl Meyer is the most-cited survey source for non-employee director compensation, especially for public companies. For public-company director work, Pearl Meyer is typically paired with proxy data from Equilar, which pulls director pay directly from DEF 14A filings across a proxy-comparable peer group.
+
+### Which survey covers equity grants and long-term incentives?
+
+For tech and life sciences, Radford is the standard. The Global Technology and Global Life Sciences surveys go deep on option grants, RSU values, equity-as-percent-of-total-comp, and stage-based leveling for pre-IPO companies. Mercer's Long-Term Incentive & Equity Report covers public-company LTI design across general industry. Pearl Meyer's multi-industry survey reports LTI prevalence and grant values for proxy-comparable companies.
+
+### Which survey is best for healthcare executive compensation?
+
+SullivanCotter Health Care Management & Executive Compensation Survey is the standard for hospital and health-system executives. Pearl Meyer Hospitals & Health Systems Executive Compensation & Benefits Survey is the second source most comp committees layer on top. For physician executives specifically (CMO, CMIO, Chief of Service), SullivanCotter Physician Executive is the dedicated source.
+
+### Which survey is best for financial services executive compensation?
+
+McLagan covers nearly every sub-segment: Investment Banking, Asset Management, Hedge Fund, Private Equity, Insurance, Retail Banking, Commercial Banking, Broker-Dealer, and Fintech. The specific report depends on your business. Pearl Meyer Banking covers community and regional banks. For credit union executives, Pearl Meyer Top Credit Unions CEO is the standard.
+
+### How is CEO pay benchmarked?
+
+Public-company CEO pay is typically benchmarked against a proxy-disclosed peer group (revenue and industry comparable). Proxy data providers (Equilar, ISS Corporate Solutions, Glass Lewis) pull NEO comp directly from DEF 14A filings to build that peer view. Survey publishers (Pearl Meyer, Empsight, Mercer Executive) layer on top with role-level base, target bonus, and LTI grant-value benchmarks that proxy data alone can lag on. Most committees triangulate among at least two surveys and one or two proxy providers.
+
+### Do I need both a survey and a proxy data provider?
+
+For public-company work, almost always yes. The survey gives you role-level benchmarks for the full executive team (CFO, COO, CHRO, division leadership) and design context for LTI structures. The proxy data gives you direct peer-comparability for the top five named executive officers and the Say-on-Pay risk modeling the board's comp committee will want before voting. For private-company and PE-backed work, survey data alone is usually enough since there is no DEF 14A to pull from.
+
+### Do I need more than one executive compensation survey?
+
+Almost always yes. A typical exec-comp project uses one general-industry source (Pearl Meyer Multi-Industry or Mercer Executive) plus one industry-specific source (Radford for tech, McLagan for financial services, SullivanCotter for healthcare). For public-company board work, proxy data from Equilar or ISS is layered on top. For PE-backed and pre-IPO work, equity benchmarks from Radford typically sit alongside a corporate-side survey.
+
+## How we built this
+
+CompShop is an independent directory. We don't take placement fees from publishers and we don't resell the data. We list every executive compensation survey we can verify, with the publisher's pricing model and a direct link to the publisher's product page.
+
+Working on a comp-committee book or a private-company exec review? The publishers above are the foundation. For public companies, pair with proxy data from Equilar, ISS, or Glass Lewis. For PE-backed and pre-IPO work, layer Radford equity benchmarks on top.
+
+Found a survey that should be on this list? Use the Contact link in the footer to drop us a note.
+
+[Browse all executive compensation surveys](/surveys?category=executive)`,
+    faq: [
+      {
+        q: "What's the difference between Pearl Meyer and Mercer for executive compensation?",
+        a: "Pearl Meyer is a comp-committee-first publisher. Its surveys are built around the cuts a public-company board or a not-for-profit comp committee needs: named-officer benchmarks, board pay, industry-specific proxy peers. Mercer's Executive Compensation Survey is built on top of the Mercer Benchmark Database, which means it gives you methodology consistency from individual contributor through CEO. Many large companies use both: Mercer for cross-workforce calibration and Pearl Meyer for the comp-committee book.",
+      },
+      {
+        q: "Which survey is best for a private company benchmarking executive compensation?",
+        a: "The most common stack is Mercer Executive for general-industry benchmarks plus an industry-specific source. If you're tech or life sciences, add Radford for equity. If you're financial services, add McLagan. Empsight covers mid-cap and large-cap private companies (especially in NY metro) and is often the inside pick for fast-growing private companies that out-grew startup-stage benchmarks.",
+      },
+      {
+        q: "Which survey is best for a PE-backed portfolio company?",
+        a: "Radford's Private Equity Portfolio Company Survey is built for this. It covers compensation benchmarks across PE-backed portfolio companies with emphasis on equity design, MIP (management incentive plan) structures, and exit-linked compensation. Mercer Executive provides corporate-side context. McLagan covers the sponsor (PE firm) side if you also benchmark the deal team.",
+      },
+      {
+        q: "Which survey covers board or non-employee director compensation?",
+        a: "Pearl Meyer is the most-cited survey source for non-employee director compensation, especially for public companies. For public-company director work, Pearl Meyer is typically paired with proxy data from Equilar, which pulls director pay directly from DEF 14A filings across a proxy-comparable peer group.",
+      },
+      {
+        q: "Which survey covers equity grants and long-term incentives?",
+        a: "For tech and life sciences, Radford is the standard. The Global Technology and Global Life Sciences surveys go deep on option grants, RSU values, equity-as-percent-of-total-comp, and stage-based leveling for pre-IPO companies. Mercer's Long-Term Incentive & Equity Report covers public-company LTI design across general industry. Pearl Meyer's multi-industry survey reports LTI prevalence and grant values for proxy-comparable companies.",
+      },
+      {
+        q: "Which survey is best for healthcare executive compensation?",
+        a: "SullivanCotter Health Care Management & Executive Compensation Survey is the standard for hospital and health-system executives. Pearl Meyer Hospitals & Health Systems Executive Compensation & Benefits Survey is the second source most comp committees layer on top. For physician executives specifically (CMO, CMIO, Chief of Service), SullivanCotter Physician Executive is the dedicated source.",
+      },
+      {
+        q: "Which survey is best for financial services executive compensation?",
+        a: "McLagan covers nearly every sub-segment: Investment Banking, Asset Management, Hedge Fund, Private Equity, Insurance, Retail Banking, Commercial Banking, Broker-Dealer, and Fintech. The specific report depends on your business. Pearl Meyer Banking covers community and regional banks. For credit union executives, Pearl Meyer Top Credit Unions CEO is the standard.",
+      },
+      {
+        q: "How is CEO pay benchmarked?",
+        a: "Public-company CEO pay is typically benchmarked against a proxy-disclosed peer group (revenue and industry comparable). Proxy data providers (Equilar, ISS Corporate Solutions, Glass Lewis) pull NEO comp directly from DEF 14A filings to build that peer view. Survey publishers (Pearl Meyer, Empsight, Mercer Executive) layer on top with role-level base, target bonus, and LTI grant-value benchmarks that proxy data alone can lag on. Most committees triangulate among at least two surveys and one or two proxy providers.",
+      },
+      {
+        q: "Do I need both a survey and a proxy data provider?",
+        a: "For public-company work, almost always yes. The survey gives you role-level benchmarks for the full executive team (CFO, COO, CHRO, division leadership) and design context for LTI structures. The proxy data gives you direct peer-comparability for the top five named executive officers and the Say-on-Pay risk modeling the board's comp committee will want before voting. For private-company and PE-backed work, survey data alone is usually enough since there is no DEF 14A to pull from.",
+      },
+      {
+        q: "Do I need more than one executive compensation survey?",
+        a: "Almost always yes. A typical exec-comp project uses one general-industry source (Pearl Meyer Multi-Industry or Mercer Executive) plus one industry-specific source (Radford for tech, McLagan for financial services, SullivanCotter for healthcare). For public-company board work, proxy data from Equilar or ISS is layered on top. For PE-backed and pre-IPO work, equity benchmarks from Radford typically sit alongside a corporate-side survey.",
+      },
+    ],
+  },
 ];
 
 export function getAllPosts(): BlogPost[] {
