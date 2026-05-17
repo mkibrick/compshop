@@ -14,6 +14,7 @@
     "db:add-report-batch": "npx tsx scripts/add-report-batch.ts"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "better-sqlite3": "^12.9.0",
     "next": "14.2.35",
     "react": "^18",
