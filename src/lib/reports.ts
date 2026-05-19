@@ -155,6 +155,23 @@ export function getAllPositions(): PositionDetail[] {
     .all() as PositionDetail[];
 }
 
+/**
+ * Positions with at least one linked report. Used by the sitemap so we
+ * don't ship thin/empty position pages to Google for crawl, and by the
+ * position page itself to decide whether to noindex.
+ */
+export function getIndexablePositions(): PositionDetail[] {
+  const db = getDb();
+  return db
+    .prepare(
+      `SELECT DISTINCT p.id, p.slug, p.canonical_title AS canonicalTitle, p.description
+       FROM positions p
+       INNER JOIN report_positions rp ON rp.position_id = p.id
+       ORDER BY p.canonical_title`
+    )
+    .all() as PositionDetail[];
+}
+
 export function getPositionBySlug(slug: string): PositionDetail | undefined {
   const db = getDb();
   return db

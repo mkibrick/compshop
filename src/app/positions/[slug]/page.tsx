@@ -28,10 +28,16 @@ export function generateMetadata({
   const title = `${position.canonicalTitle} Salary Surveys & Benchmarks`;
   const description = `${reports.length} compensation survey report${reports.length !== 1 ? "s" : ""} benchmark ${position.canonicalTitle} pay. Compare Mercer, WTW, Aon Radford McLagan, and other publishers.`;
   const canonical = `${SITE_URL}/positions/${position.slug}`;
+  // Pages with no linked reports are essentially empty — don't let
+  // Google index them or burn crawl budget on the long tail.
+  const indexable = reports.length > 0;
   return {
     title,
     description,
     alternates: { canonical },
+    robots: indexable
+      ? { index: true, follow: true }
+      : { index: false, follow: true },
     openGraph: {
       type: "website",
       url: canonical,

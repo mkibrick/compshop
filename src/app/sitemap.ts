@@ -1,10 +1,24 @@
 import type { MetadataRoute } from "next";
 import { getAllSurveys } from "@/lib/surveys";
-import { getAllReports, getAllFamilies, getAllPositions } from "@/lib/reports";
+import { getAllReports } from "@/lib/reports";
 import { getAllPosts } from "@/lib/blog";
 import { getAllTerms } from "@/lib/glossary";
 import { SITE_URL } from "@/lib/site-url";
 
+/**
+ * High-signal sitemap. Includes only canonical pages we actively want
+ * Google to crawl and rank: core nav, blog, glossary, surveys, reports.
+ *
+ * /positions/* and /families/* are intentionally omitted. The pages are
+ * still published and indexable — Google discovers them via internal
+ * links from /surveys/* and /reports/* — but they don't belong in the
+ * sitemap for a domain still earning crawl budget. A 24k-URL sitemap
+ * on a new domain trains Google to ignore the file; a curated ~600-URL
+ * sitemap gets the high-value pages crawled and ranked first.
+ *
+ * Once core pages are indexed and ranking, we can add positions back
+ * selectively (e.g., positions with >=5 linked reports).
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
@@ -34,20 +48,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: "monthly",
     priority: 0.7,
-  }));
-
-  const families: MetadataRoute.Sitemap = getAllFamilies().map((f) => ({
-    url: `${SITE_URL}/families/${f.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.6,
-  }));
-
-  const positions: MetadataRoute.Sitemap = getAllPositions().map((p) => ({
-    url: `${SITE_URL}/positions/${p.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.5,
   }));
 
   return [
@@ -91,7 +91,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...posts,
     ...vendors,
     ...reports,
-    ...families,
-    ...positions,
   ];
 }
