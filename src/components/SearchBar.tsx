@@ -165,48 +165,12 @@ export default function SearchBar({
             <div className="p-4 text-sm text-gray-500">No matches for &ldquo;{value}&rdquo;</div>
           ) : (
             <div className="divide-y divide-gray-100">
-              {results.reports.length > 0 && (
-                <Group label="Survey Reports">
-                  {results.reports.map((r) => (
-                    <ExternalRow
-                      key={r.slug}
-                      href={reportOutbound(r.slug)}
-                      primary={r.title}
-                      secondary={r.vendorProvider}
-                    />
-                  ))}
-                </Group>
-              )}
-              {results.vendors.length > 0 && (
-                <Group label="Vendors">
-                  {results.vendors.map((v) => (
-                    <ExternalRow
-                      key={v.slug}
-                      href={vendorOutbound(v.slug)}
-                      primary={v.title}
-                      secondary={`${v.provider}${v.industry ? " · " + v.industry : ""}`}
-                    />
-                  ))}
-                </Group>
-              )}
-              {results.families.length > 0 && (
-                <Group label="Job Families">
-                  {results.families.map((f) => (
-                    <EntityWithReports
-                      key={f.slug}
-                      primary={f.canonicalName}
-                      secondary={`${f.reportCount} report${f.reportCount !== 1 ? "s" : ""} · ${f.positionCount} position${f.positionCount !== 1 ? "s" : ""}`}
-                      reports={f.reports}
-                      totalCount={f.reportCount}
-                    />
-                  ))}
-                </Group>
-              )}
               {results.positions.length > 0 && (
                 <Group label="Job Titles / Positions">
                   {results.positions.map((p) => (
                     <EntityWithReports
                       key={p.slug}
+                      href={`/positions/${p.slug}`}
                       primary={p.canonicalTitle}
                       secondary={`${p.reportCount} report${p.reportCount !== 1 ? "s" : ""}`}
                       reports={p.reports}
@@ -231,6 +195,44 @@ export default function SearchBar({
                   </Group>
                 );
               })()}
+              {results.families.length > 0 && (
+                <Group label="Job Families">
+                  {results.families.map((f) => (
+                    <EntityWithReports
+                      key={f.slug}
+                      href={`/families/${f.slug}`}
+                      primary={f.canonicalName}
+                      secondary={`${f.reportCount} report${f.reportCount !== 1 ? "s" : ""} · ${f.positionCount} position${f.positionCount !== 1 ? "s" : ""}`}
+                      reports={f.reports}
+                      totalCount={f.reportCount}
+                    />
+                  ))}
+                </Group>
+              )}
+              {results.reports.length > 0 && (
+                <Group label="Survey Reports">
+                  {results.reports.map((r) => (
+                    <ExternalRow
+                      key={r.slug}
+                      href={reportOutbound(r.slug)}
+                      primary={r.title}
+                      secondary={r.vendorProvider}
+                    />
+                  ))}
+                </Group>
+              )}
+              {results.vendors.length > 0 && (
+                <Group label="Vendors">
+                  {results.vendors.map((v) => (
+                    <ExternalRow
+                      key={v.slug}
+                      href={vendorOutbound(v.slug)}
+                      primary={v.title}
+                      secondary={`${v.provider}${v.industry ? " · " + v.industry : ""}`}
+                    />
+                  ))}
+                </Group>
+              )}
               {results.orgs.length > 0 && (
                 <Group label="Participating Organizations">
                   {results.orgs.map((o) => (
@@ -268,16 +270,31 @@ function EntityWithReports({
   secondary,
   reports,
   totalCount,
+  href,
 }: {
   primary: string;
   secondary?: string;
   reports: LinkedReport[];
   totalCount: number;
+  /** When set, the primary title links to this internal route. */
+  href?: string;
 }) {
   return (
     <div className="px-4 py-2.5">
       <div className="flex items-center justify-between gap-3">
-        <span className="text-sm text-navy font-medium truncate">{primary}</span>
+        {href ? (
+          <Link
+            href={href}
+            className="text-sm text-navy font-medium truncate hover:text-accent transition-colors flex items-center gap-1"
+          >
+            {primary}
+            <svg className="w-3 h-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+        ) : (
+          <span className="text-sm text-navy font-medium truncate">{primary}</span>
+        )}
         {secondary && (
           <span className="text-xs text-gray-500 flex-shrink-0">{secondary}</span>
         )}

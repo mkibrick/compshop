@@ -90,28 +90,6 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
       url: v.url,
     }));
 
-  // --- Reports (with expanded match tokens: family/position mentions) ---
-  const reports = index.reports
-    .map((r) => {
-      let score = 0;
-      if (includes(r.title, q)) score = Math.max(score, 3);
-      if (includes(r.description, q)) score = Math.max(score, 2);
-      if (includes(r.geographicScope, q)) score = Math.max(score, 2);
-      if (r.matchTokens.includes(q)) score = Math.max(score, 1);
-      return { r, score };
-    })
-    .filter((x) => x.score > 0)
-    .sort((a, b) => b.score - a.score || a.r.title.localeCompare(b.r.title))
-    .slice(0, LIMIT_REPORTS)
-    .map(({ r }) => ({
-      slug: r.slug,
-      title: r.title,
-      vendorSlug: r.vendorSlug,
-      vendorProvider: r.vendorProvider,
-      url: r.url,
-      geographicScope: r.geographicScope,
-    }));
-
   // --- Positions ---
   const positions = index.positions
     .filter((p) => includes(p.canonicalTitle, q))
@@ -122,6 +100,34 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
       canonicalTitle: p.canonicalTitle,
       reportCount: p.reportCount,
       reports: p.reports,
+    }));
+
+  // --- Reports (with expanded match tokens: family/position mentions) ---
+  // When the query directly matches positions or families, hide the
+  // matchToken-only reports (score=1) — those are reports that just
+  // happen to *cover* the role, not reports *about* it. Otherwise the
+  // user sees noise like "Agriculture Salary Survey" when searching
+  // "warehouse" because ERI's broad surveys cover warehouse roles too.
+  const hasStrongerSignal = positions.length > 0;
+  const reports = index.reports
+    .map((r) => {
+      let score = 0;
+      if (includes(r.title, q)) score = Math.max(score, 3);
+      if (includes(r.description, q)) score = Math.max(score, 2);
+      if (includes(r.geographicScope, q)) score = Math.max(score, 2);
+      if (r.matchTokens.includes(q)) score = Math.max(score, 1);
+      return { r, score };
+    })
+    .filter((x) => (hasStrongerSignal ? x.score >= 2 : x.score > 0))
+    .sort((a, b) => b.score - a.score || a.r.title.localeCompare(b.r.title))
+    .slice(0, LIMIT_REPORTS)
+    .map(({ r }) => ({
+      slug: r.slug,
+      title: r.title,
+      vendorSlug: r.vendorSlug,
+      vendorProvider: r.vendorProvider,
+      url: r.url,
+      geographicScope: r.geographicScope,
     }));
 
   // --- Orgs ---
