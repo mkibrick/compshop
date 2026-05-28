@@ -18,6 +18,15 @@ const DOMAIN_OVERRIDES: Record<string, string> = {
   "croner reward": "croner.co.uk",
 };
 
+/**
+ * Local SVG overrides for vendors where the favicon is wrong-brand or
+ * low-quality. Keys are lowercased provider names. When present, this
+ * takes precedence over DOMAIN_OVERRIDES + the favicon service.
+ */
+const LOGO_OVERRIDES: Record<string, string> = {
+  mercer: "/logos/mercer.svg",
+};
+
 // Double-suffix public TLDs where "last two labels" would return the
 // wrong domain (e.g. "co.uk" instead of "croner.co.uk"). Keep as last
 // two labels === three total labels case.
@@ -94,12 +103,13 @@ export default function VendorLogo({
   url: string;
   size?: number;
 }) {
+  const localOverride = LOGO_OVERRIDES[name.trim().toLowerCase()];
   const domain = deriveDomain(name, url);
   const [failed, setFailed] = useState(false);
 
   const sizeStyle = { width: size, height: size };
 
-  if (!domain || failed) {
+  if (!localOverride && (!domain || failed)) {
     return (
       <div
         style={sizeStyle}
@@ -113,8 +123,9 @@ export default function VendorLogo({
     );
   }
 
-  // Google's favicon service: free, no auth, returns PNG up to 256px
-  const src = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+  // Prefer the local override; otherwise fall back to Google's favicon
+  // service (free, no auth, returns PNG up to 256px).
+  const src = localOverride ?? `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
   return (
     <div
       style={sizeStyle}
