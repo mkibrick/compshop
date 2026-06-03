@@ -11,7 +11,8 @@
     "db:seed": "npx tsx scripts/seed.ts",
     "db:add-vendor": "npx tsx scripts/add-vendor.ts",
     "db:add-report": "npx tsx scripts/add-report.ts",
-    "db:add-report-batch": "npx tsx scripts/add-report-batch.ts"
+    "db:add-report-batch": "npx tsx scripts/add-report-batch.ts",
+    "db:ingest-croner": "npx tsx scripts/ingest-croner-positions.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
