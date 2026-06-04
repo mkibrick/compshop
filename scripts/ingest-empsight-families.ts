@@ -181,6 +181,44 @@ function extractFamiliesFromTabContent(html: string): string[] {
     .filter((s) => !/^Job Families$/i.test(s));
 }
 
+/**
+ * Strip HTML tags + entities from a snippet and split it on commas /
+ * "and" / "or", treating each chunk as a family/role candidate.
+ */
+function splitProseList(snippet: string): string[] {
+  return decodeEntities(snippet)
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .replace(/\s+(and|or)\s+/gi, ", ")
+    .split(/[,;]/)
+    .map((s) => s.replace(/\.$/, "").trim())
+    .filter((s) => s.length > 1 && s.length < 80);
+}
+
+/**
+ * Fallback for product pages without a POWR JOB FAMILIES tab. Looks
+ * for inline prose like "Reports on roles including X, Y, Z." or
+ * "Job Families included: X, Y, Z" embedded in the page description.
+ */
+function familiesFromProse(html: string): string[] {
+  const patterns = [
+    /Job Families included:\s*([^.<]+)/i,
+    /Reports? on roles? including[^a-z]*([^.<]+)/i,
+    /Reports? on positions? including[^a-z]*([^.<]+)/i,
+    /Reports? on jobs? including[^a-z]*([^.<]+)/i,
+    /survey includes:?\s*([^.<]+)/i,
+    /Coverage includes:?\s*([^.<]+)/i,
+  ];
+  for (const p of patterns) {
+    const m = p.exec(html);
+    if (m) {
+      const items = splitProseList(m[1]);
+      if (items.length >= 2) return items;
+    }
+  }
+  return [];
+}
+
 async function familiesForReport(productUrl: string): Promise<string[]> {
   const pageRes = await fetch(productUrl, { headers: { "User-Agent": UA } });
   if (!pageRes.ok) {
@@ -189,35 +227,30 @@ async function familiesForReport(productUrl: string): Promise<string[]> {
   }
   const pageHtml = await pageRes.text();
   const widgetId = findPowrWidgetId(pageHtml);
-  if (!widgetId) {
-    console.log(`  no POWR widget on ${productUrl}`);
-    return [];
+
+  if (widgetId) {
+    const powrRes = await fetch(`https://www.powr.io/tabs/u/${widgetId}`, {
+      headers: { "User-Agent": UA },
+    });
+    if (powrRes.ok) {
+      const powrHtml = await powrRes.text();
+      const content = extractWindowContent(powrHtml) as
+        | { data?: Array<{ title: string; content: string }> }
+        | null;
+      const tab = content?.data?.find((d) => /JOB FAMILIES/i.test(d.title || ""));
+      if (tab) return extractFamiliesFromTabContent(tab.content);
+    }
   }
-  const powrRes = await fetch(`https://www.powr.io/tabs/u/${widgetId}`, {
-    headers: { "User-Agent": UA },
-  });
-  if (!powrRes.ok) {
-    console.log(`  powr fetch ${powrRes.status} for widget ${widgetId}`);
-    return [];
+
+  // Fallback: scrape inline prose patterns from the product page itself.
+  const inline = familiesFromProse(pageHtml);
+  if (inline.length > 0) {
+    console.log(`  (prose fallback) ${productUrl}`);
+    return inline;
   }
-  const powrHtml = await powrRes.text();
-  const content = extractWindowContent(powrHtml) as
-    | { data?: Array<{ title: string; content: string }> }
-    | null;
-  if (!content?.data) {
-    console.log(`  no window.CONTENT.data for ${widgetId}`);
-    return [];
-  }
-  const families = content.data.find((d) =>
-    /JOB FAMILIES/i.test(d.title || "")
-  );
-  if (!families) {
-    console.log(
-      `  no JOB FAMILIES tab; tabs: ${content.data.map((d) => d.title).join(", ")}`
-    );
-    return [];
-  }
-  return extractFamiliesFromTabContent(families.content);
+
+  console.log(`  no families found on ${productUrl}`);
+  return [];
 }
 
 function slugify(s: string): string {
