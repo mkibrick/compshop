@@ -979,6 +979,140 @@ Found a survey that should be on this list? Use the Contact link in the footer t
       },
     ],
   },
+  {
+    slug: "safe-harbor-salary-surveys",
+    title: "Safe Harbor in Salary Surveys: What Every Comp Buyer Needs to Know",
+    description:
+      "What 'Safe Harbor compliant' actually means in a salary-survey vendor pitch, why it protects your company from antitrust risk, and what to look for in a survey's methodology.",
+    date: "2026-06-03",
+    readTime: "6 min read",
+    author: "CompShop",
+    tags: ["Compensation Strategy", "Methodology"],
+    keywords: [
+      "safe harbor salary survey",
+      "safe harbor compensation survey",
+      "antitrust compensation data",
+      "DOJ statement 6",
+      "compensation survey methodology",
+      "wage fixing antitrust",
+      "salary survey legal compliance",
+      "comp survey suppression rules",
+    ],
+    body: `Most comp analysts have heard "Safe Harbor compliant" in a vendor pitch and nodded along. Here's what it actually means, why it protects your company from antitrust risk, and what to look for in a survey's methodology.
+
+## TL;DR
+
+Safe Harbor is the set of statistical rules that make compensation surveys legally defensible under U.S. antitrust law. Three core rules: data must be at least three months old, must come from at least five participating organizations, and no single participant can represent more than 25% of any reported statistic on a weighted basis. Reputable publishers also suppress small-sample data and never report highest or lowest values. If a vendor can't produce their methodology document on request, walk.
+
+## Why this matters
+
+When competitors share compensation data, it can look like price-fixing under U.S. antitrust law. The risk runs both directions: the survey publisher hosting the data, and every participating company contributing salary information. If the survey isn't structured correctly, your participation in it could become evidence in an antitrust investigation. The DOJ has spent recent years pursuing no-poach agreements, wage-fixing cases, and HR-algorithm scrutiny under the same legal theories. The thing that keeps your participation legal is the methodology of the survey itself.
+
+## What Safe Harbor actually is
+
+In 1996, the DOJ and FTC issued joint Statements of Antitrust Enforcement Policy in Health Care. Statement 6 addressed compensation surveys and laid out the conditions under which competitors could legally share salary data.
+
+Three rules formed the core.
+
+**1. Age.** Data must be at least three months old at the time of publication. Real-time pricing data shared among competitors looks like coordination. Three-month-old data looks like benchmarking.
+
+**2. Participants.** Each data point must come from a minimum of five participating organizations, aggregated and anonymized. With fewer than five sources, individual company pay can be reverse-engineered from the aggregate.
+
+**3. Weighting.** No single participant can represent more than 25% of any reported statistic on a weighted basis. Even with five participants, if one dominates the sample, that company's compensation is effectively being shared with competitors.
+
+Although Statement 6 originated in healthcare, the framework spread across every industry. By the mid-2000s, Safe Harbor compliance was the de facto standard for all reputable compensation surveys.
+
+## What changed in 2023
+
+In February 2023, the DOJ withdrew Statement 6 as part of a broader enforcement push, without issuing replacement guidance. This created industry uncertainty about whether the original framework still provides legal protection.
+
+The practical answer: yes, for now. Most reputable publishers continue to follow the same rules because the methodology is still legally defensible, legal teams at participating companies still require it before authorizing data contribution, and the DOJ's withdrawal removed a formal presumption of safety without changing the underlying logic. Surveys that follow the framework face the same low antitrust risk as before. Surveys that don't face heightened risk.
+
+The rules of the road haven't changed. The signpost has.
+
+## The reporting standards
+
+Beyond the three core rules, reputable publishers apply statistical thresholds to what they will and won't report:
+
+| Statistic | Minimum participants | Minimum incumbents |
+|---|---|---|
+| Mean (average) | 5 | 5 |
+| Median | 5 | 5 |
+| 25th and 75th percentile | 5 | 5 |
+| 10th and 90th percentile | 10 | 10 |
+| Highest and lowest values | Never reported | Never reported |
+
+Below these thresholds, the data are suppressed and don't appear in the report. The logic: the more extreme the statistic, the easier it becomes to identify the individual company behind the number. Doubling the participant requirement at the extreme percentiles is the buffer that keeps tail values from identifying a single company. The "no high or low ever" rule has the same logic taken to its limit. The maximum value in any sample is, by definition, one specific company. Publishing it is publishing that company's pay.
+
+## Red flags to watch for
+
+When you evaluate a salary survey, ask for the methodology document. If you don't get one, that's the first red flag. If you do, look for:
+
+- **No participant minimum disclosed.** Reputable publishers state their threshold clearly.
+- **High and low values reported.** A hard breach. Should not appear in any survey marketed as Safe Harbor compliant.
+- **No suppression rules.** If the methodology doesn't tell you when data gets suppressed, the data probably doesn't get suppressed.
+- **Data age not disclosed.** Effective date and publication date should both be visible.
+- **Single-source-dominant samples.** Some niche surveys depend on one or two dominant participants for entire industry cuts, which violates the 25% weighting rule.
+- **Crowd-sourced data marketed as Safe Harbor.** Crowd-sourced data does not meet the methodology. Useful for directional reads, not for defensible pay decisions.
+
+## What this means for buyers
+
+**Methodology is part of the product.** A survey with thinner coverage and tight methodology is more defensible than a survey with broad coverage and loose methodology. Suppression isn't a flaw, it's the methodology working.
+
+**Your legal team will ask.** For most large employers, legal or compliance will require Safe Harbor disclosure before authorizing participation and again before authorizing use of the data in pay decisions. Get the methodology document upfront. It satisfies both.
+
+## FAQ
+
+### Is Safe Harbor a legal requirement?
+
+No. It's a set of methodological practices that emerged from DOJ/FTC guidance in 1996 and became the industry standard. Following it doesn't immunize anyone from antitrust scrutiny, but it makes the data exchange legally defensible. Not following it leaves both publisher and participant exposed.
+
+### What happened when DOJ withdrew Statement 6 in 2023?
+
+DOJ withdrew the formal statement without issuing replacement guidance. Most publishers continue to follow the original framework because it remains the most defensible methodology available. The withdrawal was part of a broader enforcement push, not a signal that the underlying logic was wrong.
+
+### Can I rely on a survey that doesn't follow Safe Harbor?
+
+For directional reads or candidate-side conversations, sometimes. For defensible pay decisions, comp committee documentation, or 990 disclosures, no. The methodology is what gives the data its evidentiary weight in any later review.
+
+### How does Safe Harbor affect my company's risk for participating?
+
+Participation in a Safe Harbor compliant survey is generally considered low-risk because the methodology prevents the data exchange from looking like price-fixing or wage-fixing. Participation in a survey that doesn't follow Safe Harbor raises your exposure if the publisher faces antitrust scrutiny.
+
+### Are there compensation surveys that don't follow Safe Harbor?
+
+Yes. Crowd-sourced compensation platforms, employee self-report aggregators, and some niche industry surveys do not meet the methodology. These can be useful for candidate conversations and directional reads. They should not be the sole basis for a pay decision.
+
+## How we built this
+
+CompShop is an independent directory of compensation surveys. The publishers we list use Safe Harbor methodology and publish their statistical standards. We don't take placement fees from publishers and we don't resell the data.
+
+[Browse all surveys](/surveys)
+
+This article is for informational purposes only and is not legal advice. Antitrust risk varies by jurisdiction, industry, and individual circumstances. Consult qualified counsel before making decisions about compensation data sharing or survey participation.`,
+    faq: [
+      {
+        q: "Is Safe Harbor a legal requirement?",
+        a: "No. It's a set of methodological practices that emerged from DOJ/FTC guidance in 1996 and became the industry standard. Following it doesn't immunize anyone from antitrust scrutiny, but it makes the data exchange legally defensible. Not following it leaves both publisher and participant exposed.",
+      },
+      {
+        q: "What happened when DOJ withdrew Statement 6 in 2023?",
+        a: "DOJ withdrew the formal statement without issuing replacement guidance. Most publishers continue to follow the original framework because it remains the most defensible methodology available. The withdrawal was part of a broader enforcement push, not a signal that the underlying logic was wrong.",
+      },
+      {
+        q: "Can I rely on a survey that doesn't follow Safe Harbor?",
+        a: "For directional reads or candidate-side conversations, sometimes. For defensible pay decisions, comp committee documentation, or 990 disclosures, no. The methodology is what gives the data its evidentiary weight in any later review.",
+      },
+      {
+        q: "How does Safe Harbor affect my company's risk for participating?",
+        a: "Participation in a Safe Harbor compliant survey is generally considered low-risk because the methodology prevents the data exchange from looking like price-fixing or wage-fixing. Participation in a survey that doesn't follow Safe Harbor raises your exposure if the publisher faces antitrust scrutiny.",
+      },
+      {
+        q: "Are there compensation surveys that don't follow Safe Harbor?",
+        a: "Yes. Crowd-sourced compensation platforms, employee self-report aggregators, and some niche industry surveys do not meet the methodology. These can be useful for candidate conversations and directional reads. They should not be the sole basis for a pay decision.",
+      },
+    ],
+  },
 ];
 
 export function getAllPosts(): BlogPost[] {
