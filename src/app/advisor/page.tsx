@@ -31,8 +31,7 @@ export default function AdvisorPage() {
         </h1>
         <p className="mt-4 text-lg text-stone-600 max-w-2xl mx-auto">
           Describe your company and the data you need. The Advisor recommends a
-          survey stack, explains why, and gives a rough budget. Free, 5 requests
-          per day.
+          survey stack, explains why, and gives a rough budget.
         </p>
       </header>
 

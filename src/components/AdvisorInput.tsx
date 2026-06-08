@@ -101,7 +101,7 @@ export default function AdvisorInput({ variant = "full" }: Props) {
               variant === "compact" ? "text-stone-300" : "text-stone-500"
             }`}
           >
-            {query.length}/1500 · 5 requests per day per visitor
+            {query.length}/1500
           </p>
           <button
             type="submit"
@@ -193,11 +193,6 @@ export default function AdvisorInput({ variant = "full" }: Props) {
             </div>
           )}
 
-          {typeof result.remaining === "number" && (
-            <p className="text-xs text-stone-500 text-center">
-              {result.remaining} request{result.remaining === 1 ? "" : "s"} remaining today
-            </p>
-          )}
         </div>
       )}
     </div>
