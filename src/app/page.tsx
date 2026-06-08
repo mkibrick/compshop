@@ -18,13 +18,14 @@ const quickFilters = [
 /**
  * Rotating example queries that hint at the range of things the search
  * bar handles — from keyword job searches to full company descriptions
- * that route into the Advisor.
+ * that route into the Advisor. "Find surveys covering…" frames the bar
+ * as a directory of products, not a salary lookup tool.
  */
 const ANIMATED_PLACEHOLDERS = [
-  "Search software engineers in California",
-  "Search manufacturing in Ohio",
-  "Search oil and gas in Canada for 1,000 employees",
-  "Search athletic director in Texas",
+  "Find surveys covering software engineers in California",
+  "Find surveys covering manufacturing in Ohio",
+  "Find surveys covering oil & gas in Canada, 1,000 employees",
+  "Find surveys covering athletic directors in Texas",
   "We're a 2,000-employee health system in the Midwest",
 ];
 

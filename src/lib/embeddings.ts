@@ -38,8 +38,44 @@ export async function embedBatch(texts: string[]): Promise<EmbedResult> {
       "No embedding provider configured. Set VOYAGE_API_KEY or OPENAI_API_KEY."
     );
   }
-  if (provider === "voyage") return { vectors: await embedVoyage(texts), provider };
-  return { vectors: await embedOpenAI(texts), provider };
+  const fn = provider === "voyage" ? embedVoyage : embedOpenAI;
+  return { vectors: await withRetry(() => fn(texts)), provider };
+}
+
+/**
+ * Retry transient embedding-provider failures with exponential backoff.
+ * Mid-build 503s / connection resets from OpenAI and Voyage are common
+ * on large batches; without retry, one blip during a 40k-position
+ * indexing run kills the whole Vercel deploy.
+ *
+ * Retries on 429, 5xx, and network errors. Does not retry on 4xx
+ * client errors (bad key, bad request) — those won't fix themselves.
+ */
+async function withRetry<T>(
+  fn: () => Promise<T>,
+  attempts = 5,
+  baseDelayMs = 800
+): Promise<T> {
+  let lastErr: unknown;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastErr = err;
+      const msg = err instanceof Error ? err.message : String(err);
+      const retriable =
+        /\b(429|5\d\d|ECONNRESET|ETIMEDOUT|fetch failed|upstream|disconnect|reset)\b/i.test(
+          msg
+        );
+      if (!retriable || i === attempts - 1) throw err;
+      const delay = baseDelayMs * Math.pow(2, i) + Math.random() * 400;
+      console.warn(
+        `  embed retry ${i + 1}/${attempts - 1} in ${Math.round(delay)}ms: ${msg.slice(0, 120)}`
+      );
+      await new Promise((r) => setTimeout(r, delay));
+    }
+  }
+  throw lastErr;
 }
 
 // ---------------------------------------------------------------------------
