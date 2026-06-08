@@ -15,13 +15,47 @@ const quickFilters = [
   { label: "Free", value: "free" },
 ];
 
+/**
+ * Rotating example queries that hint at the range of things the search
+ * bar handles — from keyword job searches to full company descriptions
+ * that route into the Advisor.
+ */
+const ANIMATED_PLACEHOLDERS = [
+  "Search software engineers in California",
+  "Search manufacturing in Ohio",
+  "Search oil and gas in Canada for 1,000 employees",
+  "Search athletic director in Texas",
+  "We're a 2,000-employee health system in the Midwest",
+];
+
+/** Detect if the homepage form submit should go to the Advisor. */
+function looksLikeAdvisorQuery(q: string): boolean {
+  const trimmed = q.trim();
+  if (trimmed.length < 30) return false;
+  const lower = trimmed.toLowerCase();
+  return (
+    /\bwe('?re| are| have| need)\b/.test(lower) ||
+    /\bi('?m| am| have| need)\b/.test(lower) ||
+    /\b(looking for|need data|need salary|need comp)\b/.test(lower) ||
+    /\b\d{2,5}[\s-]*(employees?|people|headcount|fte|ftes)\b/.test(lower) ||
+    /\b(company|organization|firm|business)\b.*\b(in|that|with)\b/.test(lower) ||
+    /\b(industry|sector)\b.*\b(in|for)\b/.test(lower)
+  );
+}
+
 export default function HomePage() {
   const router = useRouter();
   const [search, setSearch] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    router.push(`/surveys?q=${encodeURIComponent(search)}`);
+    const q = search.trim();
+    if (!q) return;
+    if (looksLikeAdvisorQuery(q)) {
+      router.push(`/advisor?q=${encodeURIComponent(q)}`);
+    } else {
+      router.push(`/surveys?q=${encodeURIComponent(q)}`);
+    }
   }
 
   function handleChip(value: string) {
@@ -46,7 +80,11 @@ export default function HomePage() {
             price, geography, and more.
           </p>
           <form onSubmit={handleSubmit} className="mt-8 max-w-xl mx-auto">
-            <SearchBar value={search} onChange={setSearch} />
+            <SearchBar
+              value={search}
+              onChange={setSearch}
+              animatedPlaceholders={ANIMATED_PLACEHOLDERS}
+            />
           </form>
           <div className="mt-6 flex flex-wrap justify-center gap-2">
             {quickFilters.map((f) => (

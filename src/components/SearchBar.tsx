@@ -10,6 +10,33 @@ interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  /**
+   * Optional rotating example queries. When provided AND the input is
+   * empty AND unfocused, the placeholder cycles through these to hint
+   * at the range of queries the bar handles.
+   */
+  animatedPlaceholders?: string[];
+}
+
+/**
+ * Heuristic: does the query look like a company description ("we're a
+ * 2000-employee manufacturer...") rather than a keyword search? When
+ * true, the dropdown surfaces an "Ask the Advisor" row at the top so
+ * the user can pipe the query into the recommendation flow.
+ */
+function looksLikeAdvisorQuery(q: string): boolean {
+  const trimmed = q.trim();
+  if (trimmed.length < 30) return false;
+  const lower = trimmed.toLowerCase();
+  const signals = [
+    /\bwe('?re| are| have| need)\b/,
+    /\bi('?m| am| have| need)\b/,
+    /\b(looking for|need data|need salary|need comp)\b/,
+    /\b\d{2,5}[\s-]*(employees?|people|headcount|fte|ftes)\b/,
+    /\b(company|organization|firm|business)\b.*\b(in|that|with)\b/,
+    /\b(industry|sector)\b.*\b(in|for)\b/,
+  ];
+  return signals.some((re) => re.test(lower));
 }
 
 interface SemanticHit {
@@ -27,12 +54,53 @@ export default function SearchBar({
   value,
   onChange,
   placeholder = "Search by job title, industry or geography..",
+  animatedPlaceholders,
 }: SearchBarProps) {
   const [results, setResults] = useState<SearchResults>(EMPTY);
   const [semantic, setSemantic] = useState<SemanticHit[]>([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [animIndex, setAnimIndex] = useState(0);
+  const [animText, setAnimText] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Animated placeholder: typewriter-style cycle through examples
+  // while the user hasn't typed anything and isn't focused. The empty
+  // string + unfocused condition keeps the affordance from feeling
+  // noisy once the user starts interacting.
+  useEffect(() => {
+    if (!animatedPlaceholders || animatedPlaceholders.length === 0) return;
+    if (value || focused) return;
+    let cancelled = false;
+    const target = animatedPlaceholders[animIndex % animatedPlaceholders.length];
+    let i = 0;
+    setAnimText("");
+    const tick = () => {
+      if (cancelled) return;
+      if (i <= target.length) {
+        setAnimText(target.slice(0, i));
+        i++;
+        setTimeout(tick, 35);
+      } else {
+        // Pause on the full string, then advance.
+        setTimeout(() => {
+          if (!cancelled) setAnimIndex((n) => n + 1);
+        }, 1800);
+      }
+    };
+    tick();
+    return () => {
+      cancelled = true;
+    };
+  }, [animIndex, value, focused, animatedPlaceholders]);
+
+  const effectivePlaceholder =
+    animatedPlaceholders && animatedPlaceholders.length > 0 && !value && !focused
+      ? animText || placeholder
+      : placeholder;
+
+  const advisorQuery = looksLikeAdvisorQuery(value);
 
   // Warm the search index as soon as the component mounts so the first
   // keystroke doesn't wait on a ~350KB fetch.
@@ -151,20 +219,46 @@ export default function SearchBar({
           setOpen(true);
         }}
         onFocus={() => {
+          setFocused(true);
           if (value.trim()) setOpen(true);
         }}
-        placeholder={placeholder}
+        onBlur={() => setFocused(false)}
+        placeholder={effectivePlaceholder}
         className="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-base"
       />
 
       {open && value.trim() && (
         <div className="absolute left-0 right-0 mt-2 z-50 bg-white rounded-lg shadow-xl border border-gray-200 max-h-[28rem] overflow-y-auto text-left">
-          {loading && totalResults === 0 ? (
+          {loading && totalResults === 0 && !advisorQuery ? (
             <div className="p-4 text-sm text-gray-500">Searching…</div>
-          ) : totalResults === 0 ? (
+          ) : totalResults === 0 && !advisorQuery ? (
             <div className="p-4 text-sm text-gray-500">No matches for &ldquo;{value}&rdquo;</div>
           ) : (
             <div className="divide-y divide-gray-100">
+              {advisorQuery && (
+                <Group label="Recommended action">
+                  <Link
+                    href={`/advisor?q=${encodeURIComponent(value.trim())}`}
+                    className="block px-4 py-3 hover:bg-plum-50 transition-colors"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-plum-500 mt-0.5" aria-hidden="true">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                      </span>
+                      <div className="min-w-0">
+                        <div className="text-sm font-semibold text-navy">
+                          Ask the Survey Advisor about this
+                        </div>
+                        <div className="text-xs text-gray-500 mt-0.5">
+                          Get a recommended stack with reasoning and a budget estimate
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </Group>
+              )}
               {results.positions.length > 0 && (
                 <Group label="Job Titles / Positions">
                   {results.positions.map((p) => (
