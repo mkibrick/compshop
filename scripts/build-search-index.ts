@@ -63,6 +63,13 @@ interface PositionIdx {
   canonicalTitle: string;
   reportCount: number;
   reports: LinkedReport[];
+  /**
+   * Distinct vendor slugs across ALL reports linked to this position.
+   * Used by /surveys?q= to attribute matched positions back to every
+   * publisher that covers them (the `reports` array only carries the
+   * top-3 sample for the dropdown preview).
+   */
+  vendorSlugs: string[];
 }
 
 interface FamilyIdx {
@@ -71,6 +78,8 @@ interface FamilyIdx {
   reportCount: number;
   positionCount: number;
   reports: LinkedReport[];
+  /** Same idea as PositionIdx.vendorSlugs. */
+  vendorSlugs: string[];
 }
 
 interface OrgIdx {
@@ -157,7 +166,20 @@ function main() {
        GROUP BY p.id
        ORDER BY reportCount DESC, p.canonical_title`
     )
-    .all() as Omit<PositionIdx, "reports">[];
+    .all() as Omit<PositionIdx, "reports" | "vendorSlugs">[];
+
+  // Distinct vendor slugs per position — every publisher that covers
+  // this role via at least one of their reports. /surveys?q= uses this
+  // to attribute matched positions back to each vendor card.
+  const vendorSlugsForPositionStmt = db.prepare(
+    `SELECT DISTINCT s.slug AS vendorSlug
+     FROM report_positions rp
+     JOIN positions p ON p.id = rp.position_id
+     JOIN reports r ON r.id = rp.report_id
+     JOIN surveys s ON s.id = r.survey_id
+     WHERE p.slug = ?
+     ORDER BY s.slug`
+  );
 
   // Per-position report ranking, biased toward broad-coverage surveys.
   // The default expectation when someone searches an "Accountant" is
@@ -207,6 +229,12 @@ function main() {
             LINKED_REPORTS_PER_ENTITY
           ) as LinkedReport[])
         : [],
+    vendorSlugs:
+      p.reportCount > 0
+        ? (vendorSlugsForPositionStmt.all(p.slug) as { vendorSlug: string }[]).map(
+            (r) => r.vendorSlug
+          )
+        : [],
   }));
 
   // ---------- Families ----------
@@ -221,7 +249,17 @@ function main() {
        GROUP BY f.id
        ORDER BY reportCount DESC, f.canonical_name`
     )
-    .all() as Omit<FamilyIdx, "reports">[];
+    .all() as Omit<FamilyIdx, "reports" | "vendorSlugs">[];
+
+  const vendorSlugsForFamilyStmt = db.prepare(
+    `SELECT DISTINCT s.slug AS vendorSlug
+     FROM report_families rf
+     JOIN job_families f ON f.id = rf.family_id
+     JOIN reports r ON r.id = rf.report_id
+     JOIN surveys s ON s.id = r.survey_id
+     WHERE f.slug = ?
+     ORDER BY s.slug`
+  );
 
   const reportsForFamilyStmt = db.prepare(
     `SELECT r.slug, r.title,
@@ -242,6 +280,12 @@ function main() {
       f.slug,
       LINKED_REPORTS_PER_ENTITY
     ) as LinkedReport[],
+    vendorSlugs:
+      f.reportCount > 0
+        ? (vendorSlugsForFamilyStmt.all(f.slug) as { vendorSlug: string }[]).map(
+            (r) => r.vendorSlug
+          )
+        : [],
   }));
 
   // ---------- Orgs ----------

@@ -7,9 +7,15 @@ import SurveyCard from "@/components/SurveyCard";
 import SearchBar from "@/components/SearchBar";
 import VendorModal from "@/components/VendorModal";
 import MultiSelect, { MultiSelectOption } from "@/components/MultiSelect";
-import { loadIndex, vendorMatchCounts } from "@/lib/client-search";
+import {
+  loadIndex,
+  vendorMatchCounts,
+  vendorMatchSummary,
+  QueryMatchSummary,
+} from "@/lib/client-search";
 import { ALL_REGIONS, regionsForVendor } from "@/lib/geography";
 import { sortByCategoryWeight } from "@/lib/category-weights";
+import SearchResultSummary from "@/components/SearchResultSummary";
 
 const categoryOptions: MultiSelectOption[] = [
   { label: "General Industry", value: "general-industry" },
@@ -84,6 +90,9 @@ export default function SurveyDirectory({
   const [matchingSlugs, setMatchingSlugs] = useState<Map<string, number> | null>(
     null
   );
+  const [matchSummary, setMatchSummary] = useState<QueryMatchSummary | null>(
+    null
+  );
   /** vendor slug → canonical regions, loaded lazily from the search index. */
   const [vendorRegions, setVendorRegions] = useState<Map<string, string[]>>(
     new Map()
@@ -119,11 +128,15 @@ export default function SurveyDirectory({
     };
   }, []);
 
-  // Compute vendor match counts against the client-side search index
+  // Compute vendor match counts + per-vendor detail against the
+  // client-side search index. Both are derived in one pass so the
+  // grid's match badges and the per-card "Positions: ..." captions
+  // stay consistent.
   useEffect(() => {
     const q = search.trim();
     if (!q) {
       setMatchingSlugs(null);
+      setMatchSummary(null);
       return;
     }
     let cancelled = false;
@@ -132,6 +145,7 @@ export default function SurveyDirectory({
         const idx = await loadIndex();
         if (cancelled) return;
         setMatchingSlugs(vendorMatchCounts(idx, q));
+        setMatchSummary(vendorMatchSummary(idx, q));
       } catch (e) {
         console.error(e);
       }
@@ -318,6 +332,10 @@ export default function SurveyDirectory({
         </div>
       )}
 
+      {search.trim() && matchSummary && (
+        <SearchResultSummary query={search.trim()} summary={matchSummary} />
+      )}
+
       {filtered.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-gray-500 text-lg">
@@ -339,6 +357,9 @@ export default function SurveyDirectory({
               onOpen={setModalSlug}
               matchCount={
                 search.trim() ? matchingSlugs?.get(s.slug) ?? 0 : undefined
+              }
+              matchDetail={
+                search.trim() ? matchSummary?.byVendor.get(s.slug) : undefined
               }
             />
           ))}

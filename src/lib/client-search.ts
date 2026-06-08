@@ -31,6 +31,7 @@ export interface SearchIndex {
     canonicalTitle: string;
     reportCount: number;
     reports: LinkedReport[];
+    vendorSlugs?: string[];
   }[];
   families: {
     slug: string;
@@ -38,6 +39,7 @@ export interface SearchIndex {
     reportCount: number;
     positionCount: number;
     reports: LinkedReport[];
+    vendorSlugs?: string[];
   }[];
   orgs: {
     slug: string;
@@ -156,6 +158,139 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
     }));
 
   return { vendors, reports, positions, orgs, families };
+}
+
+/**
+ * Per-vendor summary of what matched a query: which of the vendor's
+ * positions, families, and reports the query landed on. Used by the
+ * /surveys grid to render rich per-card "Matches: X, Y, +N more"
+ * captions and a result-set summary header above the grid.
+ */
+export interface VendorMatchDetail {
+  positions: { slug: string; title: string }[];
+  families: { slug: string; name: string }[];
+  reportCount: number;
+}
+
+export interface QueryMatchSummary {
+  byVendor: Map<string, VendorMatchDetail>;
+  totalPositions: number;
+  totalFamilies: number;
+  totalVendors: number;
+  totalReports: number;
+  topPositions: { slug: string; title: string; reportCount: number }[];
+  topFamilies: { slug: string; name: string; reportCount: number }[];
+}
+
+const PER_VENDOR_PREVIEW = 6;
+
+export function vendorMatchSummary(
+  index: SearchIndex,
+  rawQuery: string
+): QueryMatchSummary {
+  const q = rawQuery.trim().toLowerCase();
+  const byVendor = new Map<string, VendorMatchDetail>();
+  const getOrInit = (slug: string): VendorMatchDetail => {
+    let v = byVendor.get(slug);
+    if (!v) {
+      v = { positions: [], families: [], reportCount: 0 };
+      byVendor.set(slug, v);
+    }
+    return v;
+  };
+
+  // Vendor metadata match: include the vendor even if no positions /
+  // reports match directly (so the card still renders).
+  for (const v of index.vendors) {
+    if (
+      includes(v.title, q) ||
+      includes(v.provider, q) ||
+      includes(v.industry, q) ||
+      includes(v.categories, q) ||
+      includes(v.bestFor, q) ||
+      includes(v.jobFamilies, q)
+    ) {
+      getOrInit(v.slug);
+    }
+  }
+
+  // Position matches — attach to every vendor whose catalog covers
+  // the position. We use the precomputed vendorSlugs array on each
+  // indexed position (top-level union across ALL its reports) so a
+  // vendor that links via its 4th or 5th report still gets credit.
+  // Older index builds may not have vendorSlugs; fall back to the
+  // LinkedReport sample so the page still works during deploys.
+  const matchedPositions: typeof index.positions = [];
+  for (const p of index.positions) {
+    if (!includes(p.canonicalTitle, q)) continue;
+    matchedPositions.push(p);
+    const slugs =
+      p.vendorSlugs && p.vendorSlugs.length > 0
+        ? p.vendorSlugs
+        : Array.from(new Set(p.reports.map((r) => r.vendorSlug)));
+    for (const vendorSlug of slugs) {
+      const v = getOrInit(vendorSlug);
+      if (v.positions.length < PER_VENDOR_PREVIEW) {
+        v.positions.push({ slug: p.slug, title: p.canonicalTitle });
+      }
+    }
+  }
+  matchedPositions.sort((a, b) => b.reportCount - a.reportCount);
+
+  // Family matches — same flow.
+  const matchedFamilies: typeof index.families = [];
+  for (const f of index.families) {
+    if (!includes(f.canonicalName, q)) continue;
+    matchedFamilies.push(f);
+    const slugs =
+      f.vendorSlugs && f.vendorSlugs.length > 0
+        ? f.vendorSlugs
+        : Array.from(new Set(f.reports.map((r) => r.vendorSlug)));
+    for (const vendorSlug of slugs) {
+      const v = getOrInit(vendorSlug);
+      if (v.families.length < PER_VENDOR_PREVIEW) {
+        v.families.push({ slug: f.slug, name: f.canonicalName });
+      }
+    }
+  }
+  matchedFamilies.sort((a, b) => b.reportCount - a.reportCount);
+
+  // Report-title / description / matchToken matches.
+  for (const r of index.reports) {
+    let hit = false;
+    if (
+      includes(r.title, q) ||
+      includes(r.description, q) ||
+      includes(r.geographicScope, q) ||
+      r.matchTokens.includes(q)
+    ) {
+      hit = true;
+    }
+    if (!hit) continue;
+    const v = getOrInit(r.vendorSlug);
+    v.reportCount++;
+  }
+
+  return {
+    byVendor,
+    totalPositions: matchedPositions.length,
+    totalFamilies: matchedFamilies.length,
+    totalVendors: byVendor.size,
+    totalReports: Array.from(byVendor.values()).reduce(
+      (sum, v) => sum + v.reportCount,
+      0
+    ),
+    topPositions: matchedPositions.slice(0, 6).map((p) => ({
+      slug: p.slug,
+      title: p.canonicalTitle,
+      reportCount: p.reportCount,
+    })),
+    topFamilies: matchedFamilies.slice(0, 6).map((f) => ({
+      slug: f.slug,
+      name: f.canonicalName,
+      reportCount: f.reportCount,
+    })),
+  };
 }
 
 /**

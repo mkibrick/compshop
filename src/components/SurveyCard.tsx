@@ -3,15 +3,23 @@ import ParticipationBadge from "./ParticipationBadge";
 import VendorLogo from "./VendorLogo";
 import { vendorOutbound } from "@/lib/outbound";
 import { stripProviderPrefix } from "@/lib/strip-provider";
+import { VendorMatchDetail } from "@/lib/client-search";
 
 export default function SurveyCard({
   survey,
   onOpen,
   matchCount,
+  matchDetail,
 }: {
   survey: Survey;
   onOpen?: (slug: string) => void;
   matchCount?: number;
+  /**
+   * When a search query is active, this surfaces which of THIS vendor's
+   * positions and families the query landed on. Renders inline so
+   * buyers see proof of coverage without clicking through.
+   */
+  matchDetail?: VendorMatchDetail;
 }) {
   const displayTitle = stripProviderPrefix(survey.title, survey.provider);
 
@@ -35,6 +43,50 @@ export default function SurveyCard({
           </span>
         )}
       </div>
+
+      {matchDetail &&
+        (matchDetail.positions.length > 0 ||
+          matchDetail.families.length > 0 ||
+          matchDetail.reportCount > 0) && (
+          <div className="mt-3 pt-3 border-t border-stone-100 space-y-1.5">
+            {matchDetail.positions.length > 0 && (
+              <p className="text-xs text-stone-600 leading-snug">
+                <span className="font-semibold text-navy">Positions: </span>
+                {matchDetail.positions
+                  .slice(0, 4)
+                  .map((p) => p.title)
+                  .join(", ")}
+                {matchDetail.positions.length > 4 && (
+                  <span className="text-stone-400">
+                    {" "}
+                    +{matchDetail.positions.length - 4} more
+                  </span>
+                )}
+              </p>
+            )}
+            {matchDetail.families.length > 0 && (
+              <p className="text-xs text-stone-600 leading-snug">
+                <span className="font-semibold text-navy">Families: </span>
+                {matchDetail.families
+                  .slice(0, 3)
+                  .map((f) => f.name)
+                  .join(", ")}
+                {matchDetail.families.length > 3 && (
+                  <span className="text-stone-400">
+                    {" "}
+                    +{matchDetail.families.length - 3} more
+                  </span>
+                )}
+              </p>
+            )}
+            {matchDetail.reportCount > 0 && (
+              <p className="text-xs text-stone-500">
+                {matchDetail.reportCount} report
+                {matchDetail.reportCount !== 1 ? "s" : ""} cover this query
+              </p>
+            )}
+          </div>
+        )}
 
       <div className="flex flex-wrap items-center gap-2 mt-4">
         <ParticipationBadge status={survey.participationRequired} />
