@@ -1,9 +1,14 @@
 /**
- * Empsight job-family ingestion. Empsight's per-survey product pages
- * embed a POWR.io "Tabs" widget that surfaces a JOB FAMILIES tab with
- * a bulleted list of every family the survey reports. The widget's
- * content is loaded from POWR's CDN in an iframe; the page itself
- * doesn't carry the data inline.
+ * Empsight position ingestion. Empsight uses the label "JOB FAMILIES"
+ * on their per-survey POWR tab widget, but each entry is a specific
+ * benchmark position (e.g. "Executive Assistant to the CEO",
+ * "Subsidiary Chief Operating Officer", "Chairman"), not a family
+ * grouping. We ingest them into the `positions` table where they
+ * actually belong.
+ *
+ * Replaces ingest-empsight-families.ts (which wrote to job_families).
+ * After running this, run the orphan-family cleanup query to drop
+ * Empsight-only rows that no longer have a real family role.
  *
  * Flow per report:
  *   1. fetch the Empsight product page HTML
@@ -11,10 +16,10 @@
  *   3. fetch https://www.powr.io/tabs/u/{id}
  *   4. extract window.CONTENT JSON via brace-depth slicing
  *   5. find the "JOB FAMILIES" tab and split its HTML on </li>
- *   6. upsert job_families + report_families
+ *   6. upsert positions + report_positions
  *
- * Idempotent: dedupes families on normalized_name, INSERT OR IGNORE
- * on report_families linkages.
+ * Idempotent: dedupes on normalized_title, INSERT OR IGNORE on
+ * report_positions linkages.
  */
 import Database from "better-sqlite3";
 import { resolve, dirname } from "path";
@@ -23,12 +28,6 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DB_PATH = resolve(__dirname, "../data/compshop.db");
 
-/**
- * (DB report slug, Empsight product URL). Both /Individual-Corporate-
- * Functional-Surveys/... and /Pre-Order-Survey-Results/... resolve to
- * the same product; we use whichever variant the Empsight listing
- * pages actually publish.
- */
 const REPORTS: Array<{ slug: string; url: string }> = [
   {
     slug: "empsight-executive-2026",
@@ -107,15 +106,12 @@ const REPORTS: Array<{ slug: string; url: string }> = [
 const UA = "Mozilla/5.0 (CompShop ingest)";
 
 function findPowrWidgetId(html: string): string | null {
-  // <div ... class="powr-tabs ..." id="<id>" ...>
   const m = /class="[^"]*powr-tabs[^"]*"[^>]*id="([^"]+)"/i.exec(html);
   if (m) return m[1];
-  // Some templates put id before class — try the inverse form.
   const m2 = /id="([^"]+)"[^>]*class="[^"]*powr-tabs[^"]*"/i.exec(html);
   return m2 ? m2[1] : null;
 }
 
-/** Extract the JSON object after `window.CONTENT=` via brace depth. */
 function extractWindowContent(html: string): unknown | null {
   const anchor = "window.CONTENT=";
   const start = html.indexOf(anchor);
@@ -164,8 +160,7 @@ function decodeEntities(s: string): string {
     .replace(/&#8221;/g, "”");
 }
 
-function extractFamiliesFromTabContent(html: string): string[] {
-  // Drop the header (<h3>Job Families</h3>); split on </li> and clean.
+function extractFromTabContent(html: string): string[] {
   const stripped = html.replace(/<h[1-6][^>]*>[\s\S]*?<\/h[1-6]>/gi, "");
   return stripped
     .split(/<\/li>/i)
@@ -177,14 +172,10 @@ function extractFamiliesFromTabContent(html: string): string[] {
           .trim()
       )
     )
-    .filter((s) => s.length > 1 && s.length < 80)
+    .filter((s) => s.length > 1 && s.length < 120)
     .filter((s) => !/^Job Families$/i.test(s));
 }
 
-/**
- * Strip HTML tags + entities from a snippet and split it on commas /
- * "and" / "or", treating each chunk as a family/role candidate.
- */
 function splitProseList(snippet: string): string[] {
   return decodeEntities(snippet)
     .replace(/<[^>]+>/g, " ")
@@ -195,19 +186,11 @@ function splitProseList(snippet: string): string[] {
     .filter((s) => s.length > 1 && s.length < 80);
 }
 
-/**
- * Fallback for product pages without a POWR JOB FAMILIES tab. Looks
- * for inline prose like "Reports on roles including X, Y, Z." or
- * "Job Families included: X, Y, Z" embedded in the page description.
- */
-function familiesFromProse(html: string): string[] {
+function positionsFromProse(html: string): string[] {
   const patterns = [
-    /Job Families included:\s*([^.<]+)/i,
     /Reports? on roles? including[^a-z]*([^.<]+)/i,
     /Reports? on positions? including[^a-z]*([^.<]+)/i,
     /Reports? on jobs? including[^a-z]*([^.<]+)/i,
-    /survey includes:?\s*([^.<]+)/i,
-    /Coverage includes:?\s*([^.<]+)/i,
   ];
   for (const p of patterns) {
     const m = p.exec(html);
@@ -219,7 +202,7 @@ function familiesFromProse(html: string): string[] {
   return [];
 }
 
-async function familiesForReport(productUrl: string): Promise<string[]> {
+async function positionsForReport(productUrl: string): Promise<string[]> {
   const pageRes = await fetch(productUrl, { headers: { "User-Agent": UA } });
   if (!pageRes.ok) {
     console.log(`  page fetch ${pageRes.status}: ${productUrl}`);
@@ -238,18 +221,17 @@ async function familiesForReport(productUrl: string): Promise<string[]> {
         | { data?: Array<{ title: string; content: string }> }
         | null;
       const tab = content?.data?.find((d) => /JOB FAMILIES/i.test(d.title || ""));
-      if (tab) return extractFamiliesFromTabContent(tab.content);
+      if (tab) return extractFromTabContent(tab.content);
     }
   }
 
-  // Fallback: scrape inline prose patterns from the product page itself.
-  const inline = familiesFromProse(pageHtml);
+  const inline = positionsFromProse(pageHtml);
   if (inline.length > 0) {
     console.log(`  (prose fallback) ${productUrl}`);
     return inline;
   }
 
-  console.log(`  no families found on ${productUrl}`);
+  console.log(`  no positions found on ${productUrl}`);
   return [];
 }
 
@@ -270,15 +252,15 @@ async function main() {
   const db = new Database(DB_PATH, { fileMustExist: true });
 
   const getReport = db.prepare("SELECT id FROM reports WHERE slug = ?");
-  const getFamilyBySlug = db.prepare("SELECT id FROM job_families WHERE slug = ?");
-  const getFamilyByNorm = db.prepare(
-    "SELECT id FROM job_families WHERE normalized_name = ?"
+  const getPositionBySlug = db.prepare("SELECT id FROM positions WHERE slug = ?");
+  const getPositionByNorm = db.prepare(
+    "SELECT id FROM positions WHERE normalized_title = ?"
   );
-  const insertFamily = db.prepare(
-    "INSERT INTO job_families (slug, canonical_name, normalized_name) VALUES (?, ?, ?)"
+  const insertPosition = db.prepare(
+    "INSERT INTO positions (slug, canonical_title, normalized_title) VALUES (?, ?, ?)"
   );
   const insertLink = db.prepare(
-    "INSERT OR IGNORE INTO report_families (report_id, family_id, family_as_reported) VALUES (?, ?, ?)"
+    "INSERT OR IGNORE INTO report_positions (report_id, position_id) VALUES (?, ?)"
   );
 
   let totalInserted = 0;
@@ -291,9 +273,9 @@ async function main() {
       console.log(`  skip (no report row): ${r.slug}`);
       continue;
     }
-    const families = await familiesForReport(r.url);
-    if (families.length === 0) {
-      console.log(`  ${r.slug.padEnd(40)} 0 families`);
+    const positions = await positionsForReport(r.url);
+    if (positions.length === 0) {
+      console.log(`  ${r.slug.padEnd(40)} 0 positions`);
       continue;
     }
 
@@ -302,29 +284,29 @@ async function main() {
     let linked = 0;
 
     db.transaction(() => {
-      for (const name of families) {
-        const norm = normalize(name);
+      for (const title of positions) {
+        const norm = normalize(title);
         if (!norm) continue;
-        const baseSlug = slugify(name);
+        const baseSlug = slugify(title);
         if (!baseSlug) continue;
 
-        let existing = getFamilyByNorm.get(norm) as { id: number } | undefined;
-        let familyId: number;
+        let existing = getPositionByNorm.get(norm) as { id: number } | undefined;
+        let positionId: number;
         if (existing) {
-          familyId = existing.id;
+          positionId = existing.id;
           reused++;
         } else {
           let candidate = baseSlug;
           let i = 2;
-          while (getFamilyBySlug.get(candidate)) {
+          while (getPositionBySlug.get(candidate)) {
             candidate = `${baseSlug}-${i++}`;
             if (i > 50) break;
           }
-          const result = insertFamily.run(candidate, name, norm);
-          familyId = Number(result.lastInsertRowid);
+          const result = insertPosition.run(candidate, title, norm);
+          positionId = Number(result.lastInsertRowid);
           inserted++;
         }
-        const linkResult = insertLink.run(report.id, familyId, name);
+        const linkResult = insertLink.run(report.id, positionId);
         if (linkResult.changes > 0) linked++;
       }
     })();
@@ -333,14 +315,14 @@ async function main() {
     totalReused += reused;
     totalLinked += linked;
     console.log(
-      `  ${r.slug.padEnd(40)} scraped=${families.length.toString().padStart(4)}  +new=${inserted.toString().padStart(4)}  reused=${reused.toString().padStart(4)}  linked=${linked.toString().padStart(4)}`
+      `  ${r.slug.padEnd(40)} scraped=${positions.length.toString().padStart(4)}  +new=${inserted.toString().padStart(4)}  reused=${reused.toString().padStart(4)}  linked=${linked.toString().padStart(4)}`
     );
   }
 
   db.pragma("wal_checkpoint(TRUNCATE)");
   db.close();
   console.log(
-    `\ningest-empsight-families: +${totalInserted} families, reused ${totalReused}, ${totalLinked} report_families linkages`
+    `\ningest-empsight-positions: +${totalInserted} positions, reused ${totalReused}, ${totalLinked} report_positions linkages`
   );
 }
 
