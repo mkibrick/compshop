@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { SearchResults, LinkedReport } from "@/lib/types";
+import { SearchResults } from "@/lib/types";
 import { loadIndex, search } from "@/lib/client-search";
 import { vendorOutbound, reportOutbound } from "@/lib/outbound";
 
@@ -237,100 +237,157 @@ export default function SearchBar({
           ) : totalResults === 0 && !advisorQuery ? (
             <div className="p-4 text-sm text-gray-500">No matches for &ldquo;{value}&rdquo;</div>
           ) : (
-            <div className="divide-y divide-gray-100">
-              {advisorQuery && (
-                <Group label="Recommended action">
+            (() => {
+              // Cap per-group entries hard so the dropdown stays one
+              // screen tall. The footer's "See all matches" link takes
+              // the user to /surveys?q= which has the full breakdown.
+              const MAX_POSITIONS = 4;
+              const MAX_FAMILIES = 2;
+              const MAX_REPORTS = 2;
+              const MAX_VENDORS = 2;
+
+              // Merge literal position hits with semantic "similar
+              // roles" into one list; the user doesn't care whether
+              // the match was literal or semantic. Semantic-only
+              // entries get a small "similar" tag.
+              const literalSlugs = new Set(
+                results.positions.map((p) => p.slug)
+              );
+              const positionRows: Array<{
+                slug: string;
+                title: string;
+                count?: number;
+                tag?: string;
+              }> = [
+                ...results.positions.map((p) => ({
+                  slug: p.slug,
+                  title: p.canonicalTitle,
+                  count: p.reportCount,
+                })),
+                ...semantic
+                  .filter((h) => !literalSlugs.has(h.slug))
+                  .map((h) => ({
+                    slug: h.slug,
+                    title: h.title,
+                    tag: "similar",
+                  })),
+              ].slice(0, MAX_POSITIONS);
+
+              // The Survey Reports group is signal when the query
+              // matches report titles directly (e.g. "Mercer SIRS").
+              // When positions or families already matched, that
+              // group becomes noise — the /surveys?q= page handles
+              // the full report list.
+              const showReportsGroup =
+                results.positions.length === 0 &&
+                results.families.length === 0 &&
+                results.reports.length > 0;
+
+              return (
+                <div className="divide-y divide-gray-100">
+                  {advisorQuery && (
+                    <Group label="Recommended action">
+                      <Link
+                        href={`/advisor?q=${encodeURIComponent(value.trim())}`}
+                        className="block px-4 py-3 hover:bg-plum-50 transition-colors"
+                      >
+                        <div className="flex items-start gap-3">
+                          <span className="text-plum-500 mt-0.5" aria-hidden="true">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                          </span>
+                          <div className="min-w-0">
+                            <div className="text-sm font-semibold text-navy">
+                              Ask the Survey Advisor about this
+                            </div>
+                            <div className="text-xs text-gray-500 mt-0.5">
+                              Get a recommended stack with reasoning and a budget estimate
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </Group>
+                  )}
+
+                  {positionRows.length > 0 && (
+                    <Group label="Job Titles / Positions">
+                      {positionRows.map((r) => (
+                        <CompactRow
+                          key={r.slug}
+                          href={`/positions/${r.slug}`}
+                          title={r.title}
+                          countLabel={
+                            r.count !== undefined
+                              ? `${r.count} survey${r.count === 1 ? "" : "s"}`
+                              : undefined
+                          }
+                          tag={r.tag}
+                        />
+                      ))}
+                    </Group>
+                  )}
+
+                  {results.families.length > 0 && (
+                    <Group label="Job Families">
+                      {results.families.slice(0, MAX_FAMILIES).map((f) => (
+                        <CompactRow
+                          key={f.slug}
+                          href={`/families/${f.slug}`}
+                          title={f.canonicalName}
+                          countLabel={`${f.reportCount} survey${f.reportCount === 1 ? "" : "s"}`}
+                        />
+                      ))}
+                    </Group>
+                  )}
+
+                  {showReportsGroup && (
+                    <Group label="Survey Reports">
+                      {results.reports.slice(0, MAX_REPORTS).map((r) => (
+                        <CompactRow
+                          key={r.slug}
+                          href={reportOutbound(r.slug)}
+                          external
+                          title={r.title}
+                          countLabel={r.vendorProvider}
+                        />
+                      ))}
+                    </Group>
+                  )}
+
+                  {results.vendors.length > 0 && (
+                    <Group label="Publishers">
+                      {results.vendors.slice(0, MAX_VENDORS).map((v) => (
+                        <CompactRow
+                          key={v.slug}
+                          href={vendorOutbound(v.slug)}
+                          external
+                          title={v.title}
+                          countLabel={v.provider}
+                        />
+                      ))}
+                    </Group>
+                  )}
+
                   <Link
-                    href={`/advisor?q=${encodeURIComponent(value.trim())}`}
-                    className="block px-4 py-3 hover:bg-plum-50 transition-colors"
+                    href={`/surveys?q=${encodeURIComponent(value.trim())}`}
+                    className="block px-4 py-2.5 bg-gray-50 hover:bg-gray-100 transition-colors"
                   >
-                    <div className="flex items-start gap-3">
-                      <span className="text-plum-500 mt-0.5" aria-hidden="true">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                        </svg>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-700">
+                        See all matches for{" "}
+                        <span className="font-semibold text-navy">
+                          &ldquo;{value.trim()}&rdquo;
+                        </span>
                       </span>
-                      <div className="min-w-0">
-                        <div className="text-sm font-semibold text-navy">
-                          Ask the Survey Advisor about this
-                        </div>
-                        <div className="text-xs text-gray-500 mt-0.5">
-                          Get a recommended stack with reasoning and a budget estimate
-                        </div>
-                      </div>
+                      <span className="text-gray-400 ml-2" aria-hidden="true">
+                        →
+                      </span>
                     </div>
                   </Link>
-                </Group>
-              )}
-              {results.positions.length > 0 && (
-                <Group label="Job Titles / Positions">
-                  {results.positions.map((p) => (
-                    <EntityWithReports
-                      key={p.slug}
-                      href={`/positions/${p.slug}`}
-                      primary={p.canonicalTitle}
-                      secondary={`${p.reportCount} report${p.reportCount !== 1 ? "s" : ""}`}
-                      reports={p.reports}
-                      totalCount={p.reportCount}
-                    />
-                  ))}
-                </Group>
-              )}
-              {(() => {
-                const literalSlugs = new Set(
-                  results.positions.map((p) => p.slug)
-                );
-                const fresh = semantic.filter(
-                  (h) => !literalSlugs.has(h.slug)
-                );
-                if (fresh.length === 0) return null;
-                return (
-                  <Group label="Similar roles">
-                    {fresh.map((h) => (
-                      <SemanticRow key={h.slug} hit={h} />
-                    ))}
-                  </Group>
-                );
-              })()}
-              {results.families.length > 0 && (
-                <Group label="Job Families">
-                  {results.families.map((f) => (
-                    <EntityWithReports
-                      key={f.slug}
-                      href={`/families/${f.slug}`}
-                      primary={f.canonicalName}
-                      secondary={`${f.reportCount} report${f.reportCount !== 1 ? "s" : ""} · ${f.positionCount} position${f.positionCount !== 1 ? "s" : ""}`}
-                      reports={f.reports}
-                      totalCount={f.reportCount}
-                    />
-                  ))}
-                </Group>
-              )}
-              {results.reports.length > 0 && (
-                <Group label="Survey Reports">
-                  {results.reports.map((r) => (
-                    <ExternalRow
-                      key={r.slug}
-                      href={reportOutbound(r.slug)}
-                      primary={r.title}
-                      secondary={r.vendorProvider}
-                    />
-                  ))}
-                </Group>
-              )}
-              {results.vendors.length > 0 && (
-                <Group label="Vendors">
-                  {results.vendors.map((v) => (
-                    <ExternalRow
-                      key={v.slug}
-                      href={vendorOutbound(v.slug)}
-                      primary={v.title}
-                      secondary={`${v.provider}${v.industry ? " · " + v.industry : ""}`}
-                    />
-                  ))}
-                </Group>
-              )}
-            </div>
+                </div>
+              );
+            })()
           )}
         </div>
       )}
@@ -349,125 +406,57 @@ function Group({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-function EntityWithReports({
-  primary,
-  secondary,
-  reports,
-  totalCount,
-  href,
-}: {
-  primary: string;
-  secondary?: string;
-  reports: LinkedReport[];
-  totalCount: number;
-  /** When set, the primary title links to this internal route. */
-  href?: string;
-}) {
-  return (
-    <div className="px-4 py-2.5">
-      <div className="flex items-center justify-between gap-3">
-        {href ? (
-          <Link
-            href={href}
-            className="text-sm text-navy font-medium truncate hover:text-accent transition-colors flex items-center gap-1"
-          >
-            {primary}
-            <svg className="w-3 h-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
-        ) : (
-          <span className="text-sm text-navy font-medium truncate">{primary}</span>
-        )}
-        {secondary && (
-          <span className="text-xs text-gray-500 flex-shrink-0">{secondary}</span>
-        )}
-      </div>
-      {reports.length > 0 && (
-        <ul className="mt-1.5 ml-3 border-l border-gray-200 pl-3 space-y-0.5">
-          {reports.map((r) => (
-            <li key={r.slug}>
-              <a
-                href={reportOutbound(r.slug)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between gap-2 py-1 text-xs text-gray-700 hover:text-accent transition-colors group"
-              >
-                <span className="truncate flex items-center gap-1">
-                  <svg className="w-3 h-3 text-gray-400 flex-shrink-0 group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                  {r.title}
-                </span>
-                <span className="text-[10px] text-gray-400 flex-shrink-0 flex items-center gap-1.5">
-                  {r.geographicScope && (
-                    <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 font-medium">
-                      {r.geographicScope}
-                    </span>
-                  )}
-                  {r.vendorProvider}
-                </span>
-              </a>
-            </li>
-          ))}
-          {totalCount > reports.length && (
-            <li className="pt-0.5 text-[10px] text-gray-400 italic">
-              +{totalCount - reports.length} more
-            </li>
-          )}
-        </ul>
-      )}
-    </div>
-  );
-}
-
 /**
- * One result row from the semantic-search endpoint. Internal-link only —
- * we route to the canonical position page, where the full report list
- * lives. The similarity score is shown subtly so power users can tell
- * which matches the model thinks are strongest.
+ * Single-line search result row used for every group in the dropdown.
+ * Bold title on the left, optional small grey countLabel on the right,
+ * optional "similar" tag for semantic-only position matches.
+ *
+ * Internal links (positions / families) use next/link; external links
+ * (publishers / direct survey reports) use a plain <a> opening in a
+ * new tab.
  */
-function SemanticRow({ hit }: { hit: SemanticHit }) {
-  return (
-    <Link
-      href={`/positions/${hit.slug}`}
-      className="w-full block px-4 py-2.5 hover:bg-gray-50 transition-colors flex items-center justify-between gap-3"
-    >
-      <span className="text-sm text-navy font-medium truncate">
-        {hit.title}
-      </span>
-      <span className="text-[10px] text-gray-400 flex-shrink-0">
-        similar match
-      </span>
-    </Link>
-  );
-}
-
-function ExternalRow({
-  primary,
-  secondary,
+function CompactRow({
+  title,
   href,
+  countLabel,
+  tag,
+  external = false,
 }: {
-  primary: string;
-  secondary?: string;
+  title: string;
   href: string;
+  countLabel?: string;
+  tag?: string;
+  external?: boolean;
 }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-full text-left px-4 py-2.5 hover:bg-gray-50 transition-colors flex items-center justify-between gap-3"
-    >
-      <span className="text-sm text-navy font-medium truncate flex items-center gap-1.5">
-        {primary}
-        <svg className="w-3 h-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-        </svg>
+  const className =
+    "flex items-center justify-between gap-3 px-4 py-2 hover:bg-gray-50 transition-colors text-sm";
+  const inner = (
+    <>
+      <span className="text-navy font-medium truncate flex-1 min-w-0">
+        {title}
       </span>
-      {secondary && (
-        <span className="text-xs text-gray-500 flex-shrink-0">{secondary}</span>
-      )}
-    </a>
+      <span className="flex items-center gap-2 flex-shrink-0">
+        {tag && (
+          <span className="px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 text-[10px] font-medium uppercase tracking-wide">
+            {tag}
+          </span>
+        )}
+        {countLabel && (
+          <span className="text-xs text-gray-500">{countLabel}</span>
+        )}
+      </span>
+    </>
+  );
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className}>
+      {inner}
+    </Link>
   );
 }
