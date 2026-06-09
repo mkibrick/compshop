@@ -189,11 +189,14 @@ export default function SearchBar({
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
+  // Org matches stay in the index for future use, but we don't surface
+  // them in the dropdown — typing a participant name shouldn't lead
+  // anywhere actionable today. Excluded from totalResults so the
+  // "No matches" empty-state isn't suppressed by org-only hits.
   const totalResults =
     results.vendors.length +
     results.reports.length +
     results.positions.length +
-    results.orgs.length +
     results.families.length;
 
   return (
@@ -323,19 +326,6 @@ export default function SearchBar({
                       href={vendorOutbound(v.slug)}
                       primary={v.title}
                       secondary={`${v.provider}${v.industry ? " · " + v.industry : ""}`}
-                    />
-                  ))}
-                </Group>
-              )}
-              {results.orgs.length > 0 && (
-                <Group label="Participating Organizations">
-                  {results.orgs.map((o) => (
-                    <EntityWithReports
-                      key={o.slug}
-                      primary={o.name}
-                      secondary={`${o.reportCount} report${o.reportCount !== 1 ? "s" : ""}`}
-                      reports={o.reports}
-                      totalCount={o.reportCount}
                     />
                   ))}
                 </Group>
