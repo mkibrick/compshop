@@ -215,20 +215,14 @@ export function vendorMatchSummary(
   }
 
   // Position matches — attach to every vendor whose catalog covers
-  // the position. We use the precomputed vendorSlugs array on each
-  // indexed position (top-level union across ALL its reports) so a
-  // vendor that links via its 4th or 5th report still gets credit.
-  // Older index builds may not have vendorSlugs; fall back to the
-  // LinkedReport sample so the page still works during deploys.
+  // the position. The precomputed vendorSlugs array on each indexed
+  // position is the union of vendors across ALL its reports (the
+  // top-level reports array only carries a 3-row preview).
   const matchedPositions: typeof index.positions = [];
   for (const p of index.positions) {
     if (!includes(p.canonicalTitle, q)) continue;
     matchedPositions.push(p);
-    const slugs =
-      p.vendorSlugs && p.vendorSlugs.length > 0
-        ? p.vendorSlugs
-        : Array.from(new Set(p.reports.map((r) => r.vendorSlug)));
-    for (const vendorSlug of slugs) {
+    for (const vendorSlug of p.vendorSlugs ?? []) {
       const v = getOrInit(vendorSlug);
       if (v.positions.length < PER_VENDOR_PREVIEW) {
         v.positions.push({ slug: p.slug, title: p.canonicalTitle });
@@ -242,11 +236,7 @@ export function vendorMatchSummary(
   for (const f of index.families) {
     if (!includes(f.canonicalName, q)) continue;
     matchedFamilies.push(f);
-    const slugs =
-      f.vendorSlugs && f.vendorSlugs.length > 0
-        ? f.vendorSlugs
-        : Array.from(new Set(f.reports.map((r) => r.vendorSlug)));
-    for (const vendorSlug of slugs) {
+    for (const vendorSlug of f.vendorSlugs ?? []) {
       const v = getOrInit(vendorSlug);
       if (v.families.length < PER_VENDOR_PREVIEW) {
         v.families.push({ slug: f.slug, name: f.canonicalName });
