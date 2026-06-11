@@ -1,14 +1,18 @@
+// Participation is a neutral logistical fact, not a quality signal, so
+// we avoid red (reads as "error/warning"). "Required" gets an
+// informational blue, "Optional" a soft amber, "Not Required" a calm
+// slate. Unknown / longer status strings fall back to slate.
 const config: Record<string, { bg: string; text: string; dot: string }> = {
-  Required: { bg: "bg-red-50", text: "text-red-700", dot: "bg-red-500" },
+  Required: { bg: "bg-blue-50", text: "text-blue-700", dot: "bg-blue-500" },
   Optional: {
     bg: "bg-amber-50",
     text: "text-amber-700",
     dot: "bg-amber-500",
   },
   "Not Required": {
-    bg: "bg-green-50",
-    text: "text-green-700",
-    dot: "bg-green-500",
+    bg: "bg-slate-100",
+    text: "text-slate-600",
+    dot: "bg-slate-400",
   },
 };
 

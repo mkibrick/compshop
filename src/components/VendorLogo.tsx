@@ -25,6 +25,7 @@ const DOMAIN_OVERRIDES: Record<string, string> = {
  */
 const LOGO_OVERRIDES: Record<string, string> = {
   mercer: "/logos/mercer.svg",
+  "western management group": "/logos/western-management-group.png",
 };
 
 // Double-suffix public TLDs where "last two labels" would return the
