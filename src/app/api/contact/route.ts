@@ -63,7 +63,10 @@ export async function POST(request: NextRequest) {
     })
   );
 
-  const apiKey = process.env.RESEND_API_KEY;
+  // Accept either the conventional name or the `Resend_API` alias that's
+  // currently set in the Vercel project, so a name mismatch doesn't
+  // silently drop emails.
+  const apiKey = process.env.RESEND_API_KEY ?? process.env.Resend_API;
   if (!apiKey) {
     // Graceful fallback: no email sent. Until Resend is configured,
     // log the FULL submission (including the message body) so a real
