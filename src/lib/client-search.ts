@@ -160,6 +160,114 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
   return { vendors, reports, positions, orgs, families };
 }
 
+// ---------------------------------------------------------------------------
+// Category report preview — for the /surveys grid when a single industry
+// filter is active (no text query). Surfaces WHICH of each vendor's
+// reports put it in that industry, so the buyer sees why the filter
+// returned that vendor.
+// ---------------------------------------------------------------------------
+
+/**
+ * Per-category title patterns. A report counts toward a category if its
+ * title matches. Title (not the broad matchToken union) is the reliable
+ * signal: "Mercer Canadian Energy Industry" shouldn't show under
+ * healthcare just because its positions span healthcare-adjacent roles.
+ *
+ * general-industry and free are intentionally omitted — their filters
+ * are too broad for a meaningful per-report preview.
+ */
+const CATEGORY_REPORT_PATTERNS: Record<string, RegExp> = {
+  healthcare:
+    /\b(health|hospital|clinical|nursing|nurse|physician|medical|ihn|ihp|patient|behavioral health|home health|telemedicine)\b/i,
+  "life-sciences":
+    /\b(life science|biopharma|pharma|biotech|clinical research|cro|medical device)\b/i,
+  tech: /\b(tech|software|digital|cyber|semiconductor|saas|hardware|gaming|games|ai and digital|artificial intelligence)\b/i,
+  media:
+    /\b(media|gaming|games|entertainment|animation|visual effects|broadcast|film|publishing|digital content|local media)\b/i,
+  "financial-services":
+    /\b(bank|banking|financial|asset management|hedge|investment|fintech|broker|wealth|capital markets|private equity)\b/i,
+  insurance: /\b(insurance|insurer|actuar|underwriting)\b/i,
+  energy:
+    /\b(energy|oil|gas|utilit|power|renewable|natural resources|nuclear)\b/i,
+  construction: /\b(construction|building|infrastructure|engineering and construction)\b/i,
+  retail:
+    /\b(retail|e-commerce|ecommerce|luxury|consumer products|consumer goods|merchandis)\b/i,
+  "higher-ed":
+    /\b(higher ed|education|collegiate|university|academic|faculty|cupa|educomp)\b/i,
+  legal: /\b(legal|law department|law dept|attorney|counsel|fee earner)\b/i,
+  nonprofit:
+    /\b(nonprofit|non-profit|foundation|grantmaking|philanthrop|association|credit union)\b/i,
+  executive: /\b(executive|c-suite|board|director compensation|named officer)\b/i,
+};
+
+export interface CategoryReportPreview {
+  /** Deduped, short report-type labels (year + country stripped). */
+  labels: string[];
+  /** Total matching reports for this vendor in the category. */
+  total: number;
+}
+
+/**
+ * Collapse "2025 Asset Management Survey Report - China" into the
+ * distinct report type "Asset Management", so WTW's per-country
+ * variants don't fill the preview with the same name 40 times. Also
+ * strips the leading provider name ("SullivanCotter Health Care Staff"
+ * → "Health Care Staff") so the preview isn't redundant with the card
+ * header.
+ */
+function reportTypeLabel(title: string, provider: string): string {
+  let s = title
+    .replace(/^\d{4}(?:\/\d{4})?\s+/, "") // leading year(s)
+    .replace(/\s*[-–]\s*[A-Z][a-zA-Z.&\s/()]+$/, "") // trailing " - Region"
+    .replace(
+      /\s+(Compensation\s+)?(Survey\s+)?(Report|Survey|Suite|Study)s?\b.*$/i,
+      ""
+    )
+    .replace(/\s+/g, " ")
+    .trim();
+  // Strip a leading provider-name prefix (case-insensitive), plus a
+  // trailing connective like "Mercer" inside "US IHN, Mercer X".
+  const prov = provider.trim();
+  if (prov && s.toLowerCase().startsWith(prov.toLowerCase() + " ")) {
+    s = s.slice(prov.length).trim();
+  }
+  return s;
+}
+
+/**
+ * For a single active category filter, return a per-vendor preview of
+ * the reports that place each vendor in that industry.
+ */
+export function categoryReportPreviews(
+  index: SearchIndex,
+  category: string
+): Map<string, CategoryReportPreview> {
+  const re = CATEGORY_REPORT_PATTERNS[category];
+  const out = new Map<string, CategoryReportPreview>();
+  if (!re) return out;
+
+  // Group matching reports per vendor, deduping by report-type label.
+  const seenLabels = new Map<string, Set<string>>();
+  for (const r of index.reports) {
+    if (!re.test(r.title)) continue;
+    const slug = r.vendorSlug;
+    let entry = out.get(slug);
+    if (!entry) {
+      entry = { labels: [], total: 0 };
+      out.set(slug, entry);
+      seenLabels.set(slug, new Set());
+    }
+    entry.total++;
+    const label = reportTypeLabel(r.title, r.vendorProvider) || r.title;
+    const seen = seenLabels.get(slug)!;
+    if (!seen.has(label.toLowerCase())) {
+      seen.add(label.toLowerCase());
+      entry.labels.push(label);
+    }
+  }
+  return out;
+}
+
 /**
  * Per-vendor summary of what matched a query: which of the vendor's
  * positions, families, and reports the query landed on. Used by the

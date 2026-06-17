@@ -11,7 +11,9 @@ import {
   loadIndex,
   vendorMatchCounts,
   vendorMatchSummary,
+  categoryReportPreviews,
   QueryMatchSummary,
+  CategoryReportPreview,
 } from "@/lib/client-search";
 import { ALL_REGIONS, regionsForVendor } from "@/lib/geography";
 import { sortByCategoryWeight } from "@/lib/category-weights";
@@ -93,6 +95,10 @@ export default function SurveyDirectory({
   const [matchSummary, setMatchSummary] = useState<QueryMatchSummary | null>(
     null
   );
+  const [categoryPreviews, setCategoryPreviews] = useState<Map<
+    string,
+    CategoryReportPreview
+  > | null>(null);
   /** vendor slug → canonical regions, loaded lazily from the search index. */
   const [vendorRegions, setVendorRegions] = useState<Map<string, string[]>>(
     new Map()
@@ -155,6 +161,32 @@ export default function SurveyDirectory({
       clearTimeout(timer);
     };
   }, [search]);
+
+  // When exactly one industry filter is active and there's no text
+  // query, compute a per-vendor preview of the reports that place each
+  // vendor in that industry — so the buyer sees why the filter
+  // returned each card.
+  useEffect(() => {
+    const singleCategory =
+      !search.trim() && categories.length === 1 ? categories[0] : null;
+    if (!singleCategory) {
+      setCategoryPreviews(null);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      try {
+        const idx = await loadIndex();
+        if (cancelled) return;
+        setCategoryPreviews(categoryReportPreviews(idx, singleCategory));
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [search, categories]);
 
   const deliveryOptions = useMemo(
     () => buildDeliveryOptions(allSurveys),
@@ -360,6 +392,15 @@ export default function SurveyDirectory({
               }
               matchDetail={
                 search.trim() ? matchSummary?.byVendor.get(s.slug) : undefined
+              }
+              categoryPreview={
+                categoryPreviews?.get(s.slug) ?? undefined
+              }
+              categoryLabel={
+                categories.length === 1
+                  ? categoryOptions.find((o) => o.value === categories[0])
+                      ?.label
+                  : undefined
               }
             />
           ))}

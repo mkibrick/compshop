@@ -3,13 +3,15 @@ import ParticipationBadge from "./ParticipationBadge";
 import VendorLogo from "./VendorLogo";
 import { vendorOutbound } from "@/lib/outbound";
 import { stripProviderPrefix } from "@/lib/strip-provider";
-import { VendorMatchDetail } from "@/lib/client-search";
+import { VendorMatchDetail, CategoryReportPreview } from "@/lib/client-search";
 
 export default function SurveyCard({
   survey,
   onOpen,
   matchCount,
   matchDetail,
+  categoryPreview,
+  categoryLabel,
 }: {
   survey: Survey;
   onOpen?: (slug: string) => void;
@@ -20,6 +22,14 @@ export default function SurveyCard({
    * buyers see proof of coverage without clicking through.
    */
   matchDetail?: VendorMatchDetail;
+  /**
+   * When a single industry filter is active (no search), this previews
+   * the vendor's reports in that industry — the reason the filter
+   * returned this vendor.
+   */
+  categoryPreview?: CategoryReportPreview;
+  /** Human label for the active category, e.g. "Healthcare". */
+  categoryLabel?: string;
 }) {
   const displayTitle = stripProviderPrefix(survey.title, survey.provider);
 
@@ -85,6 +95,29 @@ export default function SurveyCard({
                 {matchDetail.reportCount !== 1 ? "s" : ""} cover this query
               </p>
             )}
+          </div>
+        )}
+
+      {!matchDetail &&
+        categoryPreview &&
+        categoryPreview.labels.length > 0 && (
+          <div className="mt-3 pt-3 border-t border-stone-100">
+            <p className="text-xs text-stone-600 leading-snug">
+              <span className="font-semibold text-navy">
+                {categoryLabel || "Industry"} data:{" "}
+              </span>
+              {categoryPreview.labels.slice(0, 3).join(", ")}
+              {categoryPreview.labels.length > 3 && (
+                <span className="text-stone-400">
+                  {" "}
+                  +{categoryPreview.labels.length - 3} more
+                </span>
+              )}
+            </p>
+            <p className="mt-1 text-xs text-stone-500">
+              {categoryPreview.total} report
+              {categoryPreview.total !== 1 ? "s" : ""} in this industry
+            </p>
           </div>
         )}
 
