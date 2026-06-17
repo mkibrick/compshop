@@ -20,7 +20,7 @@ export default function Header() {
               href="/surveys"
               className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
             >
-              Browse Surveys
+              Browse Survey Vendors
             </Link>
           </nav>
         </div>
