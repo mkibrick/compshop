@@ -65,9 +65,15 @@ export async function POST(request: NextRequest) {
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    // Graceful fallback: no email sent, but submission is logged.
+    // Graceful fallback: no email sent. Until Resend is configured,
+    // log the FULL submission (including the message body) so a real
+    // lead isn't lost to the void — it stays recoverable from the
+    // Vercel function logs. Once RESEND_API_KEY is set this branch
+    // never runs, so message bodies stop hitting the logs.
     console.warn(
-      "[contact] RESEND_API_KEY not set; submission logged but email not sent"
+      `[contact] RESEND_API_KEY not set; email not sent. Full submission: ${JSON.stringify(
+        { name, email, message, source, referer }
+      )}`
     );
     return NextResponse.json({ ok: true, delivered: false }, { status: 200 });
   }
