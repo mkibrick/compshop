@@ -199,14 +199,21 @@ export default function PositionPage({ params }: { params: { slug: string } }) {
         <p className="mt-4 text-gray-700 text-lg leading-relaxed max-w-3xl">
           {reports.length} compensation survey report{reports.length !== 1 ? "s" : ""} publish salary benchmarks for <strong>{position.canonicalTitle}</strong>. Compare what each vendor covers and pick the right one for your organization.
         </p>
-        {position.description && (
-          <p className="mt-4 text-sm text-gray-600 leading-relaxed max-w-3xl italic">
-            {position.description.length > 400
-              ? position.description.slice(0, 400).replace(/\s+\S*$/, "") + "…"
-              : position.description}
-          </p>
-        )}
       </header>
+
+      {position.description && position.description.trim().length > 20 && (
+        <section className="bg-oat rounded-lg border border-stone-200 p-6 mb-6">
+          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">
+            Role summary
+          </h2>
+          <p className="text-gray-700 leading-relaxed max-w-3xl whitespace-pre-line">
+            {position.description}
+          </p>
+          <p className="mt-3 text-xs text-stone-500">
+            Job summary sourced from the Empsight benchmark job library.
+          </p>
+        </section>
+      )}
 
       {families.length > 0 && (
         <section className="bg-white rounded-lg border border-gray-200 p-6 mb-6">

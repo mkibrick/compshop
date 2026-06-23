@@ -70,6 +70,14 @@ interface PositionIdx {
    * top-3 sample for the dropdown preview).
    */
   vendorSlugs: string[];
+  /**
+   * Truncated job summary (from the Empsight job library). Present only
+   * for positions that have a description. Powers the "matched on
+   * summary" search fallback — when a query doesn't hit any title but
+   * does appear in a role's description, we still surface it. Capped to
+   * keep the client index lean.
+   */
+  summary?: string;
 }
 
 interface FamilyIdx {
@@ -157,16 +165,26 @@ function main() {
   }));
 
   // ---------- Positions ----------
+  // Pull the raw job description too so we can attach a truncated
+  // summary for the "matched on summary" search fallback.
   const positionsRaw = db
     .prepare(
       `SELECT p.slug, p.canonical_title AS canonicalTitle,
+              p.description AS description,
               COUNT(DISTINCT rp.report_id) AS reportCount
        FROM positions p
        LEFT JOIN report_positions rp ON rp.position_id = p.id
        GROUP BY p.id
        ORDER BY reportCount DESC, p.canonical_title`
     )
-    .all() as Omit<PositionIdx, "reports" | "vendorSlugs">[];
+    .all() as (Omit<PositionIdx, "reports" | "vendorSlugs"> & {
+    description: string;
+  })[];
+
+  // Cap the indexed summary so the client bundle stays lean. ~280 chars
+  // captures the core "what this role does" sentence(s) that keyword
+  // matching needs; the full text lives on the position page.
+  const SUMMARY_MAX = 280;
 
   // Distinct vendor slugs per position — every publisher that covers
   // this role via at least one of their reports. /surveys?q= uses this
@@ -220,22 +238,32 @@ function main() {
        s.provider, r.title
      LIMIT ?`
   );
-  const positions: PositionIdx[] = positionsRaw.map((p) => ({
-    ...p,
-    reports:
-      p.reportCount >= EMBED_REPORTS_MIN_COUNT
-        ? (reportsForPositionStmt.all(
-            p.slug,
-            LINKED_REPORTS_PER_ENTITY
-          ) as LinkedReport[])
-        : [],
-    vendorSlugs:
-      p.reportCount > 0
-        ? (vendorSlugsForPositionStmt.all(p.slug) as { vendorSlug: string }[]).map(
-            (r) => r.vendorSlug
-          )
-        : [],
-  }));
+  const positions: PositionIdx[] = positionsRaw.map((p) => {
+    const { description, ...rest } = p;
+    const summary =
+      description && description.trim().length > 20
+        ? description.trim().slice(0, SUMMARY_MAX)
+        : undefined;
+    return {
+      ...rest,
+      reports:
+        p.reportCount >= EMBED_REPORTS_MIN_COUNT
+          ? (reportsForPositionStmt.all(
+              p.slug,
+              LINKED_REPORTS_PER_ENTITY
+            ) as LinkedReport[])
+          : [],
+      vendorSlugs:
+        p.reportCount > 0
+          ? (
+              vendorSlugsForPositionStmt.all(p.slug) as {
+                vendorSlug: string;
+              }[]
+            ).map((r) => r.vendorSlug)
+          : [],
+      ...(summary ? { summary } : {}),
+    };
+  });
 
   // ---------- Families ----------
   const familiesRaw = db

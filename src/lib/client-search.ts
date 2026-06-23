@@ -32,6 +32,8 @@ export interface SearchIndex {
     reportCount: number;
     reports: LinkedReport[];
     vendorSlugs?: string[];
+    /** Truncated job summary; present only for described positions. */
+    summary?: string;
   }[];
   families: {
     slug: string;
@@ -93,8 +95,16 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
     }));
 
   // --- Positions ---
-  const positions = index.positions
-    .filter((p) => includes(p.canonicalTitle, q))
+  // Tier 1: literal title matches. Tier 2 (fallback): roles whose
+  // title does NOT match but whose job SUMMARY does — so a query that
+  // describes what a role does ("handles employee grievances",
+  // "manages litigation") still surfaces the right benchmark job even
+  // without an exact title hit. Title matches always rank first.
+  const titleMatched = index.positions.filter((p) =>
+    includes(p.canonicalTitle, q)
+  );
+  const titleSlugs = new Set(titleMatched.map((p) => p.slug));
+  const positionRows: SearchResults["positions"] = titleMatched
     .sort((a, b) => b.reportCount - a.reportCount)
     .slice(0, LIMIT_PER_GROUP)
     .map((p) => ({
@@ -102,7 +112,32 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
       canonicalTitle: p.canonicalTitle,
       reportCount: p.reportCount,
       reports: p.reports,
+      summary: p.summary,
+      matchedOn: "title" as const,
     }));
+
+  // Only run the summary fallback when literal title matches are thin —
+  // it's a "didn't quite find it by name" rescue, not a primary path,
+  // and the query needs ≥3 chars to avoid noise.
+  if (positionRows.length < LIMIT_PER_GROUP && q.length >= 3) {
+    const summaryMatched = index.positions
+      .filter(
+        (p) =>
+          !titleSlugs.has(p.slug) && p.summary && includes(p.summary, q)
+      )
+      .sort((a, b) => b.reportCount - a.reportCount)
+      .slice(0, LIMIT_PER_GROUP - positionRows.length)
+      .map((p) => ({
+        slug: p.slug,
+        canonicalTitle: p.canonicalTitle,
+        reportCount: p.reportCount,
+        reports: p.reports,
+        summary: p.summary,
+        matchedOn: "summary" as const,
+      }));
+    positionRows.push(...summaryMatched);
+  }
+  const positions = positionRows;
 
   // --- Reports (with expanded match tokens: family/position mentions) ---
   // When the query directly matches positions or families, hide the

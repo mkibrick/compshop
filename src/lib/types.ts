@@ -102,7 +102,7 @@ export interface LinkedReport {
 export interface SearchResults {
   vendors: { slug: string; title: string; provider: string; industry: string; url: string; regions?: string[] }[];
   reports: { slug: string; title: string; vendorSlug: string; vendorProvider: string; url: string }[];
-  positions: { slug: string; canonicalTitle: string; reportCount: number; reports: LinkedReport[] }[];
+  positions: { slug: string; canonicalTitle: string; reportCount: number; reports: LinkedReport[]; summary?: string; matchedOn?: "title" | "summary" }[];
   orgs: { slug: string; name: string; reportCount: number; reports: LinkedReport[] }[];
   families: { slug: string; canonicalName: string; reportCount: number; positionCount: number; reports: LinkedReport[] }[];
 }

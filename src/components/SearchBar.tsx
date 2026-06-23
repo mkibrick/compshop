@@ -258,11 +258,17 @@ export default function SearchBar({
                 title: string;
                 count?: number;
                 tag?: string;
+                subtitle?: string;
               }> = [
                 ...results.positions.map((p) => ({
                   slug: p.slug,
                   title: p.canonicalTitle,
                   count: p.reportCount,
+                  // Summary-matched roles (no title hit) get a tag + a
+                  // snippet of the description that caused the match.
+                  tag: p.matchedOn === "summary" ? "by description" : undefined,
+                  subtitle:
+                    p.matchedOn === "summary" ? p.summary : undefined,
                 })),
                 ...semantic
                   .filter((h) => !literalSlugs.has(h.slug))
@@ -317,6 +323,7 @@ export default function SearchBar({
                           key={r.slug}
                           href={`/positions/${r.slug}`}
                           title={r.title}
+                          subtitle={r.subtitle}
                           countLabel={
                             r.count !== undefined
                               ? `${r.count} survey${r.count === 1 ? "" : "s"}`
@@ -409,7 +416,8 @@ function Group({ label, children }: { label: string; children: React.ReactNode }
 /**
  * Single-line search result row used for every group in the dropdown.
  * Bold title on the left, optional small grey countLabel on the right,
- * optional "similar" tag for semantic-only position matches.
+ * optional "similar" / "by description" tag, and an optional subtitle
+ * (e.g. a job-summary snippet for description-matched roles).
  *
  * Internal links (positions / families) use next/link; external links
  * (publishers / direct survey reports) use a plain <a> opening in a
@@ -420,31 +428,40 @@ function CompactRow({
   href,
   countLabel,
   tag,
+  subtitle,
   external = false,
 }: {
   title: string;
   href: string;
   countLabel?: string;
   tag?: string;
+  subtitle?: string;
   external?: boolean;
 }) {
   const className =
-    "flex items-center justify-between gap-3 px-4 py-2 hover:bg-gray-50 transition-colors text-sm";
+    "block px-4 py-2 hover:bg-gray-50 transition-colors text-sm";
   const inner = (
     <>
-      <span className="text-navy font-medium truncate flex-1 min-w-0">
-        {title}
-      </span>
-      <span className="flex items-center gap-2 flex-shrink-0">
-        {tag && (
-          <span className="px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 text-[10px] font-medium uppercase tracking-wide">
-            {tag}
-          </span>
-        )}
-        {countLabel && (
-          <span className="text-xs text-gray-500">{countLabel}</span>
-        )}
-      </span>
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-navy font-medium truncate flex-1 min-w-0">
+          {title}
+        </span>
+        <span className="flex items-center gap-2 flex-shrink-0">
+          {tag && (
+            <span className="px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 text-[10px] font-medium uppercase tracking-wide">
+              {tag}
+            </span>
+          )}
+          {countLabel && (
+            <span className="text-xs text-gray-500">{countLabel}</span>
+          )}
+        </span>
+      </div>
+      {subtitle && (
+        <p className="mt-0.5 text-xs text-gray-500 line-clamp-2 leading-snug">
+          {subtitle}
+        </p>
+      )}
     </>
   );
   if (external) {
