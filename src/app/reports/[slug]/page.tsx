@@ -316,6 +316,13 @@ function SurveyCycleSection({
       helper: "Data is reported \u201Cas of\u201D this date",
     });
   }
+  if (report.participationDeadline) {
+    stages.push({
+      label: "Submission deadline",
+      value: report.participationDeadline,
+      helper: "Last day to submit participation data",
+    });
+  }
   if (report.publicationMonth) {
     stages.push({
       label: "Results published",
