@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getReportBySlug } from "@/lib/reports";
 import { getSurveyBySlug } from "@/lib/surveys";
-import { addUtms } from "@/lib/outbound";
+import { addUtms, VENDOR_OUTBOUND_OVERRIDES } from "@/lib/outbound";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +20,10 @@ export function GET(
   }
   const vendor = getSurveyBySlug(report.surveySlug);
 
-  const rawDestination = report.url || vendor?.url || "/surveys";
+  // Some vendors funnel all clicks to a single participation hub
+  // regardless of the per-report product URL (see VENDOR_OUTBOUND_OVERRIDES).
+  const override = vendor ? VENDOR_OUTBOUND_OVERRIDES[vendor.slug] : undefined;
+  const rawDestination = override || report.url || vendor?.url || "/surveys";
   const destination = addUtms(rawDestination, {
     campaign: "report_referral",
     content: report.slug,

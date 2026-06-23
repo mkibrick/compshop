@@ -10,6 +10,23 @@
  *     reports even if they can't parse the raw Referer header.
  */
 
+/**
+ * Vendors whose outbound clicks should always route to a single
+ * destination — a participation / registration hub — rather than the
+ * per-report product page or vendor homepage.
+ *
+ * Empsight is participation-gated: every survey requires participating
+ * before you can purchase results, so a buyer's natural next step is
+ * their Survey Participation Center, not an individual product page.
+ * We keep the rich per-report product URLs in the DB (we scrape job
+ * families from them) but funnel clicks here.
+ *
+ * Keyed by vendor slug. Applies to both /go/v and /go/r clicks.
+ */
+export const VENDOR_OUTBOUND_OVERRIDES: Record<string, string> = {
+  empsight: "https://www.empsight.com/Survey-Participation-Center",
+};
+
 export function vendorOutbound(slug: string): string {
   return `/go/v/${encodeURIComponent(slug)}`;
 }

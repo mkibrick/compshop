@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSurveyBySlug } from "@/lib/surveys";
-import { addUtms } from "@/lib/outbound";
+import { addUtms, VENDOR_OUTBOUND_OVERRIDES } from "@/lib/outbound";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +17,8 @@ export function GET(
     return NextResponse.redirect(new URL("/surveys", request.url), 302);
   }
 
-  const destination = addUtms(vendor.url, {
+  const rawDestination = VENDOR_OUTBOUND_OVERRIDES[vendor.slug] || vendor.url;
+  const destination = addUtms(rawDestination, {
     campaign: "vendor_referral",
     content: vendor.slug,
   });
