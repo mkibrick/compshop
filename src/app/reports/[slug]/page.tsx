@@ -170,11 +170,19 @@ export default function ReportPage({ params }: { params: { slug: string } }) {
                   Edition: {report.edition}
                 </span>
               )}
-              {report.priceRange && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded bg-amber-50 text-amber-700 font-medium">
-                  {report.priceRange}
-                </span>
-              )}
+              {/* Prefer the actual published price; fall back to "N/A"
+                  when we don't have it (most publishers quote on
+                  request). The old $-tier (priceRange) is retained in
+                  the data but no longer shown. */}
+              <span
+                className={`inline-flex items-center px-2 py-0.5 rounded font-medium ${
+                  report.price
+                    ? "bg-emerald-50 text-emerald-700"
+                    : "bg-gray-100 text-gray-500"
+                }`}
+              >
+                {report.price ? report.price : "Price: N/A"}
+              </span>
             </div>
             {report.description && (
               <p className="mt-4 text-gray-700 leading-relaxed">

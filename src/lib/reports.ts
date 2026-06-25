@@ -25,6 +25,7 @@ interface ReportRow {
   includes_lti: number;
   includes_benefits: number;
   price_range: string;
+  price: string;
   notes: string;
   cycle: string;
   participation_opens: string;
@@ -57,6 +58,7 @@ function rowToReport(row: ReportRow): Report {
     includesLti: !!row.includes_lti,
     includesBenefits: !!row.includes_benefits,
     priceRange: row.price_range,
+    price: row.price ?? "",
     notes: row.notes,
     cycle: row.cycle ?? "",
     participationOpens: row.participation_opens ?? "",

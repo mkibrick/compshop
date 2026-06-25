@@ -58,6 +58,8 @@ export interface Report {
   includesLti: boolean;
   includesBenefits: boolean;
   priceRange: string;
+  /** Actual published price, e.g. "$2,200" or "Free". "" when unknown. */
+  price: string;
   notes: string;
   // Survey cycle fields. All free-text — vendors describe their
   // schedules with varying precision (month, quarter, exact date).

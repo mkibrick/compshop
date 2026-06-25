@@ -193,6 +193,9 @@ export function initDb() {
     "publication_month TEXT NOT NULL DEFAULT ''",
     "effective_date TEXT NOT NULL DEFAULT ''",
     "cycle_notes TEXT NOT NULL DEFAULT ''",
+    // Actual published price (e.g. "$2,200", "Free"). Distinct from the
+    // price_range $-tier; populated where the publisher lists a price.
+    "price TEXT NOT NULL DEFAULT ''",
   ]) {
     try {
       db.exec(`ALTER TABLE reports ADD COLUMN ${col}`);
