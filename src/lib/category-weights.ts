@@ -106,3 +106,56 @@ export function sortByCategoryWeight(
     return a.provider.localeCompare(b.provider);
   });
 }
+
+export interface CategoryRelevance {
+  /** 0–100 strength score for display + bar fill. */
+  score: number;
+  /** Short label explaining the fit, e.g. "Healthcare specialist". */
+  label: string;
+  /** Tier for color/weight: specialist > strong > broad. */
+  tier: "specialist" | "strong" | "broad";
+}
+
+/**
+ * Why does this publisher rank where it does for an industry filter?
+ * Turns the editorial rank (which drives the sort) plus the vendor's
+ * report depth into a transparent relevance score + label, so a buyer
+ * understands that SullivanCotter leads Healthcare because it's a
+ * healthcare specialist — not an arbitrary order.
+ *
+ * Score bands keep specialists visibly ahead of generalists:
+ *   - listed specialists: 72–100 (by editorial rank, #1 highest)
+ *   - everyone else that still matches the filter: 40–66 (by depth)
+ * so the score always tracks the on-screen order.
+ */
+export function categoryRelevance(
+  category: string,
+  vendorSlug: string,
+  categoryLabel: string,
+  reportCountInCategory: number
+): CategoryRelevance {
+  const top = CATEGORY_TOP_PUBLISHERS[category] ?? [];
+  const rank = top.indexOf(vendorSlug);
+
+  if (rank >= 0) {
+    // #1 → 100, then step down; floor at 72 so specialists stay a tier
+    // above generalists regardless of list length.
+    const score = Math.max(72, 100 - rank * 8);
+    const tier = rank <= 1 ? "specialist" : "strong";
+    const label =
+      tier === "specialist"
+        ? `${categoryLabel} specialist`
+        : `Strong ${categoryLabel.toLowerCase()} coverage`;
+    return { score, tier, label };
+  }
+
+  // Not an editorial specialist — still matched the filter. Differentiate
+  // by how many reports it actually fields in the category.
+  const depthBonus = Math.min(26, reportCountInCategory * 2);
+  const score = Math.min(66, 40 + depthBonus);
+  return {
+    score,
+    tier: "broad",
+    label: `Covers ${categoryLabel.toLowerCase()}`,
+  };
+}

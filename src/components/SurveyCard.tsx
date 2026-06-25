@@ -4,6 +4,7 @@ import VendorLogo from "./VendorLogo";
 import { vendorOutbound } from "@/lib/outbound";
 import { stripProviderPrefix } from "@/lib/strip-provider";
 import { VendorMatchDetail, CategoryReportPreview } from "@/lib/client-search";
+import { CategoryRelevance } from "@/lib/category-weights";
 
 export default function SurveyCard({
   survey,
@@ -12,6 +13,7 @@ export default function SurveyCard({
   matchDetail,
   categoryPreview,
   categoryLabel,
+  relevance,
 }: {
   survey: Survey;
   onOpen?: (slug: string) => void;
@@ -30,6 +32,11 @@ export default function SurveyCard({
   categoryPreview?: CategoryReportPreview;
   /** Human label for the active category, e.g. "Healthcare". */
   categoryLabel?: string;
+  /**
+   * Relevance/strength for the active industry filter — explains why
+   * this vendor ranks where it does (e.g. "Healthcare specialist").
+   */
+  relevance?: CategoryRelevance;
 }) {
   const displayTitle = stripProviderPrefix(survey.title, survey.provider);
 
@@ -53,6 +60,51 @@ export default function SurveyCard({
           </span>
         )}
       </div>
+
+      {relevance && (
+        <div className="mt-3">
+          <div className="flex items-center justify-between gap-2 mb-1">
+            <span
+              className={`inline-flex items-center gap-1 text-xs font-semibold ${
+                relevance.tier === "specialist"
+                  ? "text-plum-600"
+                  : relevance.tier === "strong"
+                  ? "text-navy"
+                  : "text-stone-500"
+              }`}
+            >
+              {relevance.tier === "specialist" && (
+                <svg className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path d="M10 1.5l2.6 5.3 5.9.85-4.25 4.15 1 5.85L10 15.6l-5.25 2.9 1-5.85L1.5 7.65l5.9-.85L10 1.5z" />
+                </svg>
+              )}
+              {relevance.label}
+            </span>
+            <span className="text-[10px] font-medium text-stone-400 uppercase tracking-wide">
+              Relevance
+            </span>
+          </div>
+          <div
+            className="h-1.5 w-full rounded-full bg-stone-100 overflow-hidden"
+            role="meter"
+            aria-valuenow={relevance.score}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label={`${survey.provider} ${relevance.label}`}
+          >
+            <div
+              className={`h-full rounded-full ${
+                relevance.tier === "specialist"
+                  ? "bg-plum-500"
+                  : relevance.tier === "strong"
+                  ? "bg-plum-400"
+                  : "bg-stone-300"
+              }`}
+              style={{ width: `${relevance.score}%` }}
+            />
+          </div>
+        </div>
+      )}
 
       {matchDetail &&
         (matchDetail.positions.length > 0 ||

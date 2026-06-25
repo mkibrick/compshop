@@ -16,7 +16,7 @@ import {
   CategoryReportPreview,
 } from "@/lib/client-search";
 import { ALL_REGIONS, regionsForVendor } from "@/lib/geography";
-import { sortByCategoryWeight } from "@/lib/category-weights";
+import { sortByCategoryWeight, categoryRelevance } from "@/lib/category-weights";
 import SearchResultSummary from "@/components/SearchResultSummary";
 
 const categoryOptions: MultiSelectOption[] = [
@@ -400,6 +400,17 @@ export default function SurveyDirectory({
                 categories.length === 1
                   ? categoryOptions.find((o) => o.value === categories[0])
                       ?.label
+                  : undefined
+              }
+              relevance={
+                !search.trim() && categories.length === 1
+                  ? categoryRelevance(
+                      categories[0],
+                      s.slug,
+                      categoryOptions.find((o) => o.value === categories[0])
+                        ?.label ?? categories[0],
+                      categoryPreviews?.get(s.slug)?.total ?? 0
+                    )
                   : undefined
               }
             />
