@@ -25,6 +25,18 @@ export interface SearchIndex {
     vendorSlug: string;
     vendorProvider: string;
     matchTokens: string;
+    // Structured buying fields (product-level cards / facets / sort /
+    // compare). Optional so older cached indexes still parse.
+    participation?: string;
+    price?: string;
+    priceRange?: string;
+    edition?: string;
+    numPositions?: number;
+    numOrgs?: number;
+    positionCoverage?: number;
+    familyCoverage?: number;
+    categories?: string;
+    bestFor?: string;
   }[];
   positions: {
     slug: string;

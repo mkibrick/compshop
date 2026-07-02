@@ -55,7 +55,7 @@ export default function HomePage() {
     if (looksLikeAdvisorQuery(q)) {
       router.push(`/advisor?q=${encodeURIComponent(q)}`);
     } else {
-      router.push(`/surveys?q=${encodeURIComponent(q)}`);
+      router.push(`/search?q=${encodeURIComponent(q)}`);
     }
   }
 

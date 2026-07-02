@@ -56,6 +56,19 @@ interface ReportIdx {
   vendorSlug: string;
   vendorProvider: string;
   matchTokens: string; // extra tokens (families / positions) to search against
+  // --- Structured buying fields (spec: product-level cards / facets /
+  // sort / compare). Every field degrades gracefully: "" / 0 means
+  // unknown, and the UI collapses or falls back rather than render null.
+  participation: string; // survey participation model ("Required" | "Optional" | ...)
+  price: string; // actual published price ("$2,200" | "Free" | "")
+  priceRange: string; // $-tier fallback for banding when no exact price
+  edition: string; // vintage ("2026" | "2025" | "")
+  numPositions: number; // sample: positions in the report (0 = unknown)
+  numOrgs: number; // sample: participating orgs (0 = unknown)
+  positionCoverage: number; // distinct benchmark positions we've linked
+  familyCoverage: number; // distinct job families we've linked
+  categories: string; // survey categories, comma-joined (for facets)
+  bestFor: string; // survey "best for" one-liner
 }
 
 interface PositionIdx {
@@ -131,7 +144,17 @@ function main() {
       `SELECT r.slug, r.title, r.description,
               r.geographic_scope AS geographicScope,
               CASE WHEN r.url != '' THEN r.url ELSE s.url END AS url,
-              s.slug AS vendorSlug, s.provider AS vendorProvider
+              s.slug AS vendorSlug, s.provider AS vendorProvider,
+              s.participation_required AS participation,
+              r.price AS price,
+              r.price_range AS priceRange,
+              r.edition AS edition,
+              r.num_positions AS numPositions,
+              r.num_orgs AS numOrgs,
+              s.categories AS categories,
+              s.best_for AS bestFor,
+              (SELECT COUNT(DISTINCT rp.position_id) FROM report_positions rp WHERE rp.report_id = r.id) AS positionCoverage,
+              (SELECT COUNT(DISTINCT rf.family_id) FROM report_families rf WHERE rf.report_id = r.id) AS familyCoverage
        FROM reports r
        JOIN surveys s ON s.id = r.survey_id
        ORDER BY r.title`
