@@ -19,6 +19,8 @@ export interface ProductResult extends ReportIdx {
   matchReason: "title" | "coverage" | "vendor" | "industry";
   /** Relevance score for the "Best match" sort. */
   score: number;
+  /** How many of the buyer's own roles this report covers (0 if none set). */
+  rolesCoveredCount?: number;
 }
 
 export interface ProductFacets {
@@ -29,7 +31,7 @@ export interface ProductFacets {
   priceModel: Array<"priced" | "free" | "request">;
 }
 
-export type SortKey = "best" | "price-asc" | "recent" | "sample";
+export type SortKey = "best" | "price-asc" | "recent" | "sample" | "roles";
 
 const includes = (h: string | undefined, q: string) =>
   (h ?? "").toLowerCase().includes(q);
@@ -111,6 +113,23 @@ export function sampleDisplay(r: ReportIdx): string | null {
   return parts.length ? parts.join(" · ") : null;
 }
 
+/**
+ * Personalization: how many of the buyer's own roles a report covers.
+ * Matches each role term against the report's matchTokens (which carry
+ * the report's full covered position + family list) and title. This is
+ * the "Covers N of your roles" payoff, computed client-side.
+ */
+export function rolesCovered(r: ReportIdx, roles: string[]): number {
+  if (!roles.length) return 0;
+  const hay = `${r.title} ${r.matchTokens ?? ""}`.toLowerCase();
+  let n = 0;
+  for (const role of roles) {
+    const term = role.trim().toLowerCase();
+    if (term && hay.includes(term)) n++;
+  }
+  return n;
+}
+
 /** Numeric vintage for the "Most recent" sort; 0 when unknown. */
 export function vintageYear(r: ReportIdx): number {
   const m = (r.edition ?? "").match(/\d{4}/g);
@@ -176,6 +195,8 @@ export interface ProductQuery {
   facets?: Partial<ProductFacets>;
   sort?: SortKey;
   regionsForVendor?: (slug: string) => string[];
+  /** The buyer's own role list for "covers N of your roles". */
+  roles?: string[];
 }
 
 export interface ProductSearchOutput {
@@ -200,6 +221,16 @@ export function productSearch(
     base = base.filter((r) =>
       (r.categories ?? "").split(",").includes(opts.category!)
     );
+  }
+
+  // Personalization: annotate each result with how many of the buyer's
+  // roles it covers, and let that boost the Best-match score.
+  const roles = opts.roles ?? [];
+  if (roles.length) {
+    base = base.map((r) => {
+      const n = rolesCovered(r, roles);
+      return { ...r, rolesCoveredCount: n, score: r.score + n * 2 };
+    });
   }
 
   // Facet counts over the pre-facet match set.
@@ -244,6 +275,11 @@ export function productSearch(
   const sort = opts.sort ?? "best";
   filtered = [...filtered].sort((a, b) => {
     switch (sort) {
+      case "roles":
+        return (
+          (b.rolesCoveredCount ?? 0) - (a.rolesCoveredCount ?? 0) ||
+          b.score - a.score
+        );
       case "price-asc":
         return priceDisplay(a).sortValue - priceDisplay(b).sortValue;
       case "recent":

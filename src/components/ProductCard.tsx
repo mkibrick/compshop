@@ -23,12 +23,15 @@ export default function ProductCard({
   comparing,
   onToggleCompare,
   compareDisabled,
+  rolesTotal = 0,
 }: {
   report: ProductResult;
   vendorUrl?: string;
   comparing: boolean;
   onToggleCompare: (slug: string) => void;
   compareDisabled?: boolean;
+  /** How many roles the buyer has set (0 = no personalization). */
+  rolesTotal?: number;
 }) {
   const displayTitle = stripProviderPrefix(report.title, report.vendorProvider);
   const price = priceDisplay(report);
@@ -73,6 +76,27 @@ export default function ProductCard({
             </Link>
           </div>
         </div>
+
+        {/* Personalized coverage takes precedence when roles are set */}
+        {rolesTotal > 0 && (
+          <div className="mt-3">
+            <span
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold ${
+                (report.rolesCoveredCount ?? 0) > 0
+                  ? "bg-plum-50 text-plum-700"
+                  : "bg-gray-50 text-gray-400"
+              }`}
+            >
+              {(report.rolesCoveredCount ?? 0) > 0 && (
+                <svg className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fillRule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-7.5 7.5a1 1 0 01-1.4 0L3.3 9.7a1 1 0 011.4-1.4l3.1 3.1 6.8-6.8a1 1 0 011.4 0z" clipRule="evenodd" />
+                </svg>
+              )}
+              Covers {report.rolesCoveredCount ?? 0} of your {rolesTotal} role
+              {rolesTotal === 1 ? "" : "s"}
+            </span>
+          </div>
+        )}
 
         {/* Structured buying chips — each collapses when unknown */}
         <div className="mt-4 flex flex-wrap items-center gap-2">

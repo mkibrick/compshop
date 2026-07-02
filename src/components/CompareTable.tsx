@@ -45,12 +45,25 @@ export default function CompareTable({
   onRemove,
   onRequestIntro,
   onSaveShortlist,
+  rolesTotal = 0,
 }: {
   reports: ProductResult[];
   onRemove: (slug: string) => void;
   onRequestIntro: () => void;
   onSaveShortlist: () => void;
+  rolesTotal?: number;
 }) {
+  const rows =
+    rolesTotal > 0
+      ? [
+          {
+            label: "Covers your roles",
+            render: (r: ProductResult) =>
+              `${r.rolesCoveredCount ?? 0} of ${rolesTotal}`,
+          },
+          ...ROWS,
+        ]
+      : ROWS;
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full border-collapse text-sm">
@@ -83,7 +96,7 @@ export default function CompareTable({
           </tr>
         </thead>
         <tbody>
-          {ROWS.map((row, i) => (
+          {rows.map((row, i) => (
             <tr key={row.label} className={i === 0 ? "bg-oat" : ""}>
               <td className="p-3 align-top text-xs font-semibold uppercase tracking-wide text-gray-500 border-t border-gray-100">
                 {row.label}

@@ -12,10 +12,12 @@ import { regionsForVendor } from "@/lib/geography";
 import ProductCard from "./ProductCard";
 import CompareTable from "./CompareTable";
 import IntroCaptureModal from "./IntroCaptureModal";
+import RolesModal from "./RolesModal";
+import { useLocalStorage } from "@/lib/use-local-storage";
 
 const MAX_COMPARE = 4;
 
-const SORT_OPTIONS: { value: SortKey; label: string }[] = [
+const BASE_SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: "best", label: "Best match" },
   { value: "price-asc", label: "Price: low to high" },
   { value: "recent", label: "Most recent" },
@@ -39,9 +41,16 @@ export default function ProductResults() {
   const [priceModel, setPriceModel] = useState<
     Array<"priced" | "free" | "request">
   >([]);
-  const [compareSlugs, setCompareSlugs] = useState<string[]>([]);
+  // Persisted across visits (localStorage): the shortlist and the
+  // buyer's own role list.
+  const [compareSlugs, setCompareSlugs] = useLocalStorage<string[]>(
+    "compshop.shortlist",
+    []
+  );
+  const [roles, setRoles] = useLocalStorage<string[]>("compshop.roles", []);
   const [compareOpen, setCompareOpen] = useState(false);
   const [capture, setCapture] = useState<null | "intro" | "shortlist">(null);
+  const [rolesOpen, setRolesOpen] = useState(false);
 
   useEffect(() => {
     loadIndex().then(setIndex).catch(() => {});
@@ -66,9 +75,17 @@ export default function ProductResults() {
       category: category || undefined,
       facets: { participation, priceModel },
       sort,
+      roles,
       regionsForVendor: (slug) => regionsForVendor([slug]),
     });
-  }, [index, query, category, participation, priceModel, sort]);
+  }, [index, query, category, participation, priceModel, sort, roles]);
+
+  const sortOptions = roles.length
+    ? [
+        { value: "roles" as SortKey, label: "Best coverage of your roles" },
+        ...BASE_SORT_OPTIONS,
+      ]
+    : BASE_SORT_OPTIONS;
 
   const compareReports: ProductResult[] = useMemo(() => {
     if (!output) return [];
@@ -140,6 +157,34 @@ export default function ProductResults() {
             "Loading…"
           )}
         </p>
+
+        {/* Personalization banner */}
+        <div className="mt-3">
+          {roles.length === 0 ? (
+            <button
+              onClick={() => setRolesOpen(true)}
+              className="inline-flex items-center gap-2 text-sm text-plum-600 hover:text-plum-700 font-medium"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+              Add your roles to see &ldquo;covers N of your roles&rdquo; on each survey
+            </button>
+          ) : (
+            <div className="inline-flex items-center gap-3 rounded-lg bg-oat border border-stone-200 px-3 py-1.5 text-sm">
+              <span className="text-ink-900">
+                Personalized for{" "}
+                <span className="font-semibold">{roles.length} role{roles.length === 1 ? "" : "s"}</span>
+              </span>
+              <button
+                onClick={() => setRolesOpen(true)}
+                className="text-xs text-plum-600 hover:text-plum-700 font-medium"
+              >
+                Edit
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">
@@ -154,7 +199,7 @@ export default function ProductResults() {
               onChange={(e) => setSort(e.target.value as SortKey)}
               className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white text-sm"
             >
-              {SORT_OPTIONS.map((o) => (
+              {sortOptions.map((o) => (
                 <option key={o.value} value={o.value}>
                   {o.label}
                 </option>
@@ -205,6 +250,7 @@ export default function ProductResults() {
                   comparing={compareSlugs.includes(r.slug)}
                   compareDisabled={compareSlugs.length >= MAX_COMPARE}
                   onToggleCompare={toggleCompare}
+                  rolesTotal={roles.length}
                 />
               ))}
             </div>
@@ -269,6 +315,7 @@ export default function ProductResults() {
               onRemove={toggleCompare}
               onRequestIntro={() => setCapture("intro")}
               onSaveShortlist={() => setCapture("shortlist")}
+              rolesTotal={roles.length}
             />
           </div>
         </div>
@@ -279,6 +326,17 @@ export default function ProductResults() {
           mode={capture}
           reports={compareReports.length ? compareReports : results.slice(0, 0)}
           onClose={() => setCapture(null)}
+        />
+      )}
+
+      {rolesOpen && (
+        <RolesModal
+          initial={roles}
+          onSave={(r) => {
+            setRoles(r);
+            if (r.length && sort === "best") setSort("roles");
+          }}
+          onClose={() => setRolesOpen(false)}
         />
       )}
     </div>
