@@ -16,7 +16,7 @@ export type ReportIdx = SearchIndex["reports"][number];
 
 export interface ProductResult extends ReportIdx {
   /** Why this report matched: title hit, role/family coverage, etc. */
-  matchReason: "title" | "coverage" | "vendor" | "industry";
+  matchReason: "title" | "coverage" | "vendor" | "industry" | "related";
   /** Relevance score for the "Best match" sort. */
   score: number;
   /** How many of the buyer's own roles this report covers (0 if none set). */
@@ -152,7 +152,8 @@ function priceModelOf(r: ReportIdx): "priced" | "free" | "request" {
 /** Base match: which reports are candidates for a query (before facets). */
 function matchReports(
   index: SearchIndex,
-  rawQuery: string
+  rawQuery: string,
+  semanticTerms: string[] = []
 ): ProductResult[] {
   const q = rawQuery.trim().toLowerCase();
   if (!q) {
@@ -162,6 +163,14 @@ function matchReports(
       score: 0,
     }));
   }
+  // Semantic expansion: related role titles from the embeddings endpoint
+  // (e.g. "developer" → "Software Engineer"). A report that doesn't hit
+  // the literal query but covers a semantically-related role still
+  // surfaces, tagged "related" and ranked below literal matches.
+  const semTerms = semanticTerms
+    .map((t) => t.trim().toLowerCase())
+    .filter((t) => t.length > 2 && t !== q);
+
   const out: ProductResult[] = [];
   for (const r of index.reports) {
     let score = 0;
@@ -178,6 +187,9 @@ function matchReports(
     } else if (includes(r.description, q) || includes(r.geographicScope, q)) {
       score = 1;
       reason = "coverage";
+    } else if (semTerms.length && semTerms.some((t) => includes(r.matchTokens, t))) {
+      score = 2.5;
+      reason = "related";
     } else {
       continue;
     }
@@ -197,6 +209,8 @@ export interface ProductQuery {
   regionsForVendor?: (slug: string) => string[];
   /** The buyer's own role list for "covers N of your roles". */
   roles?: string[];
+  /** Semantically-related role titles (from the embeddings endpoint). */
+  semanticTerms?: string[];
 }
 
 export interface ProductSearchOutput {
@@ -214,7 +228,7 @@ export function productSearch(
   index: SearchIndex,
   opts: ProductQuery
 ): ProductSearchOutput {
-  let base = matchReports(index, opts.query);
+  let base = matchReports(index, opts.query, opts.semanticTerms ?? []);
 
   // Industry filter → report's vendor carries the category.
   if (opts.category) {

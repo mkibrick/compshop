@@ -51,10 +51,43 @@ export default function ProductResults() {
   const [compareOpen, setCompareOpen] = useState(false);
   const [capture, setCapture] = useState<null | "intro" | "shortlist">(null);
   const [rolesOpen, setRolesOpen] = useState(false);
+  const [semanticTerms, setSemanticTerms] = useState<string[]>([]);
 
   useEffect(() => {
     loadIndex().then(setIndex).catch(() => {});
   }, []);
+
+  // Semantic expansion: ask the embeddings endpoint for roles related
+  // to the query ("developer" → "Software Engineer"), so results
+  // recover intent, not just substrings. Debounced + fails silently
+  // (503 when no provider configured locally).
+  useEffect(() => {
+    const q = query.trim();
+    if (q.length < 3) {
+      setSemanticTerms([]);
+      return;
+    }
+    let cancelled = false;
+    const t = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `/api/semantic-search?q=${encodeURIComponent(q)}&limit=12`
+        );
+        if (!res.ok || cancelled) return;
+        const data = (await res.json()) as {
+          results?: { title: string }[];
+        };
+        if (!cancelled)
+          setSemanticTerms((data.results ?? []).map((r) => r.title));
+      } catch {
+        /* silent */
+      }
+    }, 300);
+    return () => {
+      cancelled = true;
+      clearTimeout(t);
+    };
+  }, [query]);
   useEffect(() => {
     const q = searchParams.get("q");
     const c = searchParams.get("category");
@@ -76,9 +109,14 @@ export default function ProductResults() {
       facets: { participation, priceModel },
       sort,
       roles,
+      semanticTerms,
       regionsForVendor: (slug) => regionsForVendor([slug]),
     });
-  }, [index, query, category, participation, priceModel, sort, roles]);
+  }, [index, query, category, participation, priceModel, sort, roles, semanticTerms]);
+
+  const relatedCount = (output?.results ?? []).filter(
+    (r) => r.matchReason === "related"
+  ).length;
 
   const sortOptions = roles.length
     ? [
@@ -152,6 +190,13 @@ export default function ProductResults() {
                 </>
               )}
               {category && <> · {category}</>}
+              {relatedCount > 0 && (
+                <span className="text-gray-500">
+                  {" "}
+                  · including {relatedCount} related-role match
+                  {relatedCount === 1 ? "" : "es"}
+                </span>
+              )}
             </>
           ) : (
             "Loading…"

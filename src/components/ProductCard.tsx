@@ -74,6 +74,11 @@ export default function ProductCard({
             >
               {displayTitle || report.title}
             </Link>
+            {report.matchReason === "related" && (
+              <span className="inline-flex items-center mt-1 px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 text-[10px] font-medium uppercase tracking-wide">
+                Related role
+              </span>
+            )}
           </div>
         </div>
 
