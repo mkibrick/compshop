@@ -60,7 +60,7 @@ export default function HomePage() {
   }
 
   function handleChip(value: string) {
-    router.push(`/surveys?category=${encodeURIComponent(value)}`);
+    router.push(`/search?category=${encodeURIComponent(value)}`);
   }
 
   return (

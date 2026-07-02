@@ -23,10 +23,10 @@ export default function Header() {
             </Link>
             <nav className="flex items-center gap-4 sm:gap-6">
               <Link
-                href="/surveys"
+                href="/search"
                 className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
               >
-                Browse Survey Vendors
+                Browse Surveys
               </Link>
               <button
                 type="button"

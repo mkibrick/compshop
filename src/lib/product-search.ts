@@ -10,7 +10,7 @@
  * degradation helpers that turn partial data into known / partial /
  * unknown display states — never a null.
  */
-import type { SearchIndex } from "./client-search";
+import { SearchIndex, CATEGORY_REPORT_PATTERNS } from "./client-search";
 
 export type ReportIdx = SearchIndex["reports"][number];
 
@@ -230,11 +230,23 @@ export function productSearch(
 ): ProductSearchOutput {
   let base = matchReports(index, opts.query, opts.semanticTerms ?? []);
 
-  // Industry filter → report's vendor carries the category.
+  // Industry filter — REPORT-level, not vendor-level. Inheriting the
+  // vendor's broad category set would surface a WTW aerospace report
+  // under "healthcare" just because WTW-the-publisher is tagged
+  // healthcare. Instead match the category's keyword pattern against
+  // the report's own title + covered roles/families. Falls back to the
+  // vendor category only when we have no pattern for that category.
   if (opts.category) {
-    base = base.filter((r) =>
-      (r.categories ?? "").split(",").includes(opts.category!)
-    );
+    const re = CATEGORY_REPORT_PATTERNS[opts.category];
+    // Match the report TITLE only. Matching its covered-role tokens
+    // would flood the filter with false positives (a broad manufacturing
+    // survey covers a nurse role, so its tokens contain "nurse"). The
+    // title is what says "this survey is about healthcare."
+    base = re
+      ? base.filter((r) => re.test(r.title))
+      : base.filter((r) =>
+          (r.categories ?? "").split(",").includes(opts.category!)
+        );
   }
 
   // Personalization: annotate each result with how many of the buyer's

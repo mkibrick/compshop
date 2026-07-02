@@ -223,7 +223,7 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
  * general-industry and free are intentionally omitted — their filters
  * are too broad for a meaningful per-report preview.
  */
-const CATEGORY_REPORT_PATTERNS: Record<string, RegExp> = {
+export const CATEGORY_REPORT_PATTERNS: Record<string, RegExp> = {
   healthcare:
     /\b(health|hospital|clinical|nursing|nurse|physician|medical|ihn|ihp|patient|behavioral health|home health|telemedicine)\b/i,
   "life-sciences":
