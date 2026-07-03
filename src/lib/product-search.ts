@@ -21,6 +21,15 @@ export interface ProductResult extends ReportIdx {
   score: number;
   /** How many of the buyer's own roles this report covers (0 if none set). */
   rolesCoveredCount?: number;
+  /**
+   * When this card represents a group of geographic editions of the same
+   * report (e.g. WTW "Legal Fee Earners" across 12 countries), these
+   * carry the group. The card shows `groupTitle` + region chips instead
+   * of a card per country.
+   */
+  groupTitle?: string;
+  groupRegions?: { region: string; slug: string }[];
+  groupMemberCount?: number;
 }
 
 export interface ProductFacets {
@@ -128,6 +137,98 @@ export function rolesCovered(r: ReportIdx, roles: string[]): number {
     if (term && hay.includes(term)) n++;
   }
   return n;
+}
+
+// ---------------------------------------------------------------------------
+// Geographic grouping — collapse per-country editions of the same report
+// into one card (region → chip), instead of a card per country.
+// ---------------------------------------------------------------------------
+
+/** The region a report's title ends in ("… - Belgium" → "Belgium"). */
+function regionOfReport(r: ReportIdx): string {
+  const m = r.title.match(/[-–]\s*([A-Za-z][A-Za-z.&/()\s]+)$/);
+  if (m) return m[1].trim();
+  return r.geographicScope || "";
+}
+
+/** Group key: vendor + title with the leading year and trailing region
+ *  stripped, so all country/year editions of one report collapse. */
+function baseGroupKey(r: ReportIdx): string {
+  const base = r.title
+    .replace(/^\d{4}(?:\/\d{4})?\s+/, "")
+    .replace(/[-–]\s*[A-Za-z][A-Za-z.&/()\s]+$/, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+  return `${r.vendorSlug}|${base}`;
+}
+
+/** Base title for a group's card (year + region stripped). */
+function baseTitle(r: ReportIdx): string {
+  return r.title
+    .replace(/^\d{4}(?:\/\d{4})?\s+/, "")
+    .replace(/[-–]\s*[A-Za-z][A-Za-z.&/()\s]+$/, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Collapse geographic editions into one representative card. A group of
+ * 2+ editions gets groupTitle + groupRegions (chips); a lone report
+ * passes through unchanged. The representative is the best-covering /
+ * US / Global edition so its structured fields are the most useful.
+ */
+function groupByReport(results: ProductResult[]): ProductResult[] {
+  const groups = new Map<string, ProductResult[]>();
+  const order: string[] = [];
+  for (const r of results) {
+    const k = baseGroupKey(r);
+    if (!groups.has(k)) {
+      groups.set(k, []);
+      order.push(k);
+    }
+    groups.get(k)!.push(r);
+  }
+
+  const out: ProductResult[] = [];
+  for (const k of order) {
+    const members = groups.get(k)!;
+    if (members.length === 1) {
+      out.push(members[0]);
+      continue;
+    }
+    // Representative: prefer US / Global, then highest coverage, then
+    // best score.
+    const rep =
+      [...members].sort((a, b) => {
+        const pref = (x: ProductResult) =>
+          /united states|global|\(us\)/i.test(x.geographicScope) ? 0 : 1;
+        return (
+          pref(a) - pref(b) ||
+          (b.positionCoverage ?? 0) - (a.positionCoverage ?? 0) ||
+          b.score - a.score
+        );
+      })[0];
+    const regions = Array.from(
+      new Map(
+        members.map((m) => [regionOfReport(m) || m.geographicScope, m.slug])
+      ).entries()
+    )
+      .filter(([region]) => region)
+      .map(([region, slug]) => ({ region, slug }))
+      .sort((a, b) => a.region.localeCompare(b.region));
+    out.push({
+      ...rep,
+      score: Math.max(...members.map((m) => m.score)),
+      rolesCoveredCount: Math.max(
+        ...members.map((m) => m.rolesCoveredCount ?? 0)
+      ),
+      groupTitle: baseTitle(rep),
+      groupRegions: regions,
+      groupMemberCount: members.length,
+    });
+  }
+  return out;
 }
 
 /** Numeric vintage for the "Most recent" sort; 0 when unknown. */
@@ -296,6 +397,9 @@ export function productSearch(
       return f.geography!.some((g) => regions.includes(g));
     });
   }
+
+  // Collapse geographic editions into one card per report type.
+  filtered = groupByReport(filtered);
 
   // Sort.
   const sort = opts.sort ?? "best";

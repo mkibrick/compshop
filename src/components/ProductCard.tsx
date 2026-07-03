@@ -33,10 +33,13 @@ export default function ProductCard({
   /** How many roles the buyer has set (0 = no personalization). */
   rolesTotal?: number;
 }) {
-  const displayTitle = stripProviderPrefix(report.title, report.vendorProvider);
+  const displayTitle = report.groupTitle
+    ? stripProviderPrefix(report.groupTitle, report.vendorProvider)
+    : stripProviderPrefix(report.title, report.vendorProvider);
   const price = priceDisplay(report);
   const coverage = coverageDisplay(report);
   const sample = sampleDisplay(report);
+  const regions = report.groupRegions ?? [];
 
   return (
     <div className="relative flex flex-col bg-white rounded-lg border border-gray-200 hover:border-accent/30 hover:shadow-lg transition-all duration-200">
@@ -116,10 +119,29 @@ export default function ProductCard({
           >
             {coverage.label}
           </span>
-          {report.geographicScope && (
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700">
-              {report.geographicScope}
-            </span>
+          {regions.length > 1 ? (
+            <>
+              {regions.slice(0, 4).map((g) => (
+                <Link
+                  key={g.slug}
+                  href={`/reports/${g.slug}`}
+                  className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700 hover:bg-blue-100"
+                >
+                  {g.region}
+                </Link>
+              ))}
+              {regions.length > 4 && (
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700">
+                  +{regions.length - 4} more
+                </span>
+              )}
+            </>
+          ) : (
+            report.geographicScope && (
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700">
+                {report.geographicScope}
+              </span>
+            )
           )}
           {report.participation && (
             <ParticipationBadge status={report.participation} />
@@ -143,6 +165,12 @@ export default function ProductCard({
             <span className="text-xs text-gray-500">Edition {report.edition}</span>
           )}
           {sample && <span className="text-xs text-gray-500">{sample}</span>}
+          {(report.groupMemberCount ?? 0) > 1 && (
+            <span className="text-xs text-gray-500">
+              {report.groupRegions?.length ?? report.groupMemberCount} country
+              editions
+            </span>
+          )}
         </div>
 
         {report.bestFor && (
