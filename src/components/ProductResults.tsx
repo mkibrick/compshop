@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useEffect, useMemo, useState, useCallback, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { loadIndex, SearchIndex } from "@/lib/client-search";
 import {
@@ -52,10 +52,56 @@ export default function ProductResults() {
   const [capture, setCapture] = useState<null | "intro" | "shortlist">(null);
   const [rolesOpen, setRolesOpen] = useState(false);
   const [semanticTerms, setSemanticTerms] = useState<string[]>([]);
+  // role (lowercased) → semantic expansion terms, cached across renders.
+  const roleExpansionCache = useRef<Map<string, string[]>>(new Map());
+  const [roleTermSets, setRoleTermSets] = useState<string[][]>([]);
 
   useEffect(() => {
     loadIndex().then(setIndex).catch(() => {});
   }, []);
+
+  // Semantic role expansion: resolve each saved role to related position
+  // titles ("SWE" → "Software Engineer") so "covers N of your roles"
+  // isn't a literal substring test. Cached per role; degrades to the raw
+  // role string when the endpoint is unavailable.
+  useEffect(() => {
+    if (roles.length === 0) {
+      setRoleTermSets([]);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      const sets = await Promise.all(
+        roles.map(async (role) => {
+          const key = role.trim().toLowerCase();
+          if (!key) return [];
+          const cached = roleExpansionCache.current.get(key);
+          if (cached) return [key, ...cached];
+          try {
+            const res = await fetch(
+              `/api/semantic-search?q=${encodeURIComponent(role)}&limit=8`
+            );
+            if (!res.ok) return [key];
+            const data = (await res.json()) as {
+              results?: { title: string }[];
+            };
+            const terms = (data.results ?? [])
+              .map((r) => r.title.trim().toLowerCase())
+              .filter((t) => t.length > 2);
+            roleExpansionCache.current.set(key, terms);
+            return [key, ...terms];
+          } catch {
+            return [key];
+          }
+        })
+      );
+      if (!cancelled) setRoleTermSets(sets);
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roles]);
 
   // Semantic expansion: ask the embeddings endpoint for roles related
   // to the query ("developer" → "Software Engineer"), so results
@@ -109,10 +155,11 @@ export default function ProductResults() {
       facets: { participation, priceModel },
       sort,
       roles,
+      roleTermSets,
       semanticTerms,
       regionsForVendor: (slug) => regionsForVendor([slug]),
     });
-  }, [index, query, category, participation, priceModel, sort, roles, semanticTerms]);
+  }, [index, query, category, participation, priceModel, sort, roles, roleTermSets, semanticTerms]);
 
   const relatedCount = (output?.results ?? []).filter(
     (r) => r.matchReason === "related"

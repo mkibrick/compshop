@@ -122,20 +122,40 @@ export function sampleDisplay(r: ReportIdx): string | null {
   return parts.length ? parts.join(" · ") : null;
 }
 
+function escapeRe(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Compile one matcher per role from its term set (role + semantic
+ * expansions). Each term is anchored at a word boundary so it can't
+ * match mid-word garbage. Short terms (≤4 chars, i.e. abbreviations
+ * like "SWE"/"PM") also require a trailing boundary so "swe" matches
+ * the token "SWE" but not "sweden". Longer terms are prefix-matched so
+ * "software engineer" still catches "software engineering".
+ */
+export function buildRoleMatchers(roleTermSets: string[][]): RegExp[] {
+  return roleTermSets
+    .map((terms) =>
+      terms
+        .filter((t) => t && t.length > 1)
+        .map((t) => (t.length <= 4 ? `\\b${escapeRe(t)}\\b` : `\\b${escapeRe(t)}`))
+    )
+    .filter((terms) => terms.length > 0)
+    .map((terms) => new RegExp(`(?:${terms.join("|")})`, "i"));
+}
+
 /**
  * Personalization: how many of the buyer's own roles a report covers.
- * Matches each role term against the report's matchTokens (which carry
- * the report's full covered position + family list) and title. This is
- * the "Covers N of your roles" payoff, computed client-side.
+ * A role counts if any of its (semantically expanded) terms appears —
+ * word-boundary matched — in the report's title or covered-role tokens.
+ * So "SWE" finds Software Engineer surveys, not just literal substrings.
  */
-export function rolesCovered(r: ReportIdx, roles: string[]): number {
-  if (!roles.length) return 0;
-  const hay = `${r.title} ${r.matchTokens ?? ""}`.toLowerCase();
+export function rolesCovered(r: ReportIdx, matchers: RegExp[]): number {
+  if (!matchers.length) return 0;
+  const hay = `${r.title} ${r.matchTokens ?? ""}`;
   let n = 0;
-  for (const role of roles) {
-    const term = role.trim().toLowerCase();
-    if (term && hay.includes(term)) n++;
-  }
+  for (const re of matchers) if (re.test(hay)) n++;
   return n;
 }
 
@@ -310,6 +330,12 @@ export interface ProductQuery {
   regionsForVendor?: (slug: string) => string[];
   /** The buyer's own role list for "covers N of your roles". */
   roles?: string[];
+  /**
+   * Per-role term sets: each entry is [role, ...semantic expansions],
+   * so "SWE" matches Software Engineer surveys. Falls back to just the
+   * lowercased role when no expansions are available.
+   */
+  roleTermSets?: string[][];
   /** Semantically-related role titles (from the embeddings endpoint). */
   semanticTerms?: string[];
 }
@@ -351,11 +377,17 @@ export function productSearch(
   }
 
   // Personalization: annotate each result with how many of the buyer's
-  // roles it covers, and let that boost the Best-match score.
+  // roles it covers, and let that boost the Best-match score. Prefer the
+  // semantic term sets; fall back to the raw role strings.
   const roles = opts.roles ?? [];
-  if (roles.length) {
+  const termSets =
+    opts.roleTermSets && opts.roleTermSets.length
+      ? opts.roleTermSets
+      : roles.map((r) => [r.trim().toLowerCase()]);
+  const matchers = buildRoleMatchers(termSets); // compiled once, not per report
+  if (matchers.length) {
     base = base.map((r) => {
-      const n = rolesCovered(r, roles);
+      const n = rolesCovered(r, matchers);
       return { ...r, rolesCoveredCount: n, score: r.score + n * 2 };
     });
   }
