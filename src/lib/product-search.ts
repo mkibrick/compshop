@@ -127,6 +127,90 @@ function escapeRe(s: string): string {
 }
 
 /**
+ * Role abbreviations that either collide with, or are missing from, the
+ * indexed titles. We expand these to their spelled-out form *before*
+ * embedding so "SWE" reaches surveys titled "Software Engineer" — not
+ * just the literal "SWE"-titled ones (Croner). The raw token is always
+ * kept as a matcher too, so abbreviation-titled surveys still count;
+ * expansion is purely additive.
+ *
+ * Kept deliberately conservative: only high-confidence, comp-survey-
+ * relevant abbreviations. Genuinely ambiguous two-letter English/place
+ * collisions (MD, DO, PA) are left out on purpose.
+ */
+export const ROLE_ABBREVIATIONS: Record<string, string> = {
+  // Engineering / product / data
+  swe: "software engineer",
+  sde: "software engineer",
+  sdet: "software development engineer in test",
+  sre: "site reliability engineer",
+  devops: "devops engineer",
+  mle: "machine learning engineer",
+  ml: "machine learning engineer",
+  qa: "quality assurance engineer",
+  em: "engineering manager",
+  tpm: "technical program manager",
+  pm: "project manager",
+  po: "product owner",
+  ux: "user experience designer",
+  ui: "user interface designer",
+  ds: "data scientist",
+  da: "data analyst",
+  ba: "business analyst",
+  // Sales / customer
+  ae: "account executive",
+  sdr: "sales development representative",
+  bdr: "business development representative",
+  csm: "customer success manager",
+  // People / HR
+  hr: "human resources",
+  hrbp: "human resources business partner",
+  // Executive
+  ceo: "chief executive officer",
+  cfo: "chief financial officer",
+  coo: "chief operating officer",
+  cto: "chief technology officer",
+  cio: "chief information officer",
+  cmo: "chief marketing officer",
+  cpo: "chief people officer",
+  chro: "chief human resources officer",
+  gc: "general counsel",
+  gm: "general manager",
+  vp: "vice president",
+  svp: "senior vice president",
+  evp: "executive vice president",
+  // Healthcare
+  rn: "registered nurse",
+  lpn: "licensed practical nurse",
+  np: "nurse practitioner",
+  cna: "certified nursing assistant",
+};
+
+/**
+ * Expand known abbreviations token-by-token so multi-word roles like
+ * "senior SWE" become "senior software engineer". Only exact-token hits
+ * (punctuation stripped) are replaced; everything else passes through.
+ * Returns the original string unchanged when nothing matched.
+ */
+export function expandAbbreviations(text: string): string {
+  let changed = false;
+  const out = text
+    .split(/\s+/)
+    .map((word) => {
+      const key = word.toLowerCase().replace(/[^a-z0-9]/g, "");
+      const full = ROLE_ABBREVIATIONS[key];
+      if (full) {
+        changed = true;
+        return full;
+      }
+      return word;
+    })
+    .join(" ")
+    .trim();
+  return changed ? out : text;
+}
+
+/**
  * Compile one matcher per role from its term set (role + semantic
  * expansions). Each term is anchored at a word boundary so it can't
  * match mid-word garbage. Short terms (≤4 chars, i.e. abbreviations

@@ -7,6 +7,7 @@ import {
   productSearch,
   ProductResult,
   SortKey,
+  expandAbbreviations,
 } from "@/lib/product-search";
 import { regionsForVendor } from "@/lib/geography";
 import ProductCard from "./ProductCard";
@@ -75,13 +76,18 @@ export default function ProductResults() {
         roles.map(async (role) => {
           const key = role.trim().toLowerCase();
           if (!key) return [];
+          // Expand abbreviations ("swe" → "software engineer") before
+          // embedding, but keep the raw token as a literal matcher so
+          // abbreviation-titled surveys (Croner's "SWE") still count.
+          const expanded = expandAbbreviations(key);
+          const base = expanded !== key ? [key, expanded] : [key];
           const cached = roleExpansionCache.current.get(key);
-          if (cached) return [key, ...cached];
+          if (cached) return [...base, ...cached];
           try {
             const res = await fetch(
-              `/api/semantic-search?q=${encodeURIComponent(role)}&limit=8`
+              `/api/semantic-search?q=${encodeURIComponent(expanded)}&limit=8`
             );
-            if (!res.ok) return [key];
+            if (!res.ok) return base;
             const data = (await res.json()) as {
               results?: { title: string }[];
             };
@@ -89,9 +95,9 @@ export default function ProductResults() {
               .map((r) => r.title.trim().toLowerCase())
               .filter((t) => t.length > 2);
             roleExpansionCache.current.set(key, terms);
-            return [key, ...terms];
+            return [...base, ...terms];
           } catch {
-            return [key];
+            return base;
           }
         })
       );
@@ -108,8 +114,10 @@ export default function ProductResults() {
   // recover intent, not just substrings. Debounced + fails silently
   // (503 when no provider configured locally).
   useEffect(() => {
-    const q = query.trim();
-    if (q.length < 3) {
+    // Expand abbreviations first so 2-char roles ("pm" → "project
+    // manager") clear the length gate and embed the spelled-out form.
+    const expanded = expandAbbreviations(query.trim());
+    if (expanded.length < 3) {
       setSemanticTerms([]);
       return;
     }
@@ -117,7 +125,7 @@ export default function ProductResults() {
     const t = setTimeout(async () => {
       try {
         const res = await fetch(
-          `/api/semantic-search?q=${encodeURIComponent(q)}&limit=12`
+          `/api/semantic-search?q=${encodeURIComponent(expanded)}&limit=12`
         );
         if (!res.ok || cancelled) return;
         const data = (await res.json()) as {
