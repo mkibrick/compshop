@@ -165,11 +165,6 @@ export default function ReportPage({ params }: { params: { slug: string } }) {
                   {report.geographicScope}
                 </span>
               )}
-              {report.edition && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded bg-gray-100 text-gray-700 font-medium">
-                  Edition: {report.edition}
-                </span>
-              )}
               {/* Prefer the actual published price; fall back to "N/A"
                   when we don't have it (most publishers quote on
                   request). The old $-tier (priceRange) is retained in

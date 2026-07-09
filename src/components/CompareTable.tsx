@@ -32,7 +32,6 @@ const ROWS: {
     label: "Price",
     render: (r) => priceDisplay(r).label,
   },
-  { label: "Vintage", render: (r) => r.edition || "—" },
   { label: "Sample", render: (r) => sampleDisplay(r) || "—" },
   {
     label: "Best for",
