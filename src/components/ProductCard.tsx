@@ -148,7 +148,7 @@ export default function ProductCard({
           )}
         </div>
 
-        {/* Price + vintage + sample row */}
+        {/* Price + sample row */}
         <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
           <span
             className={`font-semibold ${
@@ -161,9 +161,6 @@ export default function ProductCard({
           >
             {price.label}
           </span>
-          {report.edition && (
-            <span className="text-xs text-gray-500">Edition {report.edition}</span>
-          )}
           {sample && <span className="text-xs text-gray-500">{sample}</span>}
           {(report.groupMemberCount ?? 0) > 1 && (
             <span className="text-xs text-gray-500">
