@@ -247,6 +247,27 @@ export const CATEGORY_REPORT_PATTERNS: Record<string, RegExp> = {
   executive: /\b(executive|c-suite|board|director compensation|named officer)\b/i,
 };
 
+/**
+ * Per-category exclusions — titles that match the inclusion pattern by
+ * an unlucky keyword collision but don't belong in that industry. A
+ * report is dropped from a category if its title matches the exclusion,
+ * even when it matched the pattern above. Examples of the collisions:
+ *   - "Animal Health & Nutrition" → healthcare (animal-health industry)
+ *   - "Hotel Resort and Gaming" → tech/media (casino gaming, not games)
+ *   - "Data Centers and Digital Infrastructure" → construction (IT infra)
+ *   - "Retail Banking" → retail ("retail" here modifies banking)
+ *   - "Non-Executive Compensation" → executive (\bexecutive\b matches
+ *     inside the hyphenated "Non-Executive")
+ */
+export const CATEGORY_REPORT_EXCLUSIONS: Record<string, RegExp> = {
+  healthcare: /animal health/i,
+  tech: /\b(hotel|resort|casino)\b/i,
+  media: /\b(hotel|resort|casino)\b/i,
+  construction: /data centers?|digital infrastructure|infrastructure and operations/i,
+  retail: /retail banking/i,
+  executive: /non-executive/i,
+};
+
 export interface CategoryReportPreview {
   /** Deduped, short report-type labels (year + country stripped). */
   labels: string[];

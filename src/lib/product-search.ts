@@ -10,7 +10,12 @@
  * degradation helpers that turn partial data into known / partial /
  * unknown display states — never a null.
  */
-import { SearchIndex, CATEGORY_REPORT_PATTERNS } from "./client-search";
+import {
+  SearchIndex,
+  CATEGORY_REPORT_PATTERNS,
+  CATEGORY_REPORT_EXCLUSIONS,
+} from "./client-search";
+import { CATEGORY_TOP_PUBLISHERS } from "./category-weights";
 
 export type ReportIdx = SearchIndex["reports"][number];
 
@@ -449,12 +454,15 @@ export function productSearch(
   // vendor category only when we have no pattern for that category.
   if (opts.category) {
     const re = CATEGORY_REPORT_PATTERNS[opts.category];
+    const ex = CATEGORY_REPORT_EXCLUSIONS[opts.category];
     // Match the report TITLE only. Matching its covered-role tokens
     // would flood the filter with false positives (a broad manufacturing
     // survey covers a nurse role, so its tokens contain "nurse"). The
-    // title is what says "this survey is about healthcare."
+    // title is what says "this survey is about healthcare." The exclusion
+    // pattern then drops keyword-collision false positives (e.g. "Animal
+    // Health" under healthcare, "Retail Banking" under retail).
     base = re
-      ? base.filter((r) => re.test(r.title))
+      ? base.filter((r) => re.test(r.title) && !(ex && ex.test(r.title)))
       : base.filter((r) =>
           (r.categories ?? "").split(",").includes(opts.category!)
         );
@@ -519,6 +527,20 @@ export function productSearch(
 
   // Sort.
   const sort = opts.sort ?? "best";
+  // Specialist-first ordering for the default sort on a category browse.
+  // Without a query every match ties at score 0, so results would fall to
+  // alphabetical — surfacing whatever title sorts first (e.g. an "Animal
+  // Health" fluke) ahead of the true specialists. Rank by the category's
+  // editorial publisher order (SullivanCotter leads healthcare, etc.).
+  const hasQuery = !!opts.query?.trim();
+  const catTop = opts.category
+    ? CATEGORY_TOP_PUBLISHERS[opts.category]
+    : undefined;
+  const catRankMap =
+    catTop && catTop.length ? new Map(catTop.map((s, i) => [s, i])) : null;
+  const catBig = (catTop?.length ?? 0) + 1;
+  const catRank = (r: ProductResult) =>
+    catRankMap ? catRankMap.get(r.vendorSlug) ?? catBig : catBig;
   filtered = [...filtered].sort((a, b) => {
     switch (sort) {
       case "roles":
@@ -537,6 +559,17 @@ export function productSearch(
         );
       case "best":
       default:
+        if (catRankMap) {
+          // No query → specialist publishers lead. With a query →
+          // relevance leads, specialist rank only breaks ties.
+          return hasQuery
+            ? b.score - a.score ||
+                catRank(a) - catRank(b) ||
+                a.title.localeCompare(b.title)
+            : catRank(a) - catRank(b) ||
+                b.score - a.score ||
+                a.title.localeCompare(b.title);
+        }
         return b.score - a.score || a.title.localeCompare(b.title);
     }
   });
