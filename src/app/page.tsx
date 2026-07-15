@@ -55,12 +55,12 @@ export default function HomePage() {
     if (looksLikeAdvisorQuery(q)) {
       router.push(`/advisor?q=${encodeURIComponent(q)}`);
     } else {
-      router.push(`/search?q=${encodeURIComponent(q)}`);
+      router.push(`/surveys?q=${encodeURIComponent(q)}`);
     }
   }
 
   function handleChip(value: string) {
-    router.push(`/search?category=${encodeURIComponent(value)}`);
+    router.push(`/surveys?category=${encodeURIComponent(value)}`);
   }
 
   return (
