@@ -224,18 +224,20 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
  * are too broad for a meaningful per-report preview.
  */
 export const CATEGORY_REPORT_PATTERNS: Record<string, RegExp> = {
+  // "healthcare" (one word) is listed alongside "health" because \bhealth\b
+  // won't match the compound "Healthcare"; likewise plurals/stems below.
   healthcare:
-    /\b(health|hospital|clinical|nursing|nurse|physician|medical|ihn|ihp|patient|behavioral health|home health|telemedicine)\b/i,
+    /\b(healthcare|health|hospital|clinical|nursing|nurse|physician|medical|ihn|ihp|patient|behavioral health|home health|telemedicine)\b/i,
   "life-sciences":
-    /\b(life science|biopharma|pharma|biotech|clinical research|cro|medical device)\b/i,
-  tech: /\b(tech|software|digital|cyber|semiconductor|saas|hardware|gaming|games|ai and digital|artificial intelligence)\b/i,
+    /\b(life sciences?|biopharma|pharma|biotech|clinical research|cro|medical device)\b/i,
+  tech: /\b(tech|technology|software|digital|cyber|semiconductor|saas|hardware|gaming|games|ai and digital|artificial intelligence)\b/i,
   media:
     /\b(media|gaming|games|entertainment|animation|visual effects|broadcast|film|publishing|digital content|local media)\b/i,
   "financial-services":
     /\b(bank|banking|financial|asset management|hedge|investment|fintech|broker|wealth|capital markets|private equity)\b/i,
-  insurance: /\b(insurance|insurer|actuar|underwriting)\b/i,
+  insurance: /\b(insurance|insurer|actuar\w*|underwriting)\b/i,
   energy:
-    /\b(energy|oil|gas|utilit|power|renewable|natural resources|nuclear)\b/i,
+    /\b(energy|oil|gas|utilit\w*|power|renewable|natural resources|nuclear)\b/i,
   construction: /\b(construction|building|infrastructure|engineering and construction)\b/i,
   retail:
     /\b(retail|e-commerce|ecommerce|luxury|consumer products|consumer goods|merchandis)\b/i,
@@ -266,6 +268,26 @@ export const CATEGORY_REPORT_EXCLUSIONS: Record<string, RegExp> = {
   construction: /data centers?|digital infrastructure|infrastructure and operations/i,
   retail: /retail banking/i,
   executive: /non-executive/i,
+};
+
+/**
+ * Monoline specialist publishers — vendors whose ENTIRE catalog belongs
+ * to one industry even though the titles never spell out the category
+ * keyword (the mirror image of the exclusions above). LOMA's surveys are
+ * all insurance ("LOMA Wholesaler Compensation Survey"), PAS's are all
+ * contractors/construction, Birches Group only serves NGOs/development.
+ * A report from one of these vendors is admitted to the category
+ * regardless of its title.
+ *
+ * Deliberately narrow: only vendors that are truly single-industry.
+ * Generalists (Mercer, WTW) and multi-industry firms (ERI, CompData,
+ * Western Management, Culpepper) are excluded — blanket-including them
+ * would re-introduce the vendor-level over-matching this design avoids.
+ */
+export const CATEGORY_SPECIALIST_VENDORS: Record<string, string[]> = {
+  insurance: ["loma", "milliman"],
+  nonprofit: ["birches-group"],
+  construction: ["pas"],
 };
 
 export interface CategoryReportPreview {

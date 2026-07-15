@@ -14,6 +14,7 @@ import {
   SearchIndex,
   CATEGORY_REPORT_PATTERNS,
   CATEGORY_REPORT_EXCLUSIONS,
+  CATEGORY_SPECIALIST_VENDORS,
 } from "./client-search";
 import { CATEGORY_TOP_PUBLISHERS } from "./category-weights";
 
@@ -455,14 +456,21 @@ export function productSearch(
   if (opts.category) {
     const re = CATEGORY_REPORT_PATTERNS[opts.category];
     const ex = CATEGORY_REPORT_EXCLUSIONS[opts.category];
+    const specialists = new Set(CATEGORY_SPECIALIST_VENDORS[opts.category] ?? []);
     // Match the report TITLE only. Matching its covered-role tokens
     // would flood the filter with false positives (a broad manufacturing
     // survey covers a nurse role, so its tokens contain "nurse"). The
     // title is what says "this survey is about healthcare." The exclusion
     // pattern then drops keyword-collision false positives (e.g. "Animal
-    // Health" under healthcare, "Retail Banking" under retail).
+    // Health" under healthcare, "Retail Banking" under retail), while a
+    // monoline specialist (LOMA→insurance, PAS→construction) is admitted
+    // by vendor even when its title never names the industry.
     base = re
-      ? base.filter((r) => re.test(r.title) && !(ex && ex.test(r.title)))
+      ? base.filter(
+          (r) =>
+            !(ex && ex.test(r.title)) &&
+            (specialists.has(r.vendorSlug) || re.test(r.title))
+        )
       : base.filter((r) =>
           (r.categories ?? "").split(",").includes(opts.category!)
         );
