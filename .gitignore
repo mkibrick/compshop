@@ -51,3 +51,6 @@ public/position-embeddings.json
 
 # Croner PDF cache — re-downloaded by scripts/ingest-croner-positions.ts
 /data/croner-pdfs/
+
+# Pearl Meyer PDF cache — re-downloaded by scripts/ingest-pearl-meyer-positions.ts
+/data/pearl-meyer-pdfs/
