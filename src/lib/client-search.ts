@@ -81,21 +81,58 @@ function includes(haystack: string, needle: string): boolean {
   return haystack.toLowerCase().includes(needle);
 }
 
+const QUERY_STOPWORDS = new Set([
+  "and", "or", "the", "for", "of", "in", "to", "with", "an", "a",
+]);
+
+/**
+ * Split a free-text query into individual search terms, breaking on
+ * whitespace and separators (/ , & | +). "creative/digital marketing"
+ * becomes ["creative","digital","marketing"] so an open-ended industry
+ * query still matches even when no field contains the exact slash-joined
+ * phrase. Stopwords and <3-char noise are dropped; the result is deduped.
+ */
+function queryTerms(rawQuery: string): string[] {
+  return Array.from(
+    new Set(
+      rawQuery
+        .toLowerCase()
+        .split(/[\s/,&|+]+/)
+        .map((t) => t.trim())
+        .filter((t) => t.length >= 3 && !QUERY_STOPWORDS.has(t))
+    )
+  );
+}
+
+/**
+ * Open-ended match: true if the haystack contains the exact query phrase,
+ * or — for multi-term queries only — any single term. Single-term queries
+ * fall through to phrase-only matching, so prior precision is unchanged;
+ * only multi-word / separator queries broaden to OR-any-term.
+ */
+function matchesQuery(haystack: string, q: string, terms: string[]): boolean {
+  const h = haystack.toLowerCase();
+  if (h.includes(q)) return true;
+  if (terms.length >= 2) {
+    for (const t of terms) if (h.includes(t)) return true;
+  }
+  return false;
+}
+
 /** Run the unified search locally, mirroring the previous server API shape. */
 export function search(index: SearchIndex, rawQuery: string): SearchResults {
   const q = rawQuery.trim().toLowerCase();
   if (!q) return { vendors: [], reports: [], positions: [], orgs: [], families: [] };
+  const terms = queryTerms(rawQuery);
 
   // --- Vendors ---
   const vendors = index.vendors
-    .filter(
-      (v) =>
-        includes(v.title, q) ||
-        includes(v.provider, q) ||
-        includes(v.industry, q) ||
-        includes(v.categories, q) ||
-        includes(v.bestFor, q) ||
-        includes(v.jobFamilies, q)
+    .filter((v) =>
+      matchesQuery(
+        `${v.title} ${v.provider} ${v.industry} ${v.categories} ${v.bestFor} ${v.jobFamilies}`,
+        q,
+        terms
+      )
     )
     .slice(0, LIMIT_PER_GROUP)
     .map((v) => ({
@@ -113,7 +150,7 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
   // "manages litigation") still surfaces the right benchmark job even
   // without an exact title hit. Title matches always rank first.
   const titleMatched = index.positions.filter((p) =>
-    includes(p.canonicalTitle, q)
+    matchesQuery(p.canonicalTitle, q, terms)
   );
   const titleSlugs = new Set(titleMatched.map((p) => p.slug));
   const positionRows: SearchResults["positions"] = titleMatched
@@ -161,9 +198,11 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
   const reports = index.reports
     .map((r) => {
       let score = 0;
-      if (includes(r.title, q)) score = Math.max(score, 3);
-      if (includes(r.description, q)) score = Math.max(score, 2);
-      if (includes(r.geographicScope, q)) score = Math.max(score, 2);
+      if (matchesQuery(r.title, q, terms)) score = Math.max(score, 3);
+      if (matchesQuery(r.description, q, terms)) score = Math.max(score, 2);
+      if (matchesQuery(r.geographicScope, q, terms)) score = Math.max(score, 2);
+      // Broad matchToken union stays exact-phrase only — per-term matching
+      // it would surface every survey that merely *covers* the role.
       if (r.matchTokens.includes(q)) score = Math.max(score, 1);
       return { r, score };
     })
@@ -193,7 +232,7 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
 
   // --- Families ---
   const families = index.families
-    .filter((f) => includes(f.canonicalName, q))
+    .filter((f) => matchesQuery(f.canonicalName, q, terms))
     .sort((a, b) => b.reportCount - a.reportCount)
     .slice(0, LIMIT_PER_GROUP)
     .map((f) => ({
@@ -387,6 +426,7 @@ export function vendorMatchSummary(
   rawQuery: string
 ): QueryMatchSummary {
   const q = rawQuery.trim().toLowerCase();
+  const terms = queryTerms(rawQuery);
   const byVendor = new Map<string, VendorMatchDetail>();
   const getOrInit = (slug: string): VendorMatchDetail => {
     let v = byVendor.get(slug);
@@ -401,12 +441,11 @@ export function vendorMatchSummary(
   // reports match directly (so the card still renders).
   for (const v of index.vendors) {
     if (
-      includes(v.title, q) ||
-      includes(v.provider, q) ||
-      includes(v.industry, q) ||
-      includes(v.categories, q) ||
-      includes(v.bestFor, q) ||
-      includes(v.jobFamilies, q)
+      matchesQuery(
+        `${v.title} ${v.provider} ${v.industry} ${v.categories} ${v.bestFor} ${v.jobFamilies}`,
+        q,
+        terms
+      )
     ) {
       getOrInit(v.slug);
     }
@@ -418,7 +457,7 @@ export function vendorMatchSummary(
   // top-level reports array only carries a 3-row preview).
   const matchedPositions: typeof index.positions = [];
   for (const p of index.positions) {
-    if (!includes(p.canonicalTitle, q)) continue;
+    if (!matchesQuery(p.canonicalTitle, q, terms)) continue;
     matchedPositions.push(p);
     for (const vendorSlug of p.vendorSlugs ?? []) {
       const v = getOrInit(vendorSlug);
@@ -432,7 +471,7 @@ export function vendorMatchSummary(
   // Family matches — same flow.
   const matchedFamilies: typeof index.families = [];
   for (const f of index.families) {
-    if (!includes(f.canonicalName, q)) continue;
+    if (!matchesQuery(f.canonicalName, q, terms)) continue;
     matchedFamilies.push(f);
     for (const vendorSlug of f.vendorSlugs ?? []) {
       const v = getOrInit(vendorSlug);
@@ -445,15 +484,11 @@ export function vendorMatchSummary(
 
   // Report-title / description / matchToken matches.
   for (const r of index.reports) {
-    let hit = false;
-    if (
-      includes(r.title, q) ||
-      includes(r.description, q) ||
-      includes(r.geographicScope, q) ||
-      r.matchTokens.includes(q)
-    ) {
-      hit = true;
-    }
+    const hit =
+      matchesQuery(r.title, q, terms) ||
+      matchesQuery(r.description, q, terms) ||
+      matchesQuery(r.geographicScope, q, terms) ||
+      r.matchTokens.includes(q); // broad union: exact phrase only
     if (!hit) continue;
     const v = getOrInit(r.vendorSlug);
     v.reportCount++;
@@ -493,15 +528,15 @@ export function vendorMatchCounts(
   const q = rawQuery.trim().toLowerCase();
   const map = new Map<string, number>();
   if (!q) return map;
+  const terms = queryTerms(rawQuery);
 
   for (const v of index.vendors) {
     if (
-      includes(v.title, q) ||
-      includes(v.provider, q) ||
-      includes(v.industry, q) ||
-      includes(v.categories, q) ||
-      includes(v.bestFor, q) ||
-      includes(v.jobFamilies, q)
+      matchesQuery(
+        `${v.title} ${v.provider} ${v.industry} ${v.categories} ${v.bestFor} ${v.jobFamilies}`,
+        q,
+        terms
+      )
     ) {
       map.set(v.slug, map.get(v.slug) ?? 0);
     }
@@ -509,10 +544,10 @@ export function vendorMatchCounts(
 
   for (const r of index.reports) {
     if (
-      includes(r.title, q) ||
-      includes(r.description, q) ||
-      includes(r.geographicScope, q) ||
-      r.matchTokens.includes(q)
+      matchesQuery(r.title, q, terms) ||
+      matchesQuery(r.description, q, terms) ||
+      matchesQuery(r.geographicScope, q, terms) ||
+      r.matchTokens.includes(q) // broad union: exact phrase only
     ) {
       map.set(r.vendorSlug, (map.get(r.vendorSlug) ?? 0) + 1);
     }
