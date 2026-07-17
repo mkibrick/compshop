@@ -483,6 +483,9 @@ export function vendorMatchSummary(
   matchedFamilies.sort((a, b) => b.reportCount - a.reportCount);
 
   // Report-title / description / matchToken matches.
+  // Dedupe country editions to distinct survey types (consistent with
+  // the "N matches" badge from vendorMatchCounts).
+  const seenType = new Set<string>();
   for (const r of index.reports) {
     const hit =
       matchesQuery(r.title, q, terms) ||
@@ -490,6 +493,9 @@ export function vendorMatchSummary(
       matchesQuery(r.geographicScope, q, terms) ||
       r.matchTokens.includes(q); // broad union: exact phrase only
     if (!hit) continue;
+    const key = r.vendorSlug + "|" + reportTypeLabel(r.title, r.vendorProvider).toLowerCase();
+    if (seenType.has(key)) continue;
+    seenType.add(key);
     const v = getOrInit(r.vendorSlug);
     v.reportCount++;
   }
@@ -542,6 +548,11 @@ export function vendorMatchCounts(
     }
   }
 
+  // Count DISTINCT matching survey types, not raw report editions —
+  // otherwise a publisher with 60 country editions of one report buries
+  // a focused specialist that fields a single dedicated survey. Dedupe
+  // by the edition-agnostic report-type label.
+  const seenType = new Set<string>();
   for (const r of index.reports) {
     if (
       matchesQuery(r.title, q, terms) ||
@@ -549,6 +560,9 @@ export function vendorMatchCounts(
       matchesQuery(r.geographicScope, q, terms) ||
       r.matchTokens.includes(q) // broad union: exact phrase only
     ) {
+      const key = r.vendorSlug + "|" + reportTypeLabel(r.title, r.vendorProvider).toLowerCase();
+      if (seenType.has(key)) continue;
+      seenType.add(key);
       map.set(r.vendorSlug, (map.get(r.vendorSlug) ?? 0) + 1);
     }
   }
