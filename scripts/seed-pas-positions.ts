@@ -141,12 +141,20 @@ function extractPositions(html: string, markers: string[]): string[] {
   const stop = findFirstStop(tail);
   const chunk = stop > 200 ? tail.slice(0, stop) : tail;
 
-  const itemRe = /<(?:strong|b)>\s*([^<]+?)\s*<\/(?:strong|b)>/g;
+  // Allow attributes on the strong/b tag and inner markup in the content:
+  // PAS sometimes nests a styled <span> inside <strong> (e.g. "BIM
+  // Specialist II" is <strong><span style=...>BIM Specialist II</span></strong>),
+  // which a [^<]+? capture would skip. Inner tags are stripped below.
+  const itemRe = /<(?:strong|b)\b[^>]*>([\s\S]*?)<\/(?:strong|b)>/gi;
   const out: string[] = [];
   const seen = new Set<string>();
   let m: RegExpExecArray | null;
   while ((m = itemRe.exec(chunk)) !== null) {
-    let title = decodeEntities(m[1]).trim();
+    // Strip inner tags with no separator so a tag that splits a word
+    // (PAS styles a dropcap-style first letter: "S<span>enior ...</span>")
+    // rejoins cleanly to "Senior" rather than "S enior". Whole-title
+    // spans are unaffected; the whitespace collapse below tidies the rest.
+    let title = decodeEntities(m[1].replace(/<[^>]+>/g, "")).trim();
     title = title.replace(/\s+/g, " ");
     title = title.replace(/\*+$/, "").trim(); // drop trailing asterisks (apprentice markers)
     if (!title) continue;
