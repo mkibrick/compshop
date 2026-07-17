@@ -183,6 +183,17 @@ export function initDb() {
     // Column already exists; no-op
   }
 
+  // Methodology: how the data is produced. "" for a standard participant
+  // survey (companies submit data), or a short label like "Public
+  // disclosure (SEC filings)" for a disclosure-based data platform such
+  // as Equilar. Lets the directory flag non-survey data sources
+  // distinctly from participant surveys.
+  try {
+    db.exec(`ALTER TABLE surveys ADD COLUMN methodology TEXT NOT NULL DEFAULT ''`);
+  } catch {
+    // Column already exists; no-op
+  }
+
   // Survey cycle fields — when participation opens/closes, when results
   // publish, when data is "effective as of." Free-text strings since
   // some vendors describe these as months ("October") or quarters

@@ -174,6 +174,17 @@ export default function SurveyCard({
         )}
 
       <div className="flex flex-wrap items-center gap-2 mt-4">
+        {survey.methodology && (
+          <span
+            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-100"
+            title="Data sourced from public disclosures, not a participant survey"
+          >
+            <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fillRule="evenodd" d="M4.5 2A1.5 1.5 0 003 3.5v13A1.5 1.5 0 004.5 18h11a1.5 1.5 0 001.5-1.5V7.62a1.5 1.5 0 00-.44-1.06l-3.62-3.62A1.5 1.5 0 0011.38 2H4.5zm2 8.5a.75.75 0 01.75-.75h5.5a.75.75 0 010 1.5h-5.5a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h5.5a.75.75 0 000-1.5h-5.5z" clipRule="evenodd" />
+            </svg>
+            {survey.methodology}
+          </span>
+        )}
         <ParticipationBadge status={survey.participationRequired} />
         {survey.industryFocus && (
           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700">

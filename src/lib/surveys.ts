@@ -40,6 +40,7 @@ interface SurveyRow {
   includes_executive: number;
   best_for: string;
   notes: string;
+  methodology: string;
   categories: string;
 }
 
@@ -79,6 +80,7 @@ function rowToSurvey(row: SurveyRow): Survey {
     includesExecutive: !!row.includes_executive,
     bestFor: row.best_for,
     notes: row.notes,
+    methodology: row.methodology ?? "",
     category: row.categories ? row.categories.split(",") : [],
   };
 }

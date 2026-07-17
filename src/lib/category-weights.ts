@@ -45,6 +45,7 @@ export const CATEGORY_TOP_PUBLISHERS: Record<string, string[]> = {
   executive: [
     "pearl-meyer",
     "empsight",
+    "equilar",
     "mercer-benchmark-database",
     "sullivancotter",
     "radford-mclagan",

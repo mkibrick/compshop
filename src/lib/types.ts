@@ -33,6 +33,12 @@ export interface Survey {
   includesExecutive: boolean;
   bestFor: string;
   notes: string;
+  /**
+   * How the data is produced. "" = standard participant survey. A short
+   * label like "Public disclosure (SEC filings)" marks a disclosure-based
+   * data platform (e.g. Equilar), shown as a distinct badge on the card.
+   */
+  methodology: string;
   category: string[];
 }
 

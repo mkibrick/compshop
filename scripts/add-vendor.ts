@@ -79,6 +79,7 @@ interface VendorInput {
   includesExecutive?: boolean;
   bestFor?: string;
   notes?: string;
+  methodology?: string;
   category?: string[];
 }
 
@@ -140,6 +141,7 @@ function toParams(v: VendorInput) {
     includes_executive: v.includesExecutive ? 1 : 0,
     best_for: v.bestFor ?? "",
     notes: v.notes ?? "",
+    methodology: v.methodology ?? "",
     categories: Array.isArray(v.category) ? v.category.join(",") : "",
   };
 }
@@ -177,7 +179,7 @@ function main() {
       delivery_format, update_frequency, data_lag,
       includes_base, includes_bonus, includes_equity, includes_benefits,
       includes_pay_practices, includes_executive,
-      best_for, notes, categories
+      best_for, notes, methodology, categories
     ) VALUES (
       @provider, @title, @slug, @url, @edition, @price_range, @pricing_model,
       @participation_discount, @participation_required, @participation_deadline,
@@ -187,7 +189,7 @@ function main() {
       @delivery_format, @update_frequency, @data_lag,
       @includes_base, @includes_bonus, @includes_equity, @includes_benefits,
       @includes_pay_practices, @includes_executive,
-      @best_for, @notes, @categories
+      @best_for, @notes, @methodology, @categories
     )
     ON CONFLICT(slug) DO UPDATE SET
       provider=excluded.provider,
@@ -223,6 +225,7 @@ function main() {
       includes_executive=excluded.includes_executive,
       best_for=excluded.best_for,
       notes=excluded.notes,
+      methodology=excluded.methodology,
       categories=excluded.categories,
       updated_at=datetime('now')
   `);
