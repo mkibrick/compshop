@@ -54,3 +54,6 @@ public/position-embeddings.json
 
 # Pearl Meyer PDF cache — re-downloaded by scripts/ingest-pearl-meyer-positions.ts
 /data/pearl-meyer-pdfs/
+
+# CUPA-HR xlsx cache — re-downloaded by scripts/ingest-cupa-positions.ts
+/data/cupa-xlsx/
