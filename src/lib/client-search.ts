@@ -25,6 +25,10 @@ export interface SearchIndex {
     vendorSlug: string;
     vendorProvider: string;
     matchTokens: string;
+    /** Harvested job-family prose (e.g. Croner grids). Keyword search
+     *  only — kept out of matchTokens so it can't inflate role/category
+     *  matching. Optional so older cached indexes still parse. */
+    familyDescriptions?: string;
     // Structured buying fields (product-level cards / facets / sort /
     // compare). Optional so older cached indexes still parse.
     participation?: string;
@@ -201,6 +205,9 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
       if (matchesQuery(r.title, q, terms)) score = Math.max(score, 3);
       if (matchesQuery(r.description, q, terms)) score = Math.max(score, 2);
       if (matchesQuery(r.geographicScope, q, terms)) score = Math.max(score, 2);
+      // Harvested family-description prose — weak signal (a survey whose
+      // families touch the query), ranked with coverage matches.
+      if (matchesQuery(r.familyDescriptions ?? "", q, terms)) score = Math.max(score, 1);
       // Broad matchToken union stays exact-phrase only — per-term matching
       // it would surface every survey that merely *covers* the role.
       if (r.matchTokens.includes(q)) score = Math.max(score, 1);
@@ -491,6 +498,7 @@ export function vendorMatchSummary(
       matchesQuery(r.title, q, terms) ||
       matchesQuery(r.description, q, terms) ||
       matchesQuery(r.geographicScope, q, terms) ||
+      matchesQuery(r.familyDescriptions ?? "", q, terms) ||
       r.matchTokens.includes(q); // broad union: exact phrase only
     if (!hit) continue;
     const key = r.vendorSlug + "|" + reportTypeLabel(r.title, r.vendorProvider).toLowerCase();
@@ -558,6 +566,7 @@ export function vendorMatchCounts(
       matchesQuery(r.title, q, terms) ||
       matchesQuery(r.description, q, terms) ||
       matchesQuery(r.geographicScope, q, terms) ||
+      matchesQuery(r.familyDescriptions ?? "", q, terms) ||
       r.matchTokens.includes(q) // broad union: exact phrase only
     ) {
       const key = r.vendorSlug + "|" + reportTypeLabel(r.title, r.vendorProvider).toLowerCase();

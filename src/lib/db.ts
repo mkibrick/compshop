@@ -207,6 +207,11 @@ export function initDb() {
     // Actual published price (e.g. "$2,200", "Free"). Distinct from the
     // price_range $-tier; populated where the publisher lists a price.
     "price TEXT NOT NULL DEFAULT ''",
+    // Job-family descriptions harvested from a publisher's position-grid
+    // PDFs (e.g. Croner). Extra searchable prose describing the report's
+    // job families — kept separate from matchTokens so it powers keyword
+    // search without inflating role/category matching.
+    "family_descriptions TEXT NOT NULL DEFAULT ''",
   ]) {
     try {
       db.exec(`ALTER TABLE reports ADD COLUMN ${col}`);

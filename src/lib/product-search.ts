@@ -395,7 +395,11 @@ function matchReports(
     } else if (includes(r.vendorProvider, q)) {
       score = 2;
       reason = "vendor";
-    } else if (includes(r.description, q) || includes(r.geographicScope, q)) {
+    } else if (
+      includes(r.description, q) ||
+      includes(r.geographicScope, q) ||
+      includes(r.familyDescriptions ?? "", q)
+    ) {
       score = 1;
       reason = "coverage";
     } else if (semTerms.length && semTerms.some((t) => includes(r.matchTokens, t))) {

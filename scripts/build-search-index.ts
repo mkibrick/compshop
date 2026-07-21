@@ -56,6 +56,7 @@ interface ReportIdx {
   vendorSlug: string;
   vendorProvider: string;
   matchTokens: string; // extra tokens (families / positions) to search against
+  familyDescriptions: string; // harvested job-family prose (keyword search only)
   // --- Structured buying fields (spec: product-level cards / facets /
   // sort / compare). Every field degrades gracefully: "" / 0 means
   // unknown, and the UI collapses or falls back rather than render null.
@@ -142,6 +143,7 @@ function main() {
   const reports = db
     .prepare(
       `SELECT r.slug, r.title, r.description,
+              r.family_descriptions AS familyDescriptions,
               r.geographic_scope AS geographicScope,
               CASE WHEN r.url != '' THEN r.url ELSE s.url END AS url,
               s.slug AS vendorSlug, s.provider AS vendorProvider,
@@ -184,6 +186,9 @@ function main() {
   }
   const reportsIdx: ReportIdx[] = reports.map((r) => ({
     ...r,
+    // Cap the harvested family-description prose so one report can't bloat
+    // the index; plenty for keyword search coverage.
+    familyDescriptions: (r.familyDescriptions ?? "").slice(0, 20000),
     matchTokens: tokensBySlug.get(r.slug) ?? "",
   }));
 
