@@ -200,8 +200,12 @@ export default function SurveyCard({
     </>
   );
 
+  // flex-col (not block): grid stretches every card to the tallest in the
+  // row, and a native <button> vertically-centers its content — so a
+  // sparse card (e.g. a vendor with no cataloged reports) would float in
+  // the middle. A flex column top-aligns the content instead.
   const className =
-    "block w-full text-left bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-accent/30 transition-all duration-200";
+    "flex flex-col w-full text-left bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-accent/30 transition-all duration-200";
 
   if (onOpen) {
     return (
