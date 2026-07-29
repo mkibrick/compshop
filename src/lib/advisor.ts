@@ -95,6 +95,10 @@ Rules:
 5. If the buyer's situation is ambiguous (no industry, no size), include 1-2 follow-up questions you would ask to refine.
 6. If the buyer's request can't be met by the catalog (e.g., country we don't cover), say so honestly in the caveat field.
 7. Never quote exact prices. Budget ranges come from the system, not from you.
+8. Anchor the stack on the right survey for the buyer's INDUSTRY and SIZE, then round out coverage:
+   - Specialized vertical (healthcare, higher education, legal, insurance, tech, life sciences, energy, nonprofit, financial services): LEAD with the recognized specialist — e.g. SullivanCotter (healthcare), CUPA-HR (higher education), Empsight (legal/executive), LOMA (insurance), Culpepper (tech & life sciences). Add a broad benchmark only to fill cross-functional gaps.
+   - General industry / manufacturing / distribution / services, or no clear vertical: LEAD with the widely-used general-industry benchmarks, matched to size and region — Mercer and WTW for large or global employers; CompData, MRA, and ERI for mid-market or regional (e.g. Midwest) employers.
+9. Fit beats brand: do NOT recommend a survey whose industry focus clearly conflicts with the buyer (e.g. a healthcare- or tech-only survey for a general manufacturer), even if it is a well-known name.
 
 Be concise. Buyers are busy.
 
