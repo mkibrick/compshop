@@ -43,11 +43,13 @@ next-env.d.ts
 
 /src/generated/prisma
 
-# Position embeddings — generated at build time when OPENAI/VOYAGE key is set.
-# Vercel rebuilds on every deploy via prebuild; locally run:
-#   set -a; source .env.local; set +a; npx tsx scripts/build-position-embeddings.ts
+# Semantic-search embeddings — generated at build time (positions + reports).
+# Vercel rebuilds them on every deploy via prebuild. Locally just run:
+#   npm run embed        (uses .env.local key, or a keyless dev fallback)
 public/position-embeddings.bin
 public/position-embeddings.json
+public/report-embeddings.bin
+public/report-embeddings.json
 
 # Croner PDF cache — re-downloaded by scripts/ingest-croner-positions.ts
 /data/croner-pdfs/

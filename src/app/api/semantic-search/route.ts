@@ -40,6 +40,23 @@ export async function OPTIONS() {
 export async function GET(request: Request) {
   const provider = detectProvider();
   if (!provider) {
+    // Gap-3 alarm: in a production deploy this means the site is silently
+    // running keyword-only search — a real degradation an operator needs
+    // to see. Emit a structured error log (picked up by Vercel log
+    // drains / alerting) rather than degrading invisibly.
+    if (
+      process.env.NODE_ENV === "production" ||
+      process.env.VERCEL_ENV === "production"
+    ) {
+      console.error(
+        JSON.stringify({
+          event: "semantic_provider_missing",
+          detail:
+            "no VOYAGE_API_KEY / OPENAI_API_KEY in production — semantic search disabled, serving literal-only",
+          ts: new Date().toISOString(),
+        })
+      );
+    }
     return NextResponse.json(
       {
         error:
@@ -51,6 +68,7 @@ export async function GET(request: Request) {
 
   const url = new URL(request.url);
   const q = (url.searchParams.get("q") ?? "").trim();
+  const kind = url.searchParams.get("kind") === "report" ? "report" : "position";
   const limit = Math.min(
     Math.max(Number(url.searchParams.get("limit") ?? 10) || 10, 1),
     50
@@ -69,19 +87,23 @@ export async function GET(request: Request) {
     );
   }
 
-  if (!loadEmbeddingIndex()) {
+  if (!loadEmbeddingIndex(kind)) {
     return NextResponse.json(
       {
         error:
-          "semantic index not built — run scripts/build-position-embeddings.ts and redeploy",
+          "semantic index not built — run scripts/build-embeddings.ts and redeploy",
       },
       { status: 503, headers: CORS }
     );
   }
 
+  // Reports carry noisier prose than position titles, so hold them to a
+  // slightly higher similarity floor to keep "related" survey matches tight.
+  const floor = kind === "report" ? 0.45 : 0.4;
+
   let hits;
   try {
-    hits = await searchSemantic(q, limit);
+    hits = await searchSemantic(q, limit, floor, kind);
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
     console.error(
@@ -96,16 +118,23 @@ export async function GET(request: Request) {
       { status: 502, headers: CORS }
     );
   }
-  const results = (hits ?? []).map((h) => ({
-    ...h,
-    url: `${SITE_URL}/positions/${h.slug}`,
-  }));
+  const results = (hits ?? []).map((h) => {
+    // Reports carry their own canonical URL in the index; positions
+    // derive theirs from the slug. Absolutize either way.
+    const raw =
+      kind === "report" ? h.url ?? `/reports/${h.slug}` : `/positions/${h.slug}`;
+    return {
+      ...h,
+      url: raw.startsWith("http") ? raw : `${SITE_URL}${raw}`,
+    };
+  });
 
   // Lightweight structured log for telemetry.
   console.log(
     JSON.stringify({
       event: "semantic_search",
       q,
+      kind,
       provider,
       returned: results.length,
       topScore: results[0]?.score ?? null,

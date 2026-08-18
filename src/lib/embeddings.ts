@@ -16,11 +16,29 @@
 
 export const OUTPUT_DIMS = 512;
 
-type Provider = "voyage" | "openai";
+type Provider = "voyage" | "openai" | "local";
+
+/**
+ * Dev-only guard for the `local` fallback provider. The local provider
+ * is a deterministic, keyless, feature-hashed embedding (see
+ * `embedLocal`) — good enough to exercise the full semantic path with
+ * zero setup, but structural rather than truly semantic. It must NEVER
+ * run in production: a prod deploy with no real key should degrade to
+ * literal search (a null provider), which the build-time and runtime
+ * alarms surface loudly. We gate on both NODE_ENV and Vercel's own
+ * environment flag so a forgotten key can't silently ship fake vectors.
+ */
+function localProviderAllowed(): boolean {
+  return (
+    process.env.NODE_ENV !== "production" &&
+    process.env.VERCEL_ENV !== "production"
+  );
+}
 
 export function detectProvider(): Provider | null {
   if (process.env.VOYAGE_API_KEY) return "voyage";
   if (process.env.OPENAI_API_KEY) return "openai";
+  if (localProviderAllowed()) return "local";
   return null;
 }
 
@@ -37,6 +55,9 @@ export async function embedBatch(texts: string[]): Promise<EmbedResult> {
     throw new Error(
       "No embedding provider configured. Set VOYAGE_API_KEY or OPENAI_API_KEY."
     );
+  }
+  if (provider === "local") {
+    return { vectors: embedLocal(texts), provider };
   }
   const fn = provider === "voyage" ? embedVoyage : embedOpenAI;
   return { vectors: await withRetry(() => fn(texts)), provider };
@@ -163,6 +184,53 @@ export function dot(a: Float32Array, b: Float32Array): number {
   return s;
 }
 
+// ---------------------------------------------------------------------------
+// Local (dev-only) embedding — deterministic, keyless, feature-hashed
+// ---------------------------------------------------------------------------
+
+/** FNV-1a 32-bit hash, returned as an unsigned int. */
+function fnv1a(str: string): number {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return h >>> 0;
+}
+
+/**
+ * Deterministic local embedding: a signed feature-hashing vectorizer
+ * over word tokens + padded character trigrams. Same text → same
+ * vector, no API, no key. It captures *structural* similarity (shared
+ * words and sub-word spelling), so it bridges "speechwriting" ↔
+ * "speechwriter" and singular/plural, but NOT true synonyms like
+ * "lawyer" ↔ "attorney" (they share no character n-grams). That's the
+ * honest limitation of the keyless dev path; production uses a real
+ * embedding model. Kept intentionally simple and dependency-free.
+ */
+function embedLocal(texts: string[]): Float32Array[] {
+  return texts.map((text) => {
+    const v = new Float32Array(OUTPUT_DIMS);
+    const clean = text.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+    if (!clean) return v;
+    const add = (feat: string, w: number) => {
+      const h = fnv1a(feat);
+      const idx = h % OUTPUT_DIMS;
+      const sign = (h & 1) === 0 ? 1 : -1;
+      v[idx] += w * sign;
+    };
+    for (const tok of clean.split(/\s+/)) {
+      if (!tok) continue;
+      add("w:" + tok, 3); // whole-word feature, weighted higher
+      const padded = "^" + tok + "$";
+      for (let i = 0; i + 3 <= padded.length; i++) {
+        add("g:" + padded.slice(i, i + 3), 1); // char trigrams for fuzzy overlap
+      }
+    }
+    return normalize(v);
+  });
+}
+
 /**
  * Variant of embedBatch that explicitly tags the inputs as queries (vs
  * documents). Voyage uses input_type to optimize for retrieval-side
@@ -177,6 +245,9 @@ export async function embedQuery(text: string): Promise<{
     throw new Error(
       "No embedding provider configured. Set VOYAGE_API_KEY or OPENAI_API_KEY."
     );
+  }
+  if (provider === "local") {
+    return { vector: embedLocal([text])[0], provider };
   }
   if (provider === "voyage") {
     const apiKey = process.env.VOYAGE_API_KEY!;

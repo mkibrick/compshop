@@ -364,7 +364,8 @@ function priceModelOf(r: ReportIdx): "priced" | "free" | "request" {
 function matchReports(
   index: SearchIndex,
   rawQuery: string,
-  semanticTerms: string[] = []
+  semanticTerms: string[] = [],
+  semanticReportSlugs: string[] = []
 ): ProductResult[] {
   const q = rawQuery.trim().toLowerCase();
   if (!q) {
@@ -381,6 +382,14 @@ function matchReports(
   const semTerms = semanticTerms
     .map((t) => t.trim().toLowerCase())
     .filter((t) => t.length > 2 && t !== q);
+
+  // Report-level semantic recall (Gap 1): slugs whose survey PROSE —
+  // what the report covers, its bestFor, its family descriptions —
+  // matched the query in embedding space, even when no literal token
+  // overlaps ("animal health" → the WTW life-sciences report). This is
+  // purely additive: it can pull in reports keyword search missed and
+  // nudge already-matched ones up, but never drops a literal match.
+  const semReportSet = new Set(semanticReportSlugs);
 
   const out: ProductResult[] = [];
   for (const r of index.reports) {
@@ -405,9 +414,15 @@ function matchReports(
     } else if (semTerms.length && semTerms.some((t) => includes(r.matchTokens, t))) {
       score = 2.5;
       reason = "related";
+    } else if (semReportSet.has(r.slug)) {
+      score = 2;
+      reason = "related";
     } else {
       continue;
     }
+    // A literal/role match that ALSO matched on prose semantically is a
+    // stronger signal — nudge it up without displacing exact-title hits.
+    if (reason !== "related" && semReportSet.has(r.slug)) score += 0.75;
     // Small boosts: real price + role-level coverage read as higher quality.
     if ((r.positionCoverage ?? 0) > 0) score += 0.5;
     if ((r.price ?? "").trim()) score += 0.25;
@@ -432,6 +447,8 @@ export interface ProductQuery {
   roleTermSets?: string[][];
   /** Semantically-related role titles (from the embeddings endpoint). */
   semanticTerms?: string[];
+  /** Report slugs matched by survey-prose semantics (kind=report). */
+  semanticReportSlugs?: string[];
 }
 
 export interface ProductSearchOutput {
@@ -449,7 +466,12 @@ export function productSearch(
   index: SearchIndex,
   opts: ProductQuery
 ): ProductSearchOutput {
-  let base = matchReports(index, opts.query, opts.semanticTerms ?? []);
+  let base = matchReports(
+    index,
+    opts.query,
+    opts.semanticTerms ?? [],
+    opts.semanticReportSlugs ?? []
+  );
 
   // Industry filter — REPORT-level, not vendor-level. Inheriting the
   // vendor's broad category set would surface a WTW aerospace report

@@ -53,6 +53,10 @@ export default function ProductResults() {
   const [capture, setCapture] = useState<null | "intro" | "shortlist">(null);
   const [rolesOpen, setRolesOpen] = useState(false);
   const [semanticTerms, setSemanticTerms] = useState<string[]>([]);
+  // Report slugs matched on survey-prose semantics (kind=report), so a
+  // query like "animal health" surfaces the right survey even when no
+  // literal token overlaps.
+  const [semanticReportSlugs, setSemanticReportSlugs] = useState<string[]>([]);
   // role (lowercased) → semantic expansion terms, cached across renders.
   const roleExpansionCache = useRef<Map<string, string[]>>(new Map());
   const [roleTermSets, setRoleTermSets] = useState<string[][]>([]);
@@ -142,6 +146,38 @@ export default function ProductResults() {
       clearTimeout(t);
     };
   }, [query]);
+
+  // Report-prose semantics: ask the embeddings endpoint which SURVEYS
+  // (not roles) match the query by what they cover. Feeds an additive
+  // recall/boost signal into ranking. Debounced + fails silently.
+  useEffect(() => {
+    const expanded = expandAbbreviations(query.trim());
+    if (expanded.length < 3) {
+      setSemanticReportSlugs([]);
+      return;
+    }
+    let cancelled = false;
+    const t = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `/api/semantic-search?kind=report&q=${encodeURIComponent(expanded)}&limit=24`
+        );
+        if (!res.ok || cancelled) return;
+        const data = (await res.json()) as {
+          results?: { slug: string }[];
+        };
+        if (!cancelled)
+          setSemanticReportSlugs((data.results ?? []).map((r) => r.slug));
+      } catch {
+        /* silent */
+      }
+    }, 300);
+    return () => {
+      cancelled = true;
+      clearTimeout(t);
+    };
+  }, [query]);
+
   useEffect(() => {
     const q = searchParams.get("q");
     const c = searchParams.get("category");
@@ -165,9 +201,10 @@ export default function ProductResults() {
       roles,
       roleTermSets,
       semanticTerms,
+      semanticReportSlugs,
       regionsForVendor: (slug) => regionsForVendor([slug]),
     });
-  }, [index, query, category, participation, priceModel, sort, roles, roleTermSets, semanticTerms]);
+  }, [index, query, category, participation, priceModel, sort, roles, roleTermSets, semanticTerms, semanticReportSlugs]);
 
   const relatedCount = (output?.results ?? []).filter(
     (r) => r.matchReason === "related"
