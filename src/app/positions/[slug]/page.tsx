@@ -26,7 +26,7 @@ export function generateMetadata({
   if (!position) return { title: "Position not found" };
   const reports = getReportsForPosition(position.id);
   const title = `${position.canonicalTitle} Salary Surveys & Benchmarks`;
-  const description = `${reports.length} compensation survey report${reports.length !== 1 ? "s" : ""} benchmark ${position.canonicalTitle} pay. Compare Mercer, WTW, Aon Radford McLagan, and other publishers.`;
+  const description = `${reports.length} compensation survey report${reports.length !== 1 ? "s" : ""} benchmark${reports.length === 1 ? "s" : ""} ${position.canonicalTitle} pay. Compare Mercer, WTW, Aon Radford McLagan, and other publishers.`;
   const canonical = `${SITE_URL}/positions/${position.slug}`;
   // Pages with no linked reports are essentially empty — don't let
   // Google index them or burn crawl budget on the long tail.
@@ -75,7 +75,7 @@ export default function PositionPage({ params }: { params: { slug: string } }) {
       q: `Which compensation surveys cover ${position.canonicalTitle} pay?`,
       a:
         reports.length > 0
-          ? `${reports.length} survey${reports.length !== 1 ? "s" : ""} publish ${position.canonicalTitle} benchmarks${
+          ? `${reports.length} survey${reports.length !== 1 ? "s" : ""} publish${reports.length === 1 ? "es" : ""} ${position.canonicalTitle} benchmarks${
               distinctVendors.length
                 ? `, including data from ${topVendorsForCopy}${distinctVendors.length > 3 ? " and other publishers" : ""}`
                 : ""
@@ -191,15 +191,62 @@ export default function PositionPage({ params }: { params: { slug: string } }) {
         </ol>
       </nav>
 
-      <header className="mb-8">
+      <header className="mb-6">
         <h1 className="text-3xl sm:text-4xl font-bold text-navy">
           {position.canonicalTitle}
         </h1>
-        <p className="mt-2 text-sm text-gray-500">Salary surveys &amp; compensation benchmarks</p>
-        <p className="mt-4 text-gray-700 text-lg leading-relaxed max-w-3xl">
-          {reports.length} compensation survey report{reports.length !== 1 ? "s" : ""} publish salary benchmarks for <strong>{position.canonicalTitle}</strong>. Compare what each vendor covers and pick the right one for your organization.
+        <p className="mt-3 text-gray-600 leading-relaxed max-w-3xl">
+          {reports.length > 0 ? (
+            <>
+              <strong className="text-navy">{reports.length}</strong> survey
+              report{reports.length !== 1 ? "s" : ""} in the CompShop directory
+              benchmark{reports.length === 1 ? "s" : ""}{" "}
+              <strong className="text-navy">{position.canonicalTitle}</strong> pay
+              {distinctVendors.length > 0 ? ` from ${topVendorsForCopy}${distinctVendors.length > 3 ? " and others" : ""}` : ""}.
+              Open any report below for scope, methodology, and pricing.
+            </>
+          ) : (
+            <>No surveys in the CompShop directory currently track{" "}
+            <strong className="text-navy">{position.canonicalTitle}</strong> as a
+            standalone benchmark — it may be covered inside a broader job family.</>
+          )}
         </p>
       </header>
+
+      {/* Reports = the hero. This is what a searcher came for, so it leads. */}
+      {reports.length > 0 && (
+        <section className="mb-8">
+          <div className="space-y-3">
+            {Array.from(reportsByVendor.entries()).map(([vendor, vendorReports]) =>
+              vendorReports.map((r) => (
+                <Link
+                  key={r.slug}
+                  href={`/reports/${r.slug}`}
+                  className="group flex items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white p-4 sm:p-5 hover:border-accent hover:shadow-sm transition-all"
+                >
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                      {vendor}
+                    </p>
+                    <p className="mt-0.5 text-base font-semibold text-navy group-hover:text-accent transition-colors leading-snug">
+                      {r.title}
+                    </p>
+                    {r.geographicScope && (
+                      <span className="mt-1.5 inline-flex items-center px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-medium text-[11px]">
+                        {r.geographicScope}
+                      </span>
+                    )}
+                  </div>
+                  <span className="flex-shrink-0 text-sm font-medium text-accent whitespace-nowrap">
+                    View report{" "}
+                    <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+                  </span>
+                </Link>
+              ))
+            )}
+          </div>
+        </section>
+      )}
 
       {position.description && position.description.trim().length > 20 && (
         <section className="bg-oat rounded-lg border border-stone-200 p-6 mb-6">
@@ -216,7 +263,7 @@ export default function PositionPage({ params }: { params: { slug: string } }) {
       )}
 
       {families.length > 0 && (
-        <section className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+        <section className="mb-6">
           <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
             Job families
           </h2>
@@ -234,58 +281,21 @@ export default function PositionPage({ params }: { params: { slug: string } }) {
         </section>
       )}
 
-      {reports.length > 0 ? (
-        <section className="bg-white rounded-lg border border-gray-200 p-6 sm:p-8 mb-6">
-          <h2 className="text-xl font-bold text-navy mb-5">
-            Reports covering {position.canonicalTitle}
+      {/* Generic FAQ — collapsed so it isn't a wall of text, but the copy
+          stays in the DOM (native <details>) for SEO + FAQPage rich results. */}
+      <details className="group bg-white rounded-lg border border-gray-200 mb-6">
+        <summary className="flex items-center justify-between cursor-pointer list-none p-5 sm:p-6">
+          <h2 className="text-base font-semibold text-navy">
+            {position.canonicalTitle} salary survey FAQ
           </h2>
-          <div className="space-y-6">
-            {Array.from(reportsByVendor.entries()).map(([vendor, vendorReports]) => (
-              <div key={vendor}>
-                <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2">
-                  {vendor}
-                </h3>
-                <ul className="space-y-1">
-                  {vendorReports.map((r) => (
-                    <li key={r.slug}>
-                      <Link
-                        href={`/reports/${r.slug}`}
-                        className="block rounded-lg p-3 border border-gray-200 hover:border-accent/30 hover:bg-gray-50 transition-colors"
-                      >
-                        <div className="flex items-center justify-between gap-3">
-                          <span className="text-sm font-semibold text-navy truncate">
-                            {r.title}
-                          </span>
-                          <div className="flex items-center gap-1.5 flex-shrink-0">
-                            {r.geographicScope && (
-                              <span className="inline-flex items-center px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-medium text-[10px]">
-                                {r.geographicScope}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : (
-        <p className="text-gray-600">No reports currently track this position.</p>
-      )}
-
-      {/* Generic FAQ — same shape on every position page. Adds indexable
-          copy and emits FAQPage JSON-LD via the shared @graph above. */}
-      <section className="bg-white rounded-lg border border-gray-200 p-6 sm:p-8 mb-6">
-        <h2 className="text-xl font-bold text-navy mb-5">
-          {position.canonicalTitle} salary survey FAQ
-        </h2>
-        <dl className="space-y-5">
+          <span className="text-gray-400 text-xs transition-transform group-open:rotate-180">
+            ▼
+          </span>
+        </summary>
+        <dl className="space-y-5 px-5 sm:px-6 pb-6">
           {faq.map((entry) => (
             <div key={entry.q}>
-              <dt className="text-base font-semibold text-navy mb-1">
+              <dt className="text-sm font-semibold text-navy mb-1">
                 {entry.q}
               </dt>
               <dd className="text-sm text-gray-700 leading-relaxed">
@@ -294,7 +304,7 @@ export default function PositionPage({ params }: { params: { slug: string } }) {
             </div>
           ))}
         </dl>
-      </section>
+      </details>
 
       {/* Related positions — same job family, or co-published positions
           if no family tags are available. Drives internal-link equity

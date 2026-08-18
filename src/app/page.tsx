@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Link from "next/link";
 import SearchBar from "@/components/SearchBar";
 
 const quickFilters = [
@@ -98,6 +99,15 @@ export default function HomePage() {
               </button>
             ))}
           </div>
+          <p className="mt-8 text-sm text-gray-400">
+            Not sure which surveys you need?{" "}
+            <Link
+              href="/advisor"
+              className="font-medium text-plum-200 underline underline-offset-2 hover:text-white transition-colors"
+            >
+              Describe your company &amp; roles and get matched &rarr;
+            </Link>
+          </p>
         </div>
       </section>
 

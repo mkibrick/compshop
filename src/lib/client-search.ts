@@ -123,6 +123,27 @@ function matchesQuery(haystack: string, q: string, terms: string[]): boolean {
   return false;
 }
 
+/**
+ * How well a title matches the query, so autocomplete ranks by relevance
+ * before popularity. Without this, "athletic director" ranked positions
+ * purely by survey count — so "Communications Director" (20 surveys) beat
+ * "University Athletic Director" (1 survey), which sat ~3,000 rows down
+ * and never surfaced. Exact and full-phrase matches now win; matching all
+ * terms beats matching just one ("director"); ties break on count.
+ */
+function titleRelevance(title: string, q: string, terms: string[]): number {
+  const t = title.toLowerCase();
+  if (t === q) return 100;
+  let s = 0;
+  if (t.includes(q)) s = 60; // contains the whole phrase
+  else if (terms.length >= 2) {
+    const hit = terms.filter((term) => t.includes(term)).length;
+    s = hit === terms.length ? 40 : hit * 8; // all terms >> some terms
+  }
+  if (t.startsWith(q)) s += 15; // phrase at the start
+  return s;
+}
+
 /** Run the unified search locally, mirroring the previous server API shape. */
 export function search(index: SearchIndex, rawQuery: string): SearchResults {
   const q = rawQuery.trim().toLowerCase();
@@ -158,7 +179,12 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
   );
   const titleSlugs = new Set(titleMatched.map((p) => p.slug));
   const positionRows: SearchResults["positions"] = titleMatched
-    .sort((a, b) => b.reportCount - a.reportCount)
+    .sort(
+      (a, b) =>
+        titleRelevance(b.canonicalTitle, q, terms) -
+          titleRelevance(a.canonicalTitle, q, terms) ||
+        b.reportCount - a.reportCount
+    )
     .slice(0, LIMIT_PER_GROUP)
     .map((p) => ({
       slug: p.slug,
@@ -240,7 +266,12 @@ export function search(index: SearchIndex, rawQuery: string): SearchResults {
   // --- Families ---
   const families = index.families
     .filter((f) => matchesQuery(f.canonicalName, q, terms))
-    .sort((a, b) => b.reportCount - a.reportCount)
+    .sort(
+      (a, b) =>
+        titleRelevance(b.canonicalName, q, terms) -
+          titleRelevance(a.canonicalName, q, terms) ||
+        b.reportCount - a.reportCount
+    )
     .slice(0, LIMIT_PER_GROUP)
     .map((f) => ({
       slug: f.slug,
