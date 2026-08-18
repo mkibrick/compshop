@@ -45,6 +45,31 @@ interface SemanticHit {
   score: number;
 }
 
+/**
+ * Collapse a title to its level-agnostic base role, so the dropdown
+ * doesn't spend all its slots on four levels of the same job (e.g.
+ * "Speechwriting - Senior Professional (P3)" … "- Senior Manager (M4)").
+ * Strips a trailing level code + level phrase and a leading level word,
+ * which frees slots for genuinely different roles and semantic matches.
+ * Only strips clear level indicators — bare "- Manager"/"- Director"
+ * (a role, not a level) is left alone.
+ */
+function baseRole(title: string): string {
+  let s = title
+    .replace(/\s*\((?:[A-Z]{1,3}\d{1,2}(?:\/[A-Z]?\d{1,2})?)\)\s*$/i, "")
+    .replace(
+      /\s*[-–]\s*(senior|experienced|specialist|lead|principal|associate|intermediate|entry|distinguished|advanced|expert|junior|staff)\s+(professional|manager|individual contributor|support|analyst|associate|executive)\s*$/i,
+      ""
+    )
+    .replace(/\s*[-–]\s*(professional|individual contributor)\s*$/i, "")
+    .trim();
+  s = s.replace(
+    /^(senior|associate|principal|intermediate|entry|junior|distinguished|advanced|expert|lead|staff)\s+(?=\S)/i,
+    ""
+  );
+  return s.replace(/\s+/g, " ").trim().toLowerCase();
+}
+
 const EMPTY: SearchResults = { vendors: [], reports: [], positions: [], orgs: [], families: [] };
 
 /** In-memory cache so retyping the same query doesn't re-hit the API. */
@@ -241,7 +266,7 @@ export default function SearchBar({
               // Cap per-group entries hard so the dropdown stays one
               // screen tall. The footer's "See all matches" link takes
               // the user to /surveys?q= which has the full breakdown.
-              const MAX_POSITIONS = 4;
+              const MAX_POSITIONS = 5;
               const MAX_FAMILIES = 2;
               const MAX_REPORTS = 2;
               const MAX_VENDORS = 2;
@@ -250,34 +275,45 @@ export default function SearchBar({
               // roles" into one list; the user doesn't care whether
               // the match was literal or semantic. Semantic-only
               // entries get a small "similar" tag.
+              // Literal hits first — but deduped to one row per base
+              // role, so four levels of "Speechwriting" don't fill every
+              // slot. Then semantic "similar" roles use the freed slots
+              // to bridge morphological / synonym gaps ("speechwriting" →
+              // "Speechwriter", "wordsmith" → "Copywriter").
               const literalSlugs = new Set(
                 results.positions.map((p) => p.slug)
               );
+              const seenBase = new Set<string>();
               const positionRows: Array<{
                 slug: string;
                 title: string;
                 count?: number;
                 tag?: string;
                 subtitle?: string;
-              }> = [
-                ...results.positions.map((p) => ({
+              }> = [];
+              for (const p of results.positions) {
+                if (positionRows.length >= MAX_POSITIONS) break;
+                const b = baseRole(p.canonicalTitle);
+                if (seenBase.has(b)) continue;
+                seenBase.add(b);
+                positionRows.push({
                   slug: p.slug,
                   title: p.canonicalTitle,
                   count: p.reportCount,
                   // Summary-matched roles (no title hit) get a tag + a
                   // snippet of the description that caused the match.
                   tag: p.matchedOn === "summary" ? "by description" : undefined,
-                  subtitle:
-                    p.matchedOn === "summary" ? p.summary : undefined,
-                })),
-                ...semantic
-                  .filter((h) => !literalSlugs.has(h.slug))
-                  .map((h) => ({
-                    slug: h.slug,
-                    title: h.title,
-                    tag: "similar",
-                  })),
-              ].slice(0, MAX_POSITIONS);
+                  subtitle: p.matchedOn === "summary" ? p.summary : undefined,
+                });
+              }
+              for (const h of semantic) {
+                if (positionRows.length >= MAX_POSITIONS) break;
+                if (literalSlugs.has(h.slug)) continue;
+                const b = baseRole(h.title);
+                if (seenBase.has(b)) continue;
+                seenBase.add(b);
+                positionRows.push({ slug: h.slug, title: h.title, tag: "similar" });
+              }
 
               // The Survey Reports group is signal when the query
               // matches report titles directly (e.g. "Mercer SIRS").
