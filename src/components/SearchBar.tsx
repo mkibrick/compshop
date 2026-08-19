@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SearchResults } from "@/lib/types";
 import { loadIndex, search } from "@/lib/client-search";
 import { vendorOutbound, reportOutbound } from "@/lib/outbound";
+import { looksLikeAdvisorQuery } from "@/lib/advisor-intent";
 
 interface SearchBarProps {
   value: string;
@@ -16,27 +17,6 @@ interface SearchBarProps {
    * at the range of queries the bar handles.
    */
   animatedPlaceholders?: string[];
-}
-
-/**
- * Heuristic: does the query look like a company description ("we're a
- * 2000-employee manufacturer...") rather than a keyword search? When
- * true, the dropdown surfaces an "Ask the Advisor" row at the top so
- * the user can pipe the query into the recommendation flow.
- */
-function looksLikeAdvisorQuery(q: string): boolean {
-  const trimmed = q.trim();
-  if (trimmed.length < 30) return false;
-  const lower = trimmed.toLowerCase();
-  const signals = [
-    /\bwe('?re| are| have| need)\b/,
-    /\bi('?m| am| have| need)\b/,
-    /\b(looking for|need data|need salary|need comp)\b/,
-    /\b\d{2,5}[\s-]*(employees?|people|headcount|fte|ftes)\b/,
-    /\b(company|organization|firm|business)\b.*\b(in|that|with)\b/,
-    /\b(industry|sector)\b.*\b(in|for)\b/,
-  ];
-  return signals.some((re) => re.test(lower));
 }
 
 interface SemanticHit {
@@ -328,28 +308,29 @@ export default function SearchBar({
               return (
                 <div className="divide-y divide-gray-100">
                   {advisorQuery && (
-                    <Group label="Recommended action">
-                      <Link
-                        href={`/advisor?q=${encodeURIComponent(value.trim())}`}
-                        className="block px-4 py-3 hover:bg-plum-50 transition-colors"
-                      >
-                        <div className="flex items-start gap-3">
-                          <span className="text-plum-500 mt-0.5" aria-hidden="true">
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                            </svg>
-                          </span>
-                          <div className="min-w-0">
-                            <div className="text-sm font-semibold text-navy">
-                              Ask the Survey Advisor about this
-                            </div>
-                            <div className="text-xs text-gray-500 mt-0.5">
-                              Get a recommended stack with reasoning and a budget estimate
-                            </div>
+                    <Link
+                      href={`/advisor?q=${encodeURIComponent(value.trim())}`}
+                      className="block px-4 py-4 bg-plum-50 hover:bg-plum-100 transition-colors"
+                    >
+                      <div className="flex items-start gap-3">
+                        <span className="text-plum-600 mt-0.5" aria-hidden="true">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                          </svg>
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-sm font-semibold text-navy">
+                            That sounds like a company description — get matched by the Survey Advisor
+                          </div>
+                          <div className="text-xs text-gray-600 mt-0.5">
+                            You&rsquo;ll get a recommended survey stack with reasoning and a budget estimate — a better fit than keyword search for this.
                           </div>
                         </div>
-                      </Link>
-                    </Group>
+                        <span className="text-plum-500 self-center flex-shrink-0" aria-hidden="true">
+                          &rarr;
+                        </span>
+                      </div>
+                    </Link>
                   )}
 
                   {positionRows.length > 0 && (

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import SearchBar from "@/components/SearchBar";
+import { looksLikeAdvisorQuery } from "@/lib/advisor-intent";
 
 const quickFilters = [
   { label: "General Industry", value: "general-industry" },
@@ -17,33 +18,21 @@ const quickFilters = [
 ];
 
 /**
- * Rotating example queries that hint at the range of things the search
- * bar handles — from keyword job searches to full company descriptions
- * that route into the Advisor. "Find surveys covering…" frames the bar
- * as a directory of products, not a salary lookup tool.
+ * Rotating example queries for the search bar. These deliberately model
+ * DIRECTORY-SEARCH input — job titles, industries, geographies — not
+ * company self-descriptions. Describing your company ("we're a 2,000-
+ * employee health system…") is the Advisor's job, and its own CTA sits
+ * right below the bar; showing a description here taught people to type
+ * the wrong thing into keyword search. "Find surveys covering…" frames
+ * the bar as a directory of products, not a salary lookup tool.
  */
 const ANIMATED_PLACEHOLDERS = [
   "Find surveys covering software engineers in California",
-  "Find surveys covering manufacturing in Ohio",
-  "Find surveys covering oil & gas in Canada, 1,000 employees",
+  "Find surveys covering nurses & physicians",
   "Find surveys covering athletic directors in Texas",
-  "We're a 2,000-employee health system in the Midwest",
+  "Find surveys covering manufacturing roles in Ohio",
+  "Find surveys with executive pay benchmarks",
 ];
-
-/** Detect if the homepage form submit should go to the Advisor. */
-function looksLikeAdvisorQuery(q: string): boolean {
-  const trimmed = q.trim();
-  if (trimmed.length < 30) return false;
-  const lower = trimmed.toLowerCase();
-  return (
-    /\bwe('?re| are| have| need)\b/.test(lower) ||
-    /\bi('?m| am| have| need)\b/.test(lower) ||
-    /\b(looking for|need data|need salary|need comp)\b/.test(lower) ||
-    /\b\d{2,5}[\s-]*(employees?|people|headcount|fte|ftes)\b/.test(lower) ||
-    /\b(company|organization|firm|business)\b.*\b(in|that|with)\b/.test(lower) ||
-    /\b(industry|sector)\b.*\b(in|for)\b/.test(lower)
-  );
-}
 
 export default function HomePage() {
   const router = useRouter();
