@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, FormEvent } from "react";
 import Link from "next/link";
+import { reportOutbound } from "@/lib/outbound";
 
 interface Recommendation {
   slug: string;
@@ -10,12 +11,20 @@ interface Recommendation {
   rationale: string;
 }
 
+interface ReportSuggestion {
+  slug: string;
+  title: string;
+  provider?: string;
+  url?: string;
+}
+
 interface AdvisorResponse {
   recommendations: Recommendation[];
   why: string[];
   budget: { low: number; high: number; display: string };
   caveat: string;
   followups?: string[];
+  reportsToConsider?: ReportSuggestion[];
   remaining?: number;
   error?: string;
 }
@@ -142,6 +151,40 @@ export default function AdvisorInput({ variant = "full" }: Props) {
               ))}
             </ul>
           </div>
+
+          {/* Specific reports to consider — concrete starting points that
+              match the stated criteria, so the buyer has a report to open,
+              not just a publisher to research. */}
+          {result.reportsToConsider && result.reportsToConsider.length > 0 && (
+            <div className="rounded-xl border border-stone-200 bg-white p-6">
+              <h3 className="font-display text-xl text-navy mb-1" style={{ letterSpacing: "-0.015em", fontWeight: 400 }}>
+                Specific reports to consider
+              </h3>
+              <p className="text-sm text-stone-500 mb-4">
+                Matched to your criteria — a concrete starting point.
+              </p>
+              <ul className="space-y-3">
+                {result.reportsToConsider.map((r) => (
+                  <li key={r.slug} className="flex items-baseline justify-between gap-3">
+                    <a
+                      href={reportOutbound(r.slug)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-navy hover:text-plum-600 transition-colors"
+                    >
+                      {r.title}
+                      <span aria-hidden="true" className="text-plum-500"> &rarr;</span>
+                    </a>
+                    {r.provider && (
+                      <span className="text-xs text-stone-500 flex-shrink-0">
+                        {r.provider}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Why */}
           {result.why.length > 0 && (

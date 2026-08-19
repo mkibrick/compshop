@@ -74,6 +74,9 @@ interface CorpusItem {
   slug: string;
   title: string;
   url?: string;
+  /** Reports carry their publisher so semantic hits are self-describing. */
+  vendorSlug?: string;
+  provider?: string;
   /** The text actually embedded (title, or title + description/prose). */
   text: string;
 }
@@ -82,6 +85,8 @@ interface MetaItem {
   slug: string;
   title: string;
   url?: string;
+  vendorSlug?: string;
+  provider?: string;
   /** Hash of the embed-input, for content-addressed incremental reuse. */
   h: string;
 }
@@ -300,6 +305,8 @@ async function buildIndex(
       slug: it.slug,
       title: it.title,
       ...(it.url ? { url: it.url } : {}),
+      ...(it.vendorSlug ? { vendorSlug: it.vendorSlug } : {}),
+      ...(it.provider ? { provider: it.provider } : {}),
       h: hashText(it.text),
     });
   }
@@ -376,7 +383,15 @@ function loadReports(): CorpusItem[] {
     return [];
   }
   const idx = JSON.parse(readFileSync(SEARCH_INDEX_PATH, "utf8")) as {
-    reports?: Array<{ slug: string; title: string; url?: string } & Record<string, unknown>>;
+    reports?: Array<
+      {
+        slug: string;
+        title: string;
+        url?: string;
+        vendorSlug?: string;
+        vendorProvider?: string;
+      } & Record<string, unknown>
+    >;
   };
   const reports = idx.reports ?? [];
   return reports
@@ -385,6 +400,8 @@ function loadReports(): CorpusItem[] {
       slug: r.slug,
       title: r.title,
       url: r.url,
+      vendorSlug: r.vendorSlug,
+      provider: r.vendorProvider,
       text: reportText(r as Parameters<typeof reportText>[0]),
     }));
 }

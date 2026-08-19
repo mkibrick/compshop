@@ -12,6 +12,7 @@
  * at gpt-4o-mini pricing. IP-rate-limited at the API layer.
  */
 import { getAllSurveys } from "./surveys";
+import { searchSemantic } from "./semantic";
 import { Survey } from "./types";
 
 /**
@@ -77,12 +78,25 @@ export interface Recommendation {
   rationale: string;
 }
 
+/**
+ * A specific survey REPORT (not just a publisher) whose coverage matches
+ * the buyer's stated criteria — a concrete starting point to open, on top
+ * of the publisher-level recommendations.
+ */
+export interface ReportSuggestion {
+  slug: string;
+  title: string;
+  provider?: string;
+  url?: string;
+}
+
 export interface AdvisorResult {
   recommendations: Recommendation[];
   why: string[];
   budget: { low: number; high: number; display: string };
   caveat: string;
   followups?: string[];
+  reportsToConsider?: ReportSuggestion[];
 }
 
 const SYSTEM_PROMPT = `You are CompShop's Survey Advisor. You help compensation buyers pick the right salary surveys for their situation.
@@ -179,6 +193,56 @@ function summarizeBudget(
   };
 }
 
+/**
+ * Flag a couple of SPECIFIC reports the buyer should actually open, based
+ * on their stated criteria — the publisher-level recommendations tell you
+ * *who* to look at; this tells you *which report*. Uses report-prose
+ * embeddings to match the query, then prefers reports published by the
+ * vendors we already recommended (survey slug == vendor slug), so the
+ * suggestions cohere with the stack. Best-effort: returns [] if semantic
+ * search is unavailable or nothing clears the relevance floor.
+ */
+async function pickReportsToConsider(
+  query: string,
+  recommended: Survey[]
+): Promise<ReportSuggestion[]> {
+  let hits;
+  try {
+    hits = await searchSemantic(query, 15, 0.4, "report");
+  } catch {
+    return [];
+  }
+  if (!hits || hits.length === 0) return [];
+
+  const recVendors = new Set(recommended.map((s) => s.slug));
+  // Reports from a recommended publisher rank first; ties break on
+  // semantic score.
+  const ranked = [...hits].sort((a, b) => {
+    const ra = recVendors.has(a.vendorSlug ?? "") ? 1 : 0;
+    const rb = recVendors.has(b.vendorSlug ?? "") ? 1 : 0;
+    if (ra !== rb) return rb - ra;
+    return b.score - a.score;
+  });
+
+  // Cap at three, at most two per publisher so a single vendor's editions
+  // don't crowd out the rest.
+  const out: ReportSuggestion[] = [];
+  const perVendor = new Map<string, number>();
+  for (const h of ranked) {
+    if (out.length >= 3) break;
+    const v = h.vendorSlug ?? h.slug;
+    if ((perVendor.get(v) ?? 0) >= 2) continue;
+    perVendor.set(v, (perVendor.get(v) ?? 0) + 1);
+    out.push({
+      slug: h.slug,
+      title: h.title,
+      provider: h.provider,
+      url: h.url,
+    });
+  }
+  return out;
+}
+
 export async function advise(query: string): Promise<AdvisorResult> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
@@ -245,6 +309,7 @@ export async function advise(query: string): Promise<AdvisorResult> {
     throw new Error("Advisor returned no valid surveys");
   }
   const budget = summarizeBudget(matched);
+  const reportsToConsider = await pickReportsToConsider(query, matched);
 
   return {
     recommendations: validRecs,
@@ -254,5 +319,7 @@ export async function advise(query: string): Promise<AdvisorResult> {
       raw.caveat ||
       "Pricing varies by company size and discount programs. Contact publishers for exact quotes.",
     followups: raw.followups,
+    reportsToConsider:
+      reportsToConsider.length > 0 ? reportsToConsider : undefined,
   };
 }

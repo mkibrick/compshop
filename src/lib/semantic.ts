@@ -17,6 +17,9 @@ export interface SemanticHit {
   score: number;
   /** Present for report hits (their own canonical URL); positions derive it. */
   url?: string;
+  /** Present for report hits: the publisher behind the report. */
+  vendorSlug?: string;
+  provider?: string;
 }
 
 /** Which prebuilt index to search. */
@@ -27,6 +30,9 @@ interface MetaItem {
   title: string;
   /** Report items carry their own URL; positions omit it. */
   url?: string;
+  /** Report items carry their publisher; positions omit these. */
+  vendorSlug?: string;
+  provider?: string;
 }
 
 interface MetaFile {
@@ -142,6 +148,8 @@ export async function searchSemantic(
       slug: meta.items[i].slug,
       title: meta.items[i].title,
       url: meta.items[i].url,
+      vendorSlug: meta.items[i].vendorSlug,
+      provider: meta.items[i].provider,
       score: Number(scores[i].toFixed(4)),
     }));
 }
