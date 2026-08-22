@@ -14,10 +14,19 @@ export default function SurveyCard({
   categoryPreview,
   categoryLabel,
   relevance,
+  rolesCoveredCount,
+  rolesTotal,
 }: {
   survey: Survey;
   onOpen?: (slug: string) => void;
   matchCount?: number;
+  /**
+   * Role personalization: when the buyer has saved a role list, how many
+   * of those roles this publisher covers, out of the total. Renders a
+   * "Covers N of your M roles" badge — the payoff for adding roles.
+   */
+  rolesCoveredCount?: number;
+  rolesTotal?: number;
   /**
    * When a search query is active, this surfaces which of THIS vendor's
    * positions and families the query landed on. Renders inline so
@@ -54,11 +63,25 @@ export default function SurveyCard({
             </p>
           )}
         </div>
-        {matchCount !== undefined && matchCount > 0 && (
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-accent/10 text-accent flex-shrink-0">
-            {matchCount} match{matchCount !== 1 ? "es" : ""}
-          </span>
-        )}
+        <div className="flex flex-col items-end gap-1 flex-shrink-0">
+          {rolesTotal !== undefined && rolesTotal > 0 && (
+            <span
+              className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${
+                (rolesCoveredCount ?? 0) > 0
+                  ? "bg-plum-100 text-plum-700"
+                  : "bg-stone-100 text-stone-500"
+              }`}
+            >
+              Covers {rolesCoveredCount ?? 0} of your {rolesTotal} role
+              {rolesTotal !== 1 ? "s" : ""}
+            </span>
+          )}
+          {matchCount !== undefined && matchCount > 0 && (
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-accent/10 text-accent">
+              {matchCount} match{matchCount !== 1 ? "es" : ""}
+            </span>
+          )}
+        </div>
       </div>
 
       {relevance && (

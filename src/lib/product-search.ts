@@ -249,6 +249,37 @@ export function rolesCovered(r: ReportIdx, matchers: RegExp[]): number {
   return n;
 }
 
+/**
+ * Vendor-level role coverage for the Browse directory: how many of the
+ * buyer's roles each PUBLISHER covers across all of its reports. A vendor
+ * covers role i if ANY of its reports matches role i's matcher — so a
+ * publisher that fields the role in even one survey counts it. Returns
+ * vendorSlug → number of distinct roles covered.
+ */
+export function vendorRoleCoverage(
+  index: SearchIndex,
+  matchers: RegExp[]
+): Map<string, number> {
+  if (!matchers.length) return new Map();
+  const coveredByVendor = new Map<string, Set<number>>();
+  for (const r of index.reports) {
+    const hay = `${r.title} ${r.matchTokens ?? ""}`;
+    for (let i = 0; i < matchers.length; i++) {
+      if (matchers[i].test(hay)) {
+        let set = coveredByVendor.get(r.vendorSlug);
+        if (!set) {
+          set = new Set<number>();
+          coveredByVendor.set(r.vendorSlug, set);
+        }
+        set.add(i);
+      }
+    }
+  }
+  const out = new Map<string, number>();
+  coveredByVendor.forEach((set, slug) => out.set(slug, set.size));
+  return out;
+}
+
 // ---------------------------------------------------------------------------
 // Geographic grouping — collapse per-country editions of the same report
 // into one card (region → chip), instead of a card per country.

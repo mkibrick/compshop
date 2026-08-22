@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
         from: FROM_EMAIL,
         to: email,
         subject: "Your CompShop survey shortlist",
-        text: `Here are the compensation surveys you shortlisted on CompShop:\n\n${list}\n\nCompare them any time: ${SITE_URL}/search\n\n— CompShop`,
+        text: `Here are the compensation surveys you shortlisted on CompShop:\n\n${list}\n\nCompare them any time: ${SITE_URL}/surveys\n\n— CompShop`,
       });
     } else {
       // Lead: notify the CompShop team, and confirm to the buyer.

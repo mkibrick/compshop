@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { Survey } from "@/lib/types";
 import SurveyCard from "@/components/SurveyCard";
 import SearchBar from "@/components/SearchBar";
 import VendorModal from "@/components/VendorModal";
+import RolesModal from "@/components/RolesModal";
 import MultiSelect, { MultiSelectOption } from "@/components/MultiSelect";
 import {
   loadIndex,
@@ -14,9 +15,16 @@ import {
   categoryReportPreviews,
   QueryMatchSummary,
   CategoryReportPreview,
+  SearchIndex,
 } from "@/lib/client-search";
+import {
+  expandAbbreviations,
+  buildRoleMatchers,
+  vendorRoleCoverage,
+} from "@/lib/product-search";
 import { ALL_REGIONS, regionsForVendor } from "@/lib/geography";
 import { sortByCategoryWeight, categoryRelevance } from "@/lib/category-weights";
+import { useLocalStorage } from "@/lib/use-local-storage";
 import SearchResultSummary from "@/components/SearchResultSummary";
 
 const categoryOptions: MultiSelectOption[] = [
@@ -103,6 +111,18 @@ export default function SurveyDirectory({
   const [vendorRegions, setVendorRegions] = useState<Map<string, string[]>>(
     new Map()
   );
+  /** Full search index, loaded once — used for role-coverage math. */
+  const [index, setIndex] = useState<SearchIndex | null>(null);
+  /** Buyer's saved roles (localStorage, no account) + the modal toggle. */
+  const [roles, setRoles] = useLocalStorage<string[]>("compshop.roles", []);
+  const [rolesOpen, setRolesOpen] = useState(false);
+  /** Per-role term sets: [role, expanded, ...semantic expansions]. */
+  const [roleTermSets, setRoleTermSets] = useState<string[][]>([]);
+  const roleExpansionCache = useRef<Map<string, string[]>>(new Map());
+  /** Vendors surfaced by report-prose semantics (kind=report). */
+  const [semanticVendors, setSemanticVendors] = useState<Set<string>>(
+    new Set()
+  );
 
   useEffect(() => {
     const q = searchParams.get("q");
@@ -120,6 +140,7 @@ export default function SurveyDirectory({
       try {
         const idx = await loadIndex();
         if (cancelled) return;
+        setIndex(idx);
         const m = new Map<string, string[]>();
         for (const v of idx.vendors) {
           m.set(v.slug, (v.regions as string[] | undefined) ?? []);
@@ -133,6 +154,88 @@ export default function SurveyDirectory({
       cancelled = true;
     };
   }, []);
+
+  // Expand each saved role into a term set — the raw role, its
+  // abbreviation expansion ("swe" → "software engineer"), and semantic
+  // neighbors from the embeddings endpoint — so "covers N of your roles"
+  // matches on meaning, not just the literal string. Mirrors the report
+  // page's role expansion. Fails soft (503 locally → just the base terms).
+  useEffect(() => {
+    if (roles.length === 0) {
+      setRoleTermSets([]);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      const sets = await Promise.all(
+        roles.map(async (role) => {
+          const key = role.trim().toLowerCase();
+          if (!key) return [];
+          const expanded = expandAbbreviations(key);
+          const base = expanded !== key ? [key, expanded] : [key];
+          const cached = roleExpansionCache.current.get(key);
+          if (cached) return [...base, ...cached];
+          try {
+            const res = await fetch(
+              `/api/semantic-search?q=${encodeURIComponent(expanded)}&limit=8`
+            );
+            if (!res.ok) return base;
+            const data = (await res.json()) as {
+              results?: { title: string }[];
+            };
+            const terms = (data.results ?? [])
+              .map((r) => r.title.trim().toLowerCase())
+              .filter((t) => t.length > 2);
+            roleExpansionCache.current.set(key, terms);
+            return [...base, ...terms];
+          } catch {
+            return base;
+          }
+        })
+      );
+      if (!cancelled) setRoleTermSets(sets);
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roles]);
+
+  // Report-prose semantics: surface a publisher when one of its reports
+  // matches the query in embedding space, even with no keyword overlap
+  // ("animal health" → the life-sciences publisher). Additive: it only
+  // adds vendors to the result set. Debounced; fails soft.
+  useEffect(() => {
+    const q = search.trim();
+    if (q.length < 3) {
+      setSemanticVendors(new Set());
+      return;
+    }
+    let cancelled = false;
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(
+          `/api/semantic-search?kind=report&q=${encodeURIComponent(q)}&limit=30`
+        );
+        if (!res.ok || cancelled) return;
+        const data = (await res.json()) as {
+          results?: { vendorSlug?: string }[];
+        };
+        const slugs = new Set(
+          (data.results ?? [])
+            .map((r) => r.vendorSlug)
+            .filter((s): s is string => !!s)
+        );
+        if (!cancelled) setSemanticVendors(slugs);
+      } catch {
+        /* silent */
+      }
+    }, 300);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [search]);
 
   // Compute vendor match counts + per-vendor detail against the
   // client-side search index. Both are derived in one pass so the
@@ -193,10 +296,24 @@ export default function SurveyDirectory({
     [allSurveys]
   );
 
+  /** vendor slug → # of the buyer's roles it covers (semantic-expanded). */
+  const roleCoverage = useMemo(() => {
+    if (!index || roles.length === 0 || roleTermSets.length === 0) return null;
+    return vendorRoleCoverage(index, buildRoleMatchers(roleTermSets));
+  }, [index, roles.length, roleTermSets]);
+
   const filtered = useMemo(() => {
     const q = search.trim();
     const filteredList = allSurveys.filter((s) => {
-      if (q && matchingSlugs && !matchingSlugs.has(s.slug)) return false;
+      // A query keeps a vendor if it matches by keyword OR if one of its
+      // reports matched the query semantically (report-prose embeddings).
+      if (
+        q &&
+        matchingSlugs &&
+        !matchingSlugs.has(s.slug) &&
+        !semanticVendors.has(s.slug)
+      )
+        return false;
 
       if (categories.length > 0 && !s.category.some((c) => categories.includes(c)))
         return false;
@@ -232,6 +349,15 @@ export default function SurveyDirectory({
         return countB - countA || a.provider.localeCompare(b.provider);
       });
     }
+    // No text query but roles are saved: this is the "which publishers
+    // cover my roles" browse mode — rank by coverage.
+    if (roles.length > 0 && roleCoverage) {
+      return [...filteredList].sort((a, b) => {
+        const covA = roleCoverage.get(a.slug) ?? 0;
+        const covB = roleCoverage.get(b.slug) ?? 0;
+        return covB - covA || a.provider.localeCompare(b.provider);
+      });
+    }
     // No search query: when exactly one industry filter is active, rank
     // by editorial authority within that industry instead of falling
     // through to the DB's title-alphabetical default.
@@ -247,6 +373,9 @@ export default function SurveyDirectory({
     deliveries,
     allSurveys,
     matchingSlugs,
+    semanticVendors,
+    roles.length,
+    roleCoverage,
     vendorRegions,
   ]);
 
@@ -308,8 +437,40 @@ export default function SurveyDirectory({
         </p>
       </div>
 
-      <div className="mb-6">
+      <div className="mb-4">
         <SearchBar value={search} onChange={setSearch} />
+      </div>
+
+      {/* Role personalization — add a handful of roles and every publisher
+          shows "covers N of your roles"; with no text query the grid sorts
+          by coverage. Saved on this device, no account. */}
+      <div className="mb-6">
+        {roles.length === 0 ? (
+          <button
+            onClick={() => setRolesOpen(true)}
+            className="inline-flex items-center gap-2 text-sm text-plum-600 hover:text-plum-700 font-medium"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            Add your roles to see &ldquo;covers N of your roles&rdquo; on each publisher
+          </button>
+        ) : (
+          <div className="inline-flex items-center gap-3 rounded-lg bg-oat border border-stone-200 px-3 py-1.5 text-sm">
+            <span className="text-ink-900">
+              Personalized for{" "}
+              <span className="font-semibold">
+                {roles.length} role{roles.length === 1 ? "" : "s"}
+              </span>
+            </span>
+            <button
+              onClick={() => setRolesOpen(true)}
+              className="text-xs text-plum-600 hover:text-plum-700 font-medium"
+            >
+              Edit
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-4">
@@ -413,6 +574,10 @@ export default function SurveyDirectory({
                     )
                   : undefined
               }
+              rolesCoveredCount={
+                roles.length > 0 ? roleCoverage?.get(s.slug) ?? 0 : undefined
+              }
+              rolesTotal={roles.length > 0 ? roles.length : undefined}
             />
           ))}
         </div>
@@ -423,6 +588,14 @@ export default function SurveyDirectory({
         query={search}
         onClose={() => setModalSlug(null)}
       />
+
+      {rolesOpen && (
+        <RolesModal
+          initial={roles}
+          onSave={(r) => setRoles(r)}
+          onClose={() => setRolesOpen(false)}
+        />
+      )}
     </div>
   );
 }

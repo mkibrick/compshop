@@ -394,7 +394,7 @@ export default function SearchBar({
                   )}
 
                   <Link
-                    href={`/search?q=${encodeURIComponent(value.trim())}`}
+                    href={`/surveys?q=${encodeURIComponent(value.trim())}`}
                     className="block px-4 py-2.5 bg-gray-50 hover:bg-gray-100 transition-colors"
                   >
                     <div className="flex items-center justify-between text-sm">
