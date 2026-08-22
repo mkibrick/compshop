@@ -17,7 +17,7 @@ interface Body {
 
 function reportsText(reports: Body["reports"]): string {
   return (reports ?? [])
-    .map((r) => `• ${r.vendor} — ${r.title}\n  ${SITE_URL}/reports/${r.slug}`)
+    .map((r) => `• ${r.vendor} — ${r.title}\n  ${SITE_URL}/surveys/${r.slug}`)
     .join("\n");
 }
 
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
   }
   if (reports.length === 0) {
     return NextResponse.json(
-      { error: "Add at least one report to your shortlist first." },
+      { error: "Add at least one publisher to your shortlist first." },
       { status: 400 }
     );
   }

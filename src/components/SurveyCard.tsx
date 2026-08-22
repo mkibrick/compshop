@@ -16,10 +16,19 @@ export default function SurveyCard({
   relevance,
   rolesCoveredCount,
   rolesTotal,
+  comparing,
+  compareDisabled,
+  onToggleCompare,
 }: {
   survey: Survey;
   onOpen?: (slug: string) => void;
   matchCount?: number;
+  /** Shortlist / compare toggle state. When onToggleCompare is provided,
+   *  the card shows a "Compare" control that adds this publisher to the
+   *  compare tray without triggering the card's open action. */
+  comparing?: boolean;
+  compareDisabled?: boolean;
+  onToggleCompare?: (slug: string) => void;
   /**
    * Role personalization: when the buyer has saved a role list, how many
    * of those roles this publisher covers, out of the total. Renders a
@@ -220,6 +229,41 @@ export default function SurveyCard({
           </span>
         )}
       </div>
+
+      {onToggleCompare && (
+        <div className="mt-4 pt-3 border-t border-stone-100">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (comparing || !compareDisabled) onToggleCompare(survey.slug);
+            }}
+            disabled={compareDisabled && !comparing}
+            className={`inline-flex items-center gap-2 text-sm font-medium transition-colors ${
+              comparing
+                ? "text-plum-600"
+                : compareDisabled
+                ? "text-stone-300 cursor-not-allowed"
+                : "text-stone-500 hover:text-plum-600"
+            }`}
+          >
+            <span
+              className={`w-4 h-4 rounded border flex items-center justify-center ${
+                comparing
+                  ? "bg-plum-500 border-plum-500 text-white"
+                  : "border-stone-300"
+              }`}
+            >
+              {comparing && (
+                <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fillRule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-7.5 7.5a1 1 0 01-1.4 0L3.3 9.7a1 1 0 011.4-1.4l3.8 3.8 6.8-6.8a1 1 0 011.4 0z" clipRule="evenodd" />
+                </svg>
+              )}
+            </span>
+            {comparing ? "Comparing" : "Compare"}
+          </button>
+        </div>
+      )}
     </>
   );
 
@@ -231,10 +275,23 @@ export default function SurveyCard({
     "flex flex-col w-full text-left bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-accent/30 transition-all duration-200";
 
   if (onOpen) {
+    // A role="button" div (not a native <button>) so the "Compare" toggle
+    // can nest as a real button without invalid button-in-button markup.
     return (
-      <button type="button" onClick={() => onOpen(survey.slug)} className={className}>
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={() => onOpen(survey.slug)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onOpen(survey.slug);
+          }
+        }}
+        className={`${className} cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent`}
+      >
         {content}
-      </button>
+      </div>
     );
   }
 

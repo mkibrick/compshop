@@ -1,7 +1,13 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { ProductResult } from "@/lib/product-search";
+
+/** One shortlisted item — a publisher (or historically a report). */
+export interface IntroItem {
+  slug: string;
+  title: string;
+  vendor: string;
+}
 
 /**
  * Tier-1 email capture — the money moment for the affiliate model.
@@ -14,11 +20,11 @@ import { ProductResult } from "@/lib/product-search";
  */
 export default function IntroCaptureModal({
   mode,
-  reports,
+  items,
   onClose,
 }: {
   mode: "intro" | "shortlist";
-  reports: ProductResult[];
+  items: IntroItem[];
   onClose: () => void;
 }) {
   const [email, setEmail] = useState("");
@@ -48,11 +54,7 @@ export default function IntroCaptureModal({
           email: email.trim(),
           name: name.trim(),
           company: company.trim(),
-          reports: reports.map((r) => ({
-            slug: r.slug,
-            title: r.title,
-            vendor: r.vendorProvider,
-          })),
+          reports: items,
         }),
       });
       const data = await res.json();
@@ -103,15 +105,14 @@ export default function IntroCaptureModal({
             <p className="mt-1 text-sm text-gray-500">
               {isIntro
                 ? "We'll connect you with the publishers below and get you pricing. No spam."
-                : "We'll send these reports to your inbox so you can pick up where you left off."}
+                : "We'll send these surveys to your inbox so you can pick up where you left off."}
             </p>
 
-            {reports.length > 0 && (
+            {items.length > 0 && (
               <ul className="mt-3 mb-4 rounded-lg border border-gray-200 divide-y divide-gray-100 max-h-32 overflow-y-auto">
-                {reports.map((r) => (
-                  <li key={r.slug} className="px-3 py-2 text-xs text-ink-900">
-                    <span className="font-medium">{r.vendorProvider}</span> ·{" "}
-                    {r.title}
+                {items.map((i) => (
+                  <li key={i.slug} className="px-3 py-2 text-xs text-ink-900">
+                    <span className="font-medium">{i.vendor}</span> · {i.title}
                   </li>
                 ))}
               </ul>

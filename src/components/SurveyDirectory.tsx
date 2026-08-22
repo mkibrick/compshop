@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { Survey } from "@/lib/types";
 import SurveyCard from "@/components/SurveyCard";
 import SearchBar from "@/components/SearchBar";
 import VendorModal from "@/components/VendorModal";
 import RolesModal from "@/components/RolesModal";
+import VendorCompareTable from "@/components/VendorCompareTable";
+import IntroCaptureModal from "@/components/IntroCaptureModal";
 import MultiSelect, { MultiSelectOption } from "@/components/MultiSelect";
 import {
   loadIndex,
@@ -80,6 +82,9 @@ interface ActiveFilter {
   value: string;
 }
 
+/** Max publishers a buyer can line up side by side. */
+const MAX_COMPARE = 4;
+
 export default function SurveyDirectory({
   initialSurveys,
 }: {
@@ -122,6 +127,26 @@ export default function SurveyDirectory({
   /** Vendors surfaced by report-prose semantics (kind=report). */
   const [semanticVendors, setSemanticVendors] = useState<Set<string>>(
     new Set()
+  );
+  /** Compare shortlist (publisher slugs, persisted) + overlay/capture state. */
+  const [shortlist, setShortlist] = useLocalStorage<string[]>(
+    "compshop.shortlist-vendors",
+    []
+  );
+  const [compareOpen, setCompareOpen] = useState(false);
+  const [capture, setCapture] = useState<null | "intro" | "shortlist">(null);
+
+  const toggleShortlist = useCallback(
+    (slug: string) => {
+      setShortlist((prev) =>
+        prev.includes(slug)
+          ? prev.filter((s) => s !== slug)
+          : prev.length >= MAX_COMPARE
+          ? prev
+          : [...prev, slug]
+      );
+    },
+    [setShortlist]
   );
 
   useEffect(() => {
@@ -301,6 +326,14 @@ export default function SurveyDirectory({
     if (!index || roles.length === 0 || roleTermSets.length === 0) return null;
     return vendorRoleCoverage(index, buildRoleMatchers(roleTermSets));
   }, [index, roles.length, roleTermSets]);
+
+  /** Shortlisted publishers as Survey objects, in selection order. */
+  const shortlistSurveys = useMemo(() => {
+    const bySlug = new Map(allSurveys.map((s) => [s.slug, s]));
+    return shortlist
+      .map((slug) => bySlug.get(slug))
+      .filter((s): s is Survey => !!s);
+  }, [shortlist, allSurveys]);
 
   const filtered = useMemo(() => {
     const q = search.trim();
@@ -578,9 +611,79 @@ export default function SurveyDirectory({
                 roles.length > 0 ? roleCoverage?.get(s.slug) ?? 0 : undefined
               }
               rolesTotal={roles.length > 0 ? roles.length : undefined}
+              comparing={shortlist.includes(s.slug)}
+              compareDisabled={shortlist.length >= MAX_COMPARE}
+              onToggleCompare={toggleShortlist}
             />
           ))}
         </div>
+      )}
+
+      {/* Sticky compare tray */}
+      {shortlist.length > 0 && !compareOpen && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-4 rounded-full bg-navy text-white pl-5 pr-2 py-2 shadow-xl">
+          <span className="text-sm">
+            <span className="font-semibold">{shortlist.length}</span> selected
+            to compare
+            {shortlist.length >= MAX_COMPARE && (
+              <span className="text-gray-300"> · max {MAX_COMPARE}</span>
+            )}
+          </span>
+          <button
+            onClick={() => setShortlist([])}
+            className="text-xs text-gray-300 hover:text-white"
+          >
+            Clear
+          </button>
+          <button
+            onClick={() => setCompareOpen(true)}
+            disabled={shortlist.length < 2}
+            className="rounded-full bg-plum-500 hover:bg-plum-600 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-1.5 text-sm font-medium"
+          >
+            Compare &rarr;
+          </button>
+        </div>
+      )}
+
+      {/* Compare overlay */}
+      {compareOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-start justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-xl max-w-5xl w-full my-8 p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-display text-2xl text-navy" style={{ fontWeight: 400 }}>
+                Compare {shortlistSurveys.length} publisher
+                {shortlistSurveys.length !== 1 ? "s" : ""}
+              </h2>
+              <button
+                onClick={() => setCompareOpen(false)}
+                className="text-gray-400 hover:text-gray-700 text-2xl leading-none"
+                aria-label="Close compare"
+              >
+                ×
+              </button>
+            </div>
+            <VendorCompareTable
+              surveys={shortlistSurveys}
+              onRemove={toggleShortlist}
+              onRequestIntro={() => setCapture("intro")}
+              onSaveShortlist={() => setCapture("shortlist")}
+              roleCoverage={roleCoverage}
+              rolesTotal={roles.length}
+            />
+          </div>
+        </div>
+      )}
+
+      {capture && (
+        <IntroCaptureModal
+          mode={capture}
+          items={shortlistSurveys.map((s) => ({
+            slug: s.slug,
+            title: s.title,
+            vendor: s.provider,
+          }))}
+          onClose={() => setCapture(null)}
+        />
       )}
 
       <VendorModal

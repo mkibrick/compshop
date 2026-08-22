@@ -1,55 +1,48 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ProductResult,
-  priceDisplay,
-  coverageDisplay,
-  sampleDisplay,
-} from "@/lib/product-search";
+import { Survey } from "@/lib/types";
 import { stripProviderPrefix } from "@/lib/strip-provider";
 
 /**
- * Side-by-side compare — the decision screen. Differences that were
- * trapped in separate report pages sit on one axis-by-axis grid, with
- * coverage as the first (most important) row. Tier-1 email capture
- * fires from the "Request intros" / "Save shortlist" actions.
+ * Publisher-level side-by-side compare — the decision screen for the
+ * Browse directory. Puts the axes a buyer weighs (industry fit, pay
+ * elements, participation, price, geography) on one grid so the choice
+ * that was scattered across vendor pages sits in one view. Tier-1 email
+ * capture fires from "Request intros" / "Email me this shortlist".
  */
-const ROWS: {
-  label: string;
-  render: (r: ProductResult) => React.ReactNode;
-}[] = [
-  {
-    label: "Coverage",
-    render: (r) => coverageDisplay(r).label,
-  },
-  { label: "Geography", render: (r) => r.geographicScope || "—" },
-  {
-    label: "Participation",
-    render: (r) => r.participation || "—",
-  },
-  {
-    label: "Price",
-    render: (r) => priceDisplay(r).label,
-  },
-  { label: "Sample", render: (r) => sampleDisplay(r) || "—" },
-  {
-    label: "Best for",
-    render: (r) => r.bestFor || "—",
-  },
+function payElements(s: Survey): string {
+  const parts = [
+    s.includesBase && "Base",
+    s.includesBonus && "Bonus",
+    s.includesEquity && "Equity",
+    s.includesBenefits && "Benefits",
+  ].filter(Boolean);
+  return parts.length ? parts.join(", ") : "—";
+}
+
+const ROWS: { label: string; render: (s: Survey) => React.ReactNode }[] = [
+  { label: "Industry", render: (s) => s.industryFocus || "—" },
+  { label: "Pay elements", render: (s) => payElements(s) },
+  { label: "Participation", render: (s) => s.participationRequired || "—" },
+  { label: "Price", render: (s) => s.priceRange || "—" },
+  { label: "Geography", render: (s) => s.geographicScope || "—" },
+  { label: "Best for", render: (s) => s.bestFor || "—" },
 ];
 
-export default function CompareTable({
-  reports,
+export default function VendorCompareTable({
+  surveys,
   onRemove,
   onRequestIntro,
   onSaveShortlist,
+  roleCoverage,
   rolesTotal = 0,
 }: {
-  reports: ProductResult[];
+  surveys: Survey[];
   onRemove: (slug: string) => void;
   onRequestIntro: () => void;
   onSaveShortlist: () => void;
+  roleCoverage?: Map<string, number> | null;
   rolesTotal?: number;
 }) {
   const rows =
@@ -57,35 +50,39 @@ export default function CompareTable({
       ? [
           {
             label: "Covers your roles",
-            render: (r: ProductResult) =>
-              `${r.rolesCoveredCount ?? 0} of ${rolesTotal}`,
+            render: (s: Survey) =>
+              `${roleCoverage?.get(s.slug) ?? 0} of ${rolesTotal}`,
           },
           ...ROWS,
         ]
       : ROWS;
+
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full border-collapse text-sm">
         <thead>
           <tr>
             <th className="w-40 p-3 text-left align-bottom text-xs font-semibold uppercase tracking-wide text-gray-400" />
-            {reports.map((r) => (
+            {surveys.map((s) => (
               <th
-                key={r.slug}
+                key={s.slug}
                 className="p-3 text-left align-bottom min-w-[200px] border-l border-gray-100"
               >
-                <p className="text-xs font-medium text-gray-500">
-                  {r.vendorProvider}
-                </p>
                 <Link
-                  href={`/reports/${r.slug}`}
+                  href={`/surveys/${s.slug}`}
                   className="text-sm font-semibold text-navy hover:text-accent"
                 >
-                  {stripProviderPrefix(r.title, r.vendorProvider) || r.title}
+                  {s.provider}
                 </Link>
+                {stripProviderPrefix(s.title, s.provider) &&
+                  stripProviderPrefix(s.title, s.provider) !== s.provider && (
+                    <p className="text-xs text-gray-500">
+                      {stripProviderPrefix(s.title, s.provider)}
+                    </p>
+                  )}
                 <button
                   type="button"
-                  onClick={() => onRemove(r.slug)}
+                  onClick={() => onRemove(s.slug)}
                   className="block mt-1 text-xs text-gray-400 hover:text-rose-600"
                 >
                   Remove
@@ -100,12 +97,12 @@ export default function CompareTable({
               <td className="p-3 align-top text-xs font-semibold uppercase tracking-wide text-gray-500 border-t border-gray-100">
                 {row.label}
               </td>
-              {reports.map((r) => (
+              {surveys.map((s) => (
                 <td
-                  key={r.slug}
+                  key={s.slug}
                   className="p-3 align-top text-ink-900 border-t border-l border-gray-100"
                 >
-                  {row.render(r)}
+                  {row.render(s)}
                 </td>
               ))}
             </tr>
