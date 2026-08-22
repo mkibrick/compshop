@@ -215,14 +215,14 @@ async function pickReportsToConsider(
   if (!hits || hits.length === 0) return [];
 
   const recVendors = new Set(recommended.map((s) => s.slug));
-  // Reports from a recommended publisher rank first; ties break on
-  // semantic score.
-  const ranked = [...hits].sort((a, b) => {
-    const ra = recVendors.has(a.vendorSlug ?? "") ? 1 : 0;
-    const rb = recVendors.has(b.vendorSlug ?? "") ? 1 : 0;
-    if (ra !== rb) return rb - ra;
-    return b.score - a.score;
-  });
+  // Only suggest reports published by the vendors we recommended. The LLM
+  // already vetted those publishers for industry fit, so restricting here
+  // keeps the reports coherent with the stack and kills off-industry
+  // matches that share only geography (e.g. a NYC healthcare survey
+  // surfacing for a NYC game studio). Fewer-but-right beats more-but-noisy.
+  const ranked = hits
+    .filter((h) => h.vendorSlug != null && recVendors.has(h.vendorSlug))
+    .sort((a, b) => b.score - a.score);
 
   // Cap at three, at most two per publisher so a single vendor's editions
   // don't crowd out the rest.
